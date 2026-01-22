@@ -3,76 +3,59 @@ import { ArrowRight, Code, Rocket, Shield, Zap, Monitor, ShoppingCart, Cpu, Sett
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-
-const services = [
-  {
-    icon: Monitor,
-    title: "Criação de Site",
-    description: "Sites de alta performance com arquitetura para SEO e design responsivo.",
-    href: "/servicos/criacao-de-site",
-  },
-  {
-    icon: Rocket,
-    title: "Landing Page",
-    description: "Páginas de alta conversão com carregamento instantâneo e foco em ROI.",
-    href: "/servicos/criacao-de-landing-page",
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce",
-    description: "Lojas virtuais robustas com checkout transparente e gestão simplificada.",
-    href: "/servicos/criacao-de-e-commerce",
-  },
-  {
-    icon: Cpu,
-    title: "Sistemas Web",
-    description: "Sistemas sob medida para automatizar e centralizar a operação da sua empresa.",
-    href: "/servicos/desenvolvimento-de-sistema",
-  },
-  {
-    icon: Settings,
-    title: "Software",
-    description: "Desenvolvimento full-cycle de aplicações corporativas e produtos SaaS.",
-    href: "/servicos/desenvolvimento-de-software",
-  },
-  {
-    icon: Bot,
-    title: "Automação",
-    description: "Chatbots, integrações via API e fluxos automáticos para eliminar tarefas manuais.",
-    href: "/servicos/criacao-de-automacao",
-  },
-  {
-    icon: Brain,
-    title: "IA para Empresas",
-    description: "Soluções de inteligência artificial para prever, automatizar e otimizar.",
-    href: "/servicos/ia-para-empresas",
-  },
-];
-
-const stats = [
-  { value: "+150", label: "Projetos Entregues" },
-  { value: "99%", label: "Satisfação" },
-  { value: "+5", label: "Anos de Mercado" },
-  { value: "24/7", label: "Suporte" },
-];
-
-const marqueeItems = [
-  "PERFORMANCE",
-  "SEO TÉCNICO",
-  "SEGURANÇA DE DADOS",
-  "DESIGN RESPONSIVO",
-  "INTELIGÊNCIA DIGITAL",
-  "CLEAN CODE",
-  "METODOLOGIA ÁGIL",
-];
-
+const services = [{
+  icon: Monitor,
+  title: "Criação de Site",
+  description: "Sites de alta performance com arquitetura para SEO e design responsivo.",
+  href: "/servicos/criacao-de-site"
+}, {
+  icon: Rocket,
+  title: "Landing Page",
+  description: "Páginas de alta conversão com carregamento instantâneo e foco em ROI.",
+  href: "/servicos/criacao-de-landing-page"
+}, {
+  icon: ShoppingCart,
+  title: "E-commerce",
+  description: "Lojas virtuais robustas com checkout transparente e gestão simplificada.",
+  href: "/servicos/criacao-de-e-commerce"
+}, {
+  icon: Cpu,
+  title: "Sistemas Web",
+  description: "Sistemas sob medida para automatizar e centralizar a operação da sua empresa.",
+  href: "/servicos/desenvolvimento-de-sistema"
+}, {
+  icon: Settings,
+  title: "Software",
+  description: "Desenvolvimento full-cycle de aplicações corporativas e produtos SaaS.",
+  href: "/servicos/desenvolvimento-de-software"
+}, {
+  icon: Bot,
+  title: "Automação",
+  description: "Chatbots, integrações via API e fluxos automáticos para eliminar tarefas manuais.",
+  href: "/servicos/criacao-de-automacao"
+}, {
+  icon: Brain,
+  title: "IA para Empresas",
+  description: "Soluções de inteligência artificial para prever, automatizar e otimizar.",
+  href: "/servicos/ia-para-empresas"
+}];
+const stats = [{
+  value: "+150",
+  label: "Projetos Entregues"
+}, {
+  value: "99%",
+  label: "Satisfação"
+}, {
+  value: "+5",
+  label: "Anos de Mercado"
+}, {
+  value: "24/7",
+  label: "Suporte"
+}];
+const marqueeItems = ["PERFORMANCE", "SEO TÉCNICO", "SEGURANÇA DE DADOS", "DESIGN RESPONSIVO", "INTELIGÊNCIA DIGITAL", "CLEAN CODE", "METODOLOGIA ÁGIL"];
 export default function Index() {
-  return (
-    <Layout>
-      <SEO 
-        title="Início" 
-        description="Desenvolvimento de sites, landing pages, e-commerce, sistemas e software sob medida. Soluções digitais de alta performance para escalar seu negócio."
-      />
+  return <Layout>
+      <SEO title="Início" description="Desenvolvimento de sites, landing pages, e-commerce, sistemas e software sob medida. Soluções digitais de alta performance para escalar seu negócio." />
 
       {/* Hero Section */}
       <section className="bg-gradient-hero min-h-[90vh] flex items-center relative overflow-hidden">
@@ -88,7 +71,7 @@ export default function Index() {
             </span>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary-foreground mb-6 leading-tight animate-fade-in">
-              Desenvolvemos <span className="text-primary">Soluções Digitais</span> de Alta Performance
+              ​Contratar um  <span className="text-primary">Programador</span> ​  
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in">
@@ -109,12 +92,10 @@ export default function Index() {
 
             {/* Trust Indicators */}
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
+              {stats.map(stat => <div key={stat.label} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -123,11 +104,9 @@ export default function Index() {
       {/* Marquee */}
       <section className="bg-primary py-4 overflow-hidden">
         <div className="marquee">
-          {[...marqueeItems, ...marqueeItems].map((item, index) => (
-            <span key={index} className="text-primary-foreground font-bold text-sm whitespace-nowrap flex items-center gap-2">
+          {[...marqueeItems, ...marqueeItems].map((item, index) => <span key={index} className="text-primary-foreground font-bold text-sm whitespace-nowrap flex items-center gap-2">
               {item} <span className="text-primary-foreground/50">✦</span>
-            </span>
-          ))}
+            </span>)}
         </div>
       </section>
 
@@ -147,14 +126,9 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service) => {
-              const Icon = service.icon;
-              return (
-                <Link
-                  key={service.href}
-                  to={service.href}
-                  className="service-card group"
-                >
+            {services.map(service => {
+            const Icon = service.icon;
+            return <Link key={service.href} to={service.href} className="service-card group">
                   <div className="w-14 h-14 bg-accent rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
                     <Icon className="w-7 h-7 text-foreground group-hover:text-primary-foreground transition-colors" />
                   </div>
@@ -168,9 +142,8 @@ export default function Index() {
                     Conhecer detalhes
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </Link>
-              );
-            })}
+                </Link>;
+          })}
           </div>
         </div>
       </section>
@@ -191,14 +164,21 @@ export default function Index() {
               </p>
               
               <div className="space-y-6">
-                {[
-                  { icon: Zap, title: "Performance Extrema", desc: "Sites ultrarrápidos que pontuam alto no Google Core Web Vitals." },
-                  { icon: Shield, title: "Segurança Total", desc: "Proteção de dados com as melhores práticas de segurança." },
-                  { icon: Code, title: "Código Limpo", desc: "Arquitetura escalável e manutenível para o longo prazo." },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title} className="flex gap-4">
+                {[{
+                icon: Zap,
+                title: "Performance Extrema",
+                desc: "Sites ultrarrápidos que pontuam alto no Google Core Web Vitals."
+              }, {
+                icon: Shield,
+                title: "Segurança Total",
+                desc: "Proteção de dados com as melhores práticas de segurança."
+              }, {
+                icon: Code,
+                title: "Código Limpo",
+                desc: "Arquitetura escalável e manutenível para o longo prazo."
+              }].map(item => {
+                const Icon = item.icon;
+                return <div key={item.title} className="flex gap-4">
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Icon className="w-6 h-6 text-primary" />
                       </div>
@@ -206,9 +186,8 @@ export default function Index() {
                         <h3 className="font-bold text-secondary-foreground mb-1">{item.title}</h3>
                         <p className="text-muted-foreground text-sm">{item.desc}</p>
                       </div>
-                    </div>
-                  );
-                })}
+                    </div>;
+              })}
               </div>
             </div>
             
@@ -245,6 +224,5 @@ export default function Index() {
           </Button>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
