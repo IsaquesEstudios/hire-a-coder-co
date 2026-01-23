@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const BASE_URL = "https://hire-a-coder-co.lovable.app";
+const BASE_URL = Deno.env.get("SITE_URL") || "https://hire-a-coder-co.lovable.app";
 
 const STATIC_PAGES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
