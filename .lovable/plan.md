@@ -1,71 +1,185 @@
 
-# Plano: Sitemap no Mesmo Domínio para Google Search Console
 
-## Problema
-O Google Search Console não aceita sitemaps hospedados em domínios externos. O sitemap atual está em `https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/sitemap`, mas precisa estar em `https://contratarumprogramador.com.br/sitemap.xml`.
+# Endpoint para Upload de Imagens
 
-## Solução Proposta
+## Visão Geral
 
-A melhor solução é criar uma **página React dedicada** que busca o conteúdo do sitemap da edge function e o exibe como XML. Isso permite que `/sitemap.xml` seja servido diretamente do seu domínio.
+Vou criar um sistema completo para upload de imagens que utiliza o **Storage** do Lovable Cloud para armazenar os arquivos, retornando uma URL pública que pode ser salva no campo `cover_image` dos posts do blog.
 
-### O que será feito:
+## Por que Storage ao invés do Banco de Dados?
 
-1. **Criar página `Sitemap.tsx`**
-   - Nova página React que faz fetch do conteúdo da edge function
-   - Retorna o XML puro com o Content-Type correto
-   - Caminho: `src/pages/Sitemap.tsx`
+Armazenar imagens diretamente no banco de dados causa:
+- Esgotamento rápido do espaço em disco
+- Degradação de performance
+- Custos elevados
 
-2. **Adicionar rota `/sitemap.xml`**
-   - Registrar a nova rota no `App.tsx`
-   - A rota `/sitemap.xml` vai renderizar o conteúdo XML
+A abordagem correta é:
+1. Fazer upload da imagem para o Storage
+2. Obter a URL pública do arquivo
+3. Salvar apenas a URL no banco de dados
 
-3. **Atualizar `robots.txt`**
-   - Adicionar referência ao sitemap local:
-   ```
-   Sitemap: https://contratarumprogramador.com.br/sitemap.xml
-   ```
+## Arquitetura da Solução
 
-### Resultado Final
-- URL do sitemap: `https://contratarumprogramador.com.br/sitemap.xml`
-- Compatível com Google Search Console
-- Busca dados dinamicamente da edge function existente
+```text
++------------------+     +-------------------+     +------------------+
+|                  |     |                   |     |                  |
+|  Cliente envia   | --> | Edge Function     | --> | Storage Bucket   |
+|  imagem (POST)   |     | upload-image      |     | blog-images      |
+|                  |     |                   |     |                  |
++------------------+     +--------+----------+     +--------+---------+
+                                  |                         |
+                                  v                         v
+                         +--------+-------------------------+---------+
+                         |                                            |
+                         |  Retorna URL pública da imagem             |
+                         |  Ex: https://...supabase.co/storage/v1/... |
+                         |                                            |
+                         +--------------------------------------------+
+```
 
----
+## Etapas de Implementação
+
+### 1. Criar Storage Bucket
+
+Criar um bucket público chamado `blog-images` para armazenar as imagens dos posts.
+
+**Migração SQL:**
+```sql
+-- Criar bucket para imagens do blog
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('blog-images', 'blog-images', true);
+
+-- Política: Qualquer um pode visualizar imagens
+CREATE POLICY "Imagens públicas para leitura"
+ON storage.objects FOR SELECT
+TO public
+USING (bucket_id = 'blog-images');
+
+-- Política: Permitir upload via service role (edge function)
+CREATE POLICY "Upload via service role"
+ON storage.objects FOR INSERT
+TO service_role
+WITH CHECK (bucket_id = 'blog-images');
+
+-- Política: Permitir deleção via service role
+CREATE POLICY "Delete via service role"
+ON storage.objects FOR DELETE
+TO service_role
+USING (bucket_id = 'blog-images');
+```
+
+### 2. Criar Edge Function de Upload
+
+**Arquivo:** `supabase/functions/upload-image/index.ts`
+
+A função irá:
+- Receber imagem via FormData (POST)
+- Validar tipo de arquivo (apenas imagens)
+- Gerar nome único para evitar conflitos
+- Fazer upload para o bucket
+- Retornar URL pública
+
+**Endpoints:**
+| Método | Descrição |
+|--------|-----------|
+| POST   | Upload de nova imagem, retorna URL |
+| DELETE | Remove imagem pelo path |
+
+**Exemplo de uso:**
+```javascript
+// Upload
+const formData = new FormData();
+formData.append('file', imageFile);
+
+const response = await fetch('https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/upload-image', {
+  method: 'POST',
+  body: formData
+});
+
+const { url } = await response.json();
+// url = "https://vnqandqsblkbwblfwkea.supabase.co/storage/v1/object/public/blog-images/abc123.jpg"
+```
+
+### 3. Configurar Edge Function
+
+**Arquivo:** `supabase/config.toml`
+
+Adicionar configuração para a nova função sem verificação JWT (público).
 
 ## Detalhes Técnicos
 
-### Arquivos a criar/modificar:
+### Estrutura da Edge Function
 
-| Arquivo | Ação |
-|---------|------|
-| `src/pages/Sitemap.tsx` | Criar - Componente que renderiza XML |
-| `src/App.tsx` | Modificar - Adicionar rota `/sitemap.xml` |
-| `public/robots.txt` | Modificar - Adicionar linha do Sitemap |
+```typescript
+// supabase/functions/upload-image/index.ts
 
-### Componente Sitemap.tsx
+// Headers CORS
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
-O componente vai:
-1. Usar `useEffect` para buscar o XML da edge function
-2. Definir o `document.contentType` para XML
-3. Renderizar o conteúdo XML diretamente na página
+Deno.serve(async (req) => {
+  // Tratamento de CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
 
-### Limitação Importante
+  // POST - Upload de imagem
+  if (req.method === "POST") {
+    // 1. Extrair arquivo do FormData
+    // 2. Validar tipo (image/jpeg, image/png, image/webp, image/gif)
+    // 3. Gerar nome único com timestamp + random
+    // 4. Upload para storage bucket
+    // 5. Retornar URL pública
+  }
 
-Como React renderiza HTML, o navegador vai mostrar o XML mas com wrapper HTML. Para o Google, isso pode não ser ideal. Uma alternativa melhor seria:
-
-**Alternativa: Arquivo XML Estático Gerado**
-- Criar um script que gera `public/sitemap.xml` estaticamente
-- Funciona perfeitamente com o Google
-- Desvantagem: precisa regenerar manualmente quando adicionar posts
-
-### Recomendação Final
-
-A solução mais robusta para CyberPanel seria usar a **Context do LiteSpeed** corretamente. Se a opção de proxy não funcionou, vamos tentar a abordagem de **Rewrite Externo**:
-
-```apache
-RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/sitemap\.xml$
-RewriteRule ^(.*)$ https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/sitemap [P,L]
+  // DELETE - Remover imagem
+  if (req.method === "DELETE") {
+    // 1. Receber path da imagem
+    // 2. Remover do storage
+  }
+});
 ```
 
-Mas se preferir a solução via código React, posso implementar.
+### Validações Implementadas
+
+- **Tipos aceitos:** JPEG, PNG, WebP, GIF
+- **Tamanho máximo:** 5MB (configurável)
+- **Nome do arquivo:** UUID + extensão original
+
+### Resposta de Sucesso
+
+```json
+{
+  "success": true,
+  "url": "https://vnqandqsblkbwblfwkea.supabase.co/storage/v1/object/public/blog-images/1706123456789-abc123.jpg",
+  "path": "1706123456789-abc123.jpg"
+}
+```
+
+### Resposta de Erro
+
+```json
+{
+  "error": "Tipo de arquivo não permitido. Use: JPEG, PNG, WebP ou GIF"
+}
+```
+
+## Arquivos a Criar/Modificar
+
+| Arquivo | Ação | Descrição |
+|---------|------|-----------|
+| Migração SQL | Criar | Bucket + políticas RLS |
+| `supabase/functions/upload-image/index.ts` | Criar | Edge function de upload |
+| `supabase/config.toml` | Modificar | Adicionar config da função |
+
+## Resultado Final
+
+Após a implementação, você terá:
+
+1. **Endpoint de upload:** `POST /functions/v1/upload-image`
+2. **Endpoint de delete:** `DELETE /functions/v1/upload-image?path=nome-arquivo.jpg`
+3. **Bucket público:** `blog-images` para armazenar imagens
+4. **URLs públicas:** Imagens acessíveis via URL direta
+
