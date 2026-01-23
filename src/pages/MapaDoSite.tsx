@@ -1,33 +1,34 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
-import { Home, Users, BookOpen, Mail, Globe, FileText, ShoppingCart, Settings, Code, Cpu, Bot } from "lucide-react";
-
-const pages = [
-  {
-    category: "Principal",
-    items: [
-      { name: "Início", href: "/", icon: Home },
-      { name: "Sobre Nós", href: "/sobre", icon: Users },
-      { name: "Blog", href: "/blog", icon: BookOpen },
-      { name: "Contato", href: "/contato", icon: Mail },
-    ],
-  },
-  {
-    category: "Serviços",
-    items: [
-      { name: "Criação de Site", href: "/servicos/criacao-de-site", icon: Globe },
-      { name: "Criação de Landing Page", href: "/servicos/criacao-de-landing-page", icon: FileText },
-      { name: "Criação de E-commerce", href: "/servicos/criacao-de-e-commerce", icon: ShoppingCart },
-      { name: "Desenvolvimento de Sistema", href: "/servicos/desenvolvimento-de-sistema", icon: Settings },
-      { name: "Desenvolvimento de Software", href: "/servicos/desenvolvimento-de-software", icon: Code },
-      { name: "Criação de Automação", href: "/servicos/criacao-de-automacao", icon: Cpu },
-      { name: "IA para Empresas", href: "/servicos/ia-para-empresas", icon: Bot },
-    ],
-  },
-];
+import { BookOpen } from "lucide-react";
+import { siteSections, type SitePage } from "@/config/sitePages";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function MapaDoSite() {
+  // Buscar posts do blog publicados
+  const { data: blogPosts } = useQuery({
+    queryKey: ["blog-posts-sitemap"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("title, slug")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Converter posts do blog para o formato de páginas
+  const blogPages: SitePage[] = (blogPosts || []).map((post) => ({
+    name: post.title,
+    href: `/blog/${post.slug}`,
+    icon: BookOpen,
+  }));
+
   return (
     <Layout>
       <SEO
@@ -47,7 +48,8 @@ export default function MapaDoSite() {
             </p>
 
             <div className="space-y-12">
-              {pages.map((section) => (
+              {/* Seções estáticas (Principal e Serviços) */}
+              {siteSections.map((section) => (
                 <div key={section.category}>
                   <h2 className="text-xl font-semibold text-foreground mb-6 pb-2 border-b border-border">
                     {section.category}
@@ -72,6 +74,33 @@ export default function MapaDoSite() {
                   </ul>
                 </div>
               ))}
+
+              {/* Seção de Blog (dinâmica) */}
+              {blogPages.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground mb-6 pb-2 border-b border-border">
+                    Artigos do Blog
+                  </h2>
+                  <ul className="grid gap-3 sm:grid-cols-2">
+                    {blogPages.map((page) => {
+                      const Icon = page.icon;
+                      return (
+                        <li key={page.href}>
+                          <Link
+                            to={page.href}
+                            className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent hover:border-primary/20 transition-colors group"
+                          >
+                            <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                            <span className="text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                              {page.name}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
