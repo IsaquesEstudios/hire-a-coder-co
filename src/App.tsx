@@ -16,7 +16,6 @@ import DesenvolvimentoDeSoftware from "./pages/servicos/DesenvolvimentoDeSoftwar
 import CriacaoDeAutomacao from "./pages/servicos/CriacaoDeAutomacao";
 import IAParaEmpresas from "./pages/servicos/IAParaEmpresas";
 import NotFound from "./pages/NotFound";
-import Sitemap from "./pages/Sitemap";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +38,6 @@ const App = () => (
             <Route path="/servicos/desenvolvimento-de-software" element={<DesenvolvimentoDeSoftware />} />
             <Route path="/servicos/criacao-de-automacao" element={<CriacaoDeAutomacao />} />
             <Route path="/servicos/ia-para-empresas" element={<IAParaEmpresas />} />
-            <Route path="/sitemap.xml" element={<Sitemap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
