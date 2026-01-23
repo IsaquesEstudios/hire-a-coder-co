@@ -4,36 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 
-// Placeholder posts - will be replaced with real data from Supabase
-const placeholderPosts = [
-  {
-    id: "1",
-    title: "Como Escolher a Melhor Plataforma para Seu E-commerce",
-    excerpt: "Descubra os fatores essenciais para escolher a plataforma ideal para sua loja virtual e maximize suas vendas online.",
-    slug: "como-escolher-plataforma-ecommerce",
-    published_at: "2024-01-15",
-    author: "Equipe",
-    tags: ["E-commerce", "Tecnologia"],
-  },
-  {
-    id: "2",
-    title: "5 Automações que Toda Empresa Deveria Ter",
-    excerpt: "Conheça as automações essenciais que podem economizar horas de trabalho manual e aumentar a produtividade da sua equipe.",
-    slug: "5-automacoes-toda-empresa",
-    published_at: "2024-01-10",
-    author: "Equipe",
-    tags: ["Automação", "Produtividade"],
-  },
-  {
-    id: "3",
-    title: "IA no Atendimento ao Cliente: Vale a Pena?",
-    excerpt: "Análise completa sobre os benefícios e desafios de implementar inteligência artificial no atendimento da sua empresa.",
-    slug: "ia-atendimento-cliente",
-    published_at: "2024-01-05",
-    author: "Equipe",
-    tags: ["IA", "Atendimento"],
-  },
-];
+// Posts will be loaded from Supabase
+const posts: any[] = [];
 
 export default function Blog() {
   return (
@@ -64,7 +36,7 @@ export default function Blog() {
       <section className="section-padding bg-background">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {placeholderPosts.map((post) => (
+            {posts.map((post) => (
               <article key={post.id} className="service-card group">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {post.tags.map((tag) => (
@@ -101,7 +73,7 @@ export default function Blog() {
           </div>
 
           {/* Empty State */}
-          {placeholderPosts.length === 0 && (
+          {posts.length === 0 && (
             <div className="text-center py-16">
               <h3 className="text-xl font-bold mb-2">Nenhum artigo publicado ainda</h3>
               <p className="text-muted-foreground">
