@@ -1,152 +1,71 @@
 
+# Plano: Sitemap no Mesmo Domínio para Google Search Console
 
-# Plano: Endpoints para Blog Posts e Sitemap
+## Problema
+O Google Search Console não aceita sitemaps hospedados em domínios externos. O sitemap atual está em `https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/sitemap`, mas precisa estar em `https://contratarumprogramador.com.br/sitemap.xml`.
 
-## Objetivo
-Criar duas Edge Functions no backend:
-1. **blog-posts**: Para gerenciar postagens do blog (criar, atualizar, deletar)
-2. **sitemap**: Para gerar o sitemap.xml dinamicamente com todas as páginas e posts
+## Solução Proposta
 
----
+A melhor solução é criar uma **página React dedicada** que busca o conteúdo do sitemap da edge function e o exibe como XML. Isso permite que `/sitemap.xml` seja servido diretamente do seu domínio.
 
-## 1. Edge Function: `blog-posts`
+### O que será feito:
 
-### Funcionalidades
-| Método | Ação | Descrição |
-|--------|------|-----------|
-| GET | Listar posts | Retorna todos os posts publicados |
-| POST | Criar post | Cria uma nova postagem |
-| PUT | Atualizar post | Atualiza uma postagem existente |
-| DELETE | Deletar post | Remove uma postagem |
+1. **Criar página `Sitemap.tsx`**
+   - Nova página React que faz fetch do conteúdo da edge function
+   - Retorna o XML puro com o Content-Type correto
+   - Caminho: `src/pages/Sitemap.tsx`
 
-### Campos aceitos no POST/PUT
-- `title` (obrigatório)
-- `slug` (obrigatório)
-- `content` (obrigatório)
-- `excerpt`
-- `cover_image`
-- `author`
-- `tags` (array de strings)
-- `meta_title`
-- `meta_description`
-- `published` (boolean)
+2. **Adicionar rota `/sitemap.xml`**
+   - Registrar a nova rota no `App.tsx`
+   - A rota `/sitemap.xml` vai renderizar o conteúdo XML
 
-### Arquivo
-`supabase/functions/blog-posts/index.ts`
+3. **Atualizar `robots.txt`**
+   - Adicionar referência ao sitemap local:
+   ```
+   Sitemap: https://contratarumprogramador.com.br/sitemap.xml
+   ```
 
----
-
-## 2. Edge Function: `sitemap`
-
-### Funcionalidades
-- Retorna um XML no formato sitemap padrão
-- Inclui automaticamente todas as páginas estáticas:
-  - `/`
-  - `/sobre`
-  - `/blog`
-  - `/contato`
-  - `/servicos/criacao-de-site`
-  - `/servicos/criacao-de-landing-page`
-  - `/servicos/criacao-de-e-commerce`
-  - `/servicos/desenvolvimento-de-sistema`
-  - `/servicos/desenvolvimento-de-software`
-  - `/servicos/criacao-de-automacao`
-  - `/servicos/ia-para-empresas`
-- Busca dinamicamente os posts publicados do banco e adiciona `/blog/{slug}`
-
-### Arquivo
-`supabase/functions/sitemap/index.ts`
-
----
-
-## 3. Configuração
-
-### supabase/config.toml
-Adicionar configuração para desabilitar verificação JWT (endpoints públicos):
-```toml
-[functions.blog-posts]
-verify_jwt = false
-
-[functions.sitemap]
-verify_jwt = false
-```
+### Resultado Final
+- URL do sitemap: `https://contratarumprogramador.com.br/sitemap.xml`
+- Compatível com Google Search Console
+- Busca dados dinamicamente da edge function existente
 
 ---
 
 ## Detalhes Técnicos
 
-### Estrutura de arquivos a criar
-```text
-supabase/
-└── functions/
-    ├── blog-posts/
-    │   └── index.ts
-    └── sitemap/
-        └── index.ts
-```
-
-### Dependências
-- Utiliza `@supabase/supabase-js` via Deno
-- CORS habilitado para permitir chamadas do frontend
-
-### Exemplo de uso do endpoint blog-posts
-
-**Criar post:**
-```bash
-POST /blog-posts
-Content-Type: application/json
-
-{
-  "title": "Meu Primeiro Post",
-  "slug": "meu-primeiro-post",
-  "content": "Conteúdo do post...",
-  "excerpt": "Resumo do post",
-  "tags": ["tecnologia", "web"],
-  "published": true
-}
-```
-
-**Atualizar post:**
-```bash
-PUT /blog-posts?id=uuid-do-post
-Content-Type: application/json
-
-{
-  "title": "Título Atualizado"
-}
-```
-
-**Deletar post:**
-```bash
-DELETE /blog-posts?id=uuid-do-post
-```
-
-### Exemplo de resposta do sitemap
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://hire-a-coder-co.lovable.app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://hire-a-coder-co.lovable.app/blog/meu-primeiro-post</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  ...
-</urlset>
-```
-
----
-
-## Resumo das Alterações
+### Arquivos a criar/modificar:
 
 | Arquivo | Ação |
 |---------|------|
-| `supabase/functions/blog-posts/index.ts` | Criar |
-| `supabase/functions/sitemap/index.ts` | Criar |
-| `supabase/config.toml` | Editar (adicionar config das functions) |
+| `src/pages/Sitemap.tsx` | Criar - Componente que renderiza XML |
+| `src/App.tsx` | Modificar - Adicionar rota `/sitemap.xml` |
+| `public/robots.txt` | Modificar - Adicionar linha do Sitemap |
 
+### Componente Sitemap.tsx
+
+O componente vai:
+1. Usar `useEffect` para buscar o XML da edge function
+2. Definir o `document.contentType` para XML
+3. Renderizar o conteúdo XML diretamente na página
+
+### Limitação Importante
+
+Como React renderiza HTML, o navegador vai mostrar o XML mas com wrapper HTML. Para o Google, isso pode não ser ideal. Uma alternativa melhor seria:
+
+**Alternativa: Arquivo XML Estático Gerado**
+- Criar um script que gera `public/sitemap.xml` estaticamente
+- Funciona perfeitamente com o Google
+- Desvantagem: precisa regenerar manualmente quando adicionar posts
+
+### Recomendação Final
+
+A solução mais robusta para CyberPanel seria usar a **Context do LiteSpeed** corretamente. Se a opção de proxy não funcionou, vamos tentar a abordagem de **Rewrite Externo**:
+
+```apache
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/sitemap\.xml$
+RewriteRule ^(.*)$ https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/sitemap [P,L]
+```
+
+Mas se preferir a solução via código React, posso implementar.
