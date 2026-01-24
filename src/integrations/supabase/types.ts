@@ -17,6 +17,7 @@ export type Database = {
       blog_posts: {
         Row: {
           author: string
+          category: string | null
           content: string
           cover_image: string | null
           created_at: string
@@ -33,6 +34,7 @@ export type Database = {
         }
         Insert: {
           author?: string
+          category?: string | null
           content: string
           cover_image?: string | null
           created_at?: string
@@ -49,6 +51,7 @@ export type Database = {
         }
         Update: {
           author?: string
+          category?: string | null
           content?: string
           cover_image?: string | null
           created_at?: string
