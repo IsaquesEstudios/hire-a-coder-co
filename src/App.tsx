@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Sobre from "./pages/Sobre";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contato from "./pages/Contato";
 import CriacaoDeSite from "./pages/servicos/CriacaoDeSite";
 import CriacaoDeLandingPage from "./pages/servicos/CriacaoDeLandingPage";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/servicos/criacao-de-site" element={<CriacaoDeSite />} />
             <Route path="/servicos/criacao-de-landing-page" element={<CriacaoDeLandingPage />} />
