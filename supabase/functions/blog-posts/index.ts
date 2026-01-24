@@ -49,9 +49,10 @@ Deno.serve(async (req) => {
         slug: body.slug,
         content: body.content,
         excerpt: body.excerpt || null,
-        cover_image: body.cover_image || null,
+        cover_image: body.featured_image || body.cover_image || null,
         author: body.author || "Equipe",
         tags: body.tags || null,
+        category: body.category || null,
         meta_title: body.meta_title || null,
         meta_description: body.meta_description || null,
         published: body.published || false,
@@ -88,9 +89,11 @@ Deno.serve(async (req) => {
       if (body.slug !== undefined) updateData.slug = body.slug;
       if (body.content !== undefined) updateData.content = body.content;
       if (body.excerpt !== undefined) updateData.excerpt = body.excerpt;
-      if (body.cover_image !== undefined) updateData.cover_image = body.cover_image;
+      if (body.featured_image !== undefined) updateData.cover_image = body.featured_image;
+      else if (body.cover_image !== undefined) updateData.cover_image = body.cover_image;
       if (body.author !== undefined) updateData.author = body.author;
       if (body.tags !== undefined) updateData.tags = body.tags;
+      if (body.category !== undefined) updateData.category = body.category;
       if (body.meta_title !== undefined) updateData.meta_title = body.meta_title;
       if (body.meta_description !== undefined) updateData.meta_description = body.meta_description;
       if (body.published !== undefined) {
