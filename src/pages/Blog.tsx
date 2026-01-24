@@ -1,13 +1,26 @@
 import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-
-// Posts will be loaded from Supabase
-const posts: any[] = [];
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Blog() {
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ["blog-posts"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("*")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
   return (
     <Layout>
       <SEO
@@ -35,45 +48,67 @@ export default function Blog() {
       {/* Posts */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <article key={post.id} className="service-card group">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-accent text-foreground text-xs font-semibold rounded-full">
-                      {tag}
-                    </span>
-                  ))}
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="service-card">
+                  <Skeleton className="h-4 w-20 mb-4" />
+                  <Skeleton className="h-6 w-full mb-3" />
+                  <Skeleton className="h-16 w-full mb-4" />
+                  <Skeleton className="h-4 w-32" />
                 </div>
-                
-                <h2 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                </h2>
-                
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(post.published_at).toLocaleDateString('pt-BR')}</span>
+              ))}
+            </div>
+          ) : posts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post) => (
+                <article key={post.id} className="service-card group">
+                  {post.cover_image && (
+                    <img 
+                      src={post.cover_image} 
+                      alt={post.title}
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                  )}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {post.category && (
+                      <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
+                        {post.category}
+                      </span>
+                    )}
+                    {post.tags?.map((tag: string) => (
+                      <span key={tag} className="px-3 py-1 bg-accent text-foreground text-xs font-semibold rounded-full">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                   
-                  <Link 
-                    to={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 text-primary font-semibold text-sm group-hover:gap-2 transition-all"
-                  >
-                    Ler mais
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Empty State */}
-          {posts.length === 0 && (
+                  <h2 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                    <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h2>
+                  
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(post.published_at).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    
+                    <Link 
+                      to={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1 text-primary font-semibold text-sm group-hover:gap-2 transition-all"
+                    >
+                      Ler mais
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
             <div className="text-center py-16">
               <h3 className="text-xl font-bold mb-2">Nenhum artigo publicado ainda</h3>
               <p className="text-muted-foreground">
