@@ -4,7 +4,7 @@
 
 ## Visão Geral
 
-Vou criar um sistema completo para upload de imagens que utiliza o **Storage** do Lovable Cloud para armazenar os arquivos, retornando uma URL pública que pode ser salva no campo `cover_image` dos posts do blog.
+Criar um sistema completo para upload de imagens que utiliza o **Storage** do Lovable Cloud para armazenar os arquivos, retornando uma URL pública que pode ser salva no campo `cover_image` dos posts do blog.
 
 ## Por que Storage ao invés do Banco de Dados?
 
@@ -45,23 +45,19 @@ Criar um bucket público chamado `blog-images` para armazenar as imagens dos pos
 
 **Migração SQL:**
 ```sql
--- Criar bucket para imagens do blog
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('blog-images', 'blog-images', true);
 
--- Política: Qualquer um pode visualizar imagens
 CREATE POLICY "Imagens públicas para leitura"
 ON storage.objects FOR SELECT
 TO public
 USING (bucket_id = 'blog-images');
 
--- Política: Permitir upload via service role (edge function)
 CREATE POLICY "Upload via service role"
 ON storage.objects FOR INSERT
 TO service_role
 WITH CHECK (bucket_id = 'blog-images');
 
--- Política: Permitir deleção via service role
 CREATE POLICY "Delete via service role"
 ON storage.objects FOR DELETE
 TO service_role
@@ -80,6 +76,7 @@ A função irá:
 - Retornar URL pública
 
 **Endpoints:**
+
 | Método | Descrição |
 |--------|-----------|
 | POST   | Upload de nova imagem, retorna URL |
@@ -91,69 +88,33 @@ A função irá:
 const formData = new FormData();
 formData.append('file', imageFile);
 
-const response = await fetch('https://vnqandqsblkbwblfwkea.supabase.co/functions/v1/upload-image', {
+const response = await fetch('/functions/v1/upload-image', {
   method: 'POST',
   body: formData
 });
 
 const { url } = await response.json();
-// url = "https://vnqandqsblkbwblfwkea.supabase.co/storage/v1/object/public/blog-images/abc123.jpg"
+// url = "https://.../storage/v1/object/public/blog-images/abc123.jpg"
 ```
 
 ### 3. Configurar Edge Function
 
-**Arquivo:** `supabase/config.toml`
-
-Adicionar configuração para a nova função sem verificação JWT (público).
+Adicionar configuração para a nova função em `supabase/config.toml` sem verificação JWT (público).
 
 ## Detalhes Técnicos
-
-### Estrutura da Edge Function
-
-```typescript
-// supabase/functions/upload-image/index.ts
-
-// Headers CORS
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-
-Deno.serve(async (req) => {
-  // Tratamento de CORS preflight
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
-
-  // POST - Upload de imagem
-  if (req.method === "POST") {
-    // 1. Extrair arquivo do FormData
-    // 2. Validar tipo (image/jpeg, image/png, image/webp, image/gif)
-    // 3. Gerar nome único com timestamp + random
-    // 4. Upload para storage bucket
-    // 5. Retornar URL pública
-  }
-
-  // DELETE - Remover imagem
-  if (req.method === "DELETE") {
-    // 1. Receber path da imagem
-    // 2. Remover do storage
-  }
-});
-```
 
 ### Validações Implementadas
 
 - **Tipos aceitos:** JPEG, PNG, WebP, GIF
-- **Tamanho máximo:** 5MB (configurável)
-- **Nome do arquivo:** UUID + extensão original
+- **Tamanho máximo:** 5MB
+- **Nome do arquivo:** Timestamp + UUID + extensão original
 
 ### Resposta de Sucesso
 
 ```json
 {
   "success": true,
-  "url": "https://vnqandqsblkbwblfwkea.supabase.co/storage/v1/object/public/blog-images/1706123456789-abc123.jpg",
+  "url": "https://.../storage/v1/object/public/blog-images/1706123456789-abc123.jpg",
   "path": "1706123456789-abc123.jpg"
 }
 ```
