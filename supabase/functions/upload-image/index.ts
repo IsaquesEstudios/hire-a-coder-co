@@ -21,44 +21,113 @@ Deno.serve(async (req) => {
 
     // POST - Upload image
     if (req.method === "POST") {
-      const formData = await req.formData();
-      const file = formData.get("file") as File | null;
+      const contentType = req.headers.get("content-type") || "";
+      
+      let fileBuffer: ArrayBuffer;
+      let mimeType: string;
+      let originalExtension: string;
 
-      if (!file) {
-        return new Response(
-          JSON.stringify({ error: "Nenhum arquivo enviado" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
+      // Check if it's FormData or raw binary
+      if (contentType.includes("multipart/form-data")) {
+        // FormData upload (from web forms)
+        const formData = await req.formData();
+        const file = formData.get("file") as File | null;
 
-      // Validate file type
-      if (!ALLOWED_TYPES.includes(file.type)) {
-        return new Response(
-          JSON.stringify({ error: "Tipo de arquivo não permitido. Use: JPEG, PNG, WebP ou GIF" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
+        if (!file) {
+          return new Response(
+            JSON.stringify({ error: "Nenhum arquivo enviado" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
 
-      // Validate file size
-      if (file.size > MAX_SIZE) {
-        return new Response(
-          JSON.stringify({ error: "Arquivo muito grande. Máximo: 5MB" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        // Validate file type
+        if (!ALLOWED_TYPES.includes(file.type)) {
+          return new Response(
+            JSON.stringify({ error: "Tipo de arquivo não permitido. Use: JPEG, PNG, WebP ou GIF" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate file size
+        if (file.size > MAX_SIZE) {
+          return new Response(
+            JSON.stringify({ error: "Arquivo muito grande. Máximo: 5MB" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        fileBuffer = await file.arrayBuffer();
+        mimeType = file.type;
+        originalExtension = file.name.split(".").pop() || "jpg";
+      } else {
+        // Raw binary upload (from n8n, APIs, etc.)
+        fileBuffer = await req.arrayBuffer();
+        
+        if (fileBuffer.byteLength === 0) {
+          return new Response(
+            JSON.stringify({ error: "Nenhum arquivo enviado" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate file size
+        if (fileBuffer.byteLength > MAX_SIZE) {
+          return new Response(
+            JSON.stringify({ error: "Arquivo muito grande. Máximo: 5MB" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Detect mime type from content-type header or magic bytes
+        if (contentType.includes("image/")) {
+          mimeType = contentType.split(";")[0].trim();
+        } else {
+          // Try to detect from magic bytes
+          const bytes = new Uint8Array(fileBuffer.slice(0, 12));
+          if (bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) {
+            mimeType = "image/jpeg";
+          } else if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) {
+            mimeType = "image/png";
+          } else if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+            mimeType = "image/gif";
+          } else if (bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 &&
+                     bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50) {
+            mimeType = "image/webp";
+          } else {
+            return new Response(
+              JSON.stringify({ error: "Tipo de arquivo não detectado. Envie com Content-Type correto ou use JPEG, PNG, WebP ou GIF" }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+        }
+
+        if (!ALLOWED_TYPES.includes(mimeType)) {
+          return new Response(
+            JSON.stringify({ error: "Tipo de arquivo não permitido. Use: JPEG, PNG, WebP ou GIF" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Get extension from mime type
+        const extMap: Record<string, string> = {
+          "image/jpeg": "jpg",
+          "image/png": "png",
+          "image/webp": "webp",
+          "image/gif": "gif",
+        };
+        originalExtension = extMap[mimeType] || "jpg";
       }
 
       // Generate unique filename
-      const extension = file.name.split(".").pop() || "jpg";
       const timestamp = Date.now();
       const randomId = crypto.randomUUID().slice(0, 8);
-      const fileName = `${timestamp}-${randomId}.${extension}`;
+      const fileName = `${timestamp}-${randomId}.${originalExtension}`;
 
       // Upload to storage
-      const arrayBuffer = await file.arrayBuffer();
       const { data, error } = await supabase.storage
         .from("blog-images")
-        .upload(fileName, arrayBuffer, {
-          contentType: file.type,
+        .upload(fileName, fileBuffer, {
+          contentType: mimeType,
           upsert: false,
         });
 
