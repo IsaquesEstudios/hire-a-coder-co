@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, ArrowLeft } from "lucide-react";
+import DOMPurify from "dompurify";
 
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
@@ -117,9 +118,10 @@ export default function BlogPost() {
 
                 {post.excerpt && <p className="text-lg text-muted-foreground mb-8">{post.excerpt}</p>}
 
-                <section className="text-foreground leading-relaxed whitespace-pre-wrap">
-                  {post.content}
-                </section>
+                <section 
+                  className="prose prose-lg max-w-none text-foreground prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-a:text-primary prose-ul:text-foreground prose-ol:text-foreground prose-li:text-foreground"
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+                />
               </article>
             )}
           </div>
