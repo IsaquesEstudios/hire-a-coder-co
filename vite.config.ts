@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => ({
   // Mantivemos os plugins originais do Lovable
   plugins: [
     react(),
-    mode === "development" && componentTagger().filter(Boolean),
-  ],
+    mode === "development" && componentTagger(),
+  ].filter(Boolean),
   
   resolve: {
     alias: {
