@@ -5,12 +5,34 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// --- CORREÇÃO PARA O SSG (Build) ---
+// Cria um storage "falso" seguro que não quebra quando não tem navegador
+const safeStorage = {
+  getItem: (key: string) => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(key)
+    }
+    return null
+  },
+  setItem: (key: string, value: string) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, value)
+    }
+  },
+  removeItem: (key: string) => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(key)
+    }
+  },
+}
+// -----------------------------------
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    storage: localStorage,
+    storage: safeStorage, // <--- Mudamos aqui para usar o seguro
     persistSession: true,
     autoRefreshToken: true,
   }
