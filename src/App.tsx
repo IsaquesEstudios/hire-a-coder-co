@@ -52,12 +52,12 @@ export const routes: RouteRecord[] = [
     element: <AppWrapper><Blog /></AppWrapper>,
   },
 {
-    path: "/blog/:slug",
-    element: <AppWrapper><BlogPost /></AppWrapper>,
+    path: "/blog/:slug", // VOCÊ TINHA ESQUECIDO ESSA LINHA
+    element: <AppWrapper><BlogPost /></AppWrapper>, // E ESSA TAMBÉM
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') // Nome correto da tabela conforme o log
+          .from('blog_posts')
           .select('slug');
 
         if (error) {
