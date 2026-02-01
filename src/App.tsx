@@ -52,8 +52,8 @@ export const routes: RouteRecord[] = [
     element: <AppWrapper><Blog /></AppWrapper>,
   },
 {
-    path: "/blog/:slug", // VOCÊ TINHA ESQUECIDO ESSA LINHA
-    element: <AppWrapper><BlogPost /></AppWrapper>, // E ESSA TAMBÉM
+    path: "/blog/:slug",
+    element: <AppWrapper><BlogPost /></AppWrapper>,
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
