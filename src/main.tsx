@@ -4,9 +4,11 @@ import "./index.css";
 
 // A MUDANÇA ESTÁ AQUI: O nome precisa ser obrigatoriamente "createApp"
 // para que o vite-ssg consiga encontrá-la durante o build.
-export const createApp = ViteReactSSG(
+// src/main.tsx
+// ... imports
+
+// Mude de volta para createRoot
+export const createRoot = ViteReactSSG(
   { routes },
-  ({ app, router, routes, isClient, initialState }) => {
-    // Aqui você pode fazer setups adicionais se precisar no futuro
-  }
+  // ... o resto do código continua igual
 );
