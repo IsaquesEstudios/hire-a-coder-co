@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 // Imports das páginas
 import Index from "./pages/Index";
@@ -50,15 +51,25 @@ export const routes: RouteRecord[] = [
     path: "/blog",
     element: <AppWrapper><Blog /></AppWrapper>,
   },
-  {
+{
     path: "/blog/:slug",
     element: <AppWrapper><BlogPost /></AppWrapper>,
-    // NOTA: Como estamos retornando array vazio, os posts individuais 
-    // não serão gerados como HTML estático no build, serão renderizados na hora (client-side).
-    // Isso evita erros de build agora, mas para SEO perfeito dos posts, 
-    // futuramente você precisaria listar os slugs aqui.
+    // Esta função será executada na Vercel durante o 'vite-react-ssg build'
     getStaticPaths: async () => {
-      return [];
+      // 1. Busca todos os slugs da sua tabela de postagens
+      // IMPORTANTE: Confirme se o nome da tabela no seu Supabase é 'posts'
+      const { data: posts, error } = await supabase
+        .from('posts') 
+        .select('slug');
+
+      if (error) {
+        console.error("Erro ao buscar slugs para o build:", error);
+        return [];
+      }
+
+      // 2. Mapeia os dados para o formato de URL que o SSG precisa
+      // Ex: transforma 'meu-artigo' em '/blog/meu-artigo'
+      return posts?.map((post) => `/blog/${post.slug}`) || [];
     },
   },
   {
