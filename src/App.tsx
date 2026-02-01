@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Imports das páginas
 import Index from "./pages/Index";
 import Sobre from "./pages/Sobre";
 import Blog from "./pages/Blog";
@@ -51,10 +53,11 @@ export const routes: RouteRecord[] = [
   {
     path: "/blog/:slug",
     element: <AppWrapper><BlogPost /></AppWrapper>,
-    // Dynamic paths - will be pre-rendered during build
+    // NOTA: Como estamos retornando array vazio, os posts individuais 
+    // não serão gerados como HTML estático no build, serão renderizados na hora (client-side).
+    // Isso evita erros de build agora, mas para SEO perfeito dos posts, 
+    // futuramente você precisaria listar os slugs aqui.
     getStaticPaths: async () => {
-      // Return empty array - dynamic pages will be rendered on-demand
-      // Or fetch slugs from API during build
       return [];
     },
   },
