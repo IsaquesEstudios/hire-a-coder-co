@@ -59,7 +59,7 @@ export const routes: RouteRecord[] = [
       // 1. Busca todos os slugs da sua tabela de postagens
       // IMPORTANTE: Confirme se o nome da tabela no seu Supabase é 'posts'
       const { data: posts, error } = await supabase
-        .from('posts') 
+        .from('blog_posts') 
         .select('slug');
 
       if (error) {
