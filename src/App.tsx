@@ -24,8 +24,9 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-// Wrapper component with providers
-const AppWrapper = ({ children }: { children: React.ReactNode }) => (
+// NOVO: Componente raiz que envolve todo o site de uma vez
+// Isso é essencial para que o SSG funcione corretamente em todas as rotas
+export const App = ({ children }: { children?: React.ReactNode }) => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -37,27 +38,27 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => (
   </HelmetProvider>
 );
 
-// Route definitions for SSG
+// Route definitions for SSG - Removido o AppWrapper individual
 export const routes: RouteRecord[] = [
   {
     path: "/",
-    element: <AppWrapper><Index /></AppWrapper>,
+    element: <Index />,
   },
   {
     path: "/sobre",
-    element: <AppWrapper><Sobre /></AppWrapper>,
+    element: <Sobre />,
   },
   {
     path: "/blog",
-    element: <AppWrapper><Blog /></AppWrapper>,
+    element: <Blog />,
   },
-{
+  {
     path: "/blog/:slug",
-    element: <AppWrapper><BlogPost /></AppWrapper>,
+    element: <BlogPost />,
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts')
+          .from('blog_posts') //
           .select('slug');
 
         if (error) {
@@ -76,42 +77,42 @@ export const routes: RouteRecord[] = [
   },
   {
     path: "/contato",
-    element: <AppWrapper><Contato /></AppWrapper>,
+    element: <Contato />,
   },
   {
     path: "/servicos/criacao-de-site",
-    element: <AppWrapper><CriacaoDeSite /></AppWrapper>,
+    element: <CriacaoDeSite />,
   },
   {
     path: "/servicos/criacao-de-landing-page",
-    element: <AppWrapper><CriacaoDeLandingPage /></AppWrapper>,
+    element: <CriacaoDeLandingPage />,
   },
   {
     path: "/servicos/criacao-de-e-commerce",
-    element: <AppWrapper><CriacaoDeEcommerce /></AppWrapper>,
+    element: <CriacaoDeEcommerce />,
   },
   {
     path: "/servicos/desenvolvimento-de-sistema",
-    element: <AppWrapper><DesenvolvimentoDeSistema /></AppWrapper>,
+    element: <DesenvolvimentoDeSistema />,
   },
   {
     path: "/servicos/desenvolvimento-de-software",
-    element: <AppWrapper><DesenvolvimentoDeSoftware /></AppWrapper>,
+    element: <DesenvolvimentoDeSoftware />,
   },
   {
     path: "/servicos/criacao-de-automacao",
-    element: <AppWrapper><CriacaoDeAutomacao /></AppWrapper>,
+    element: <CriacaoDeAutomacao />,
   },
   {
     path: "/servicos/ia-para-empresas",
-    element: <AppWrapper><IAParaEmpresas /></AppWrapper>,
+    element: <IAParaEmpresas />,
   },
   {
     path: "/mapa-do-site",
-    element: <AppWrapper><MapaDoSite /></AppWrapper>,
+    element: <MapaDoSite />,
   },
   {
     path: "*",
-    element: <AppWrapper><NotFound /></AppWrapper>,
+    element: <NotFound />,
   },
 ];
