@@ -12,14 +12,28 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  
+  // Mantivemos os plugins originais do Lovable
+  plugins: [
+    react(),
+    mode === "development" && componentTagger().filter(Boolean),
+  ],
+  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+  // Mantivemos as opções de SSG que já estavam aí
   ssgOptions: {
     script: "async",
     formatting: "minify",
+  },
+
+  // --- AQUI ESTÁ A CORREÇÃO ---
+  // Isso ensina o Vite a processar essas bibliotecas corretamente durante o build
+  ssr: {
+    noExternal: ["react-helmet-async", "vite-react-ssg"],
   },
 }));
