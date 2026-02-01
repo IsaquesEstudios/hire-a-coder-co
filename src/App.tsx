@@ -54,22 +54,24 @@ export const routes: RouteRecord[] = [
 {
     path: "/blog/:slug",
     element: <AppWrapper><BlogPost /></AppWrapper>,
-    // Esta função será executada na Vercel durante o 'vite-react-ssg build'
     getStaticPaths: async () => {
-      // 1. Busca todos os slugs da sua tabela de postagens
-      // IMPORTANTE: Confirme se o nome da tabela no seu Supabase é 'posts'
-      const { data: posts, error } = await supabase
-        .from('blog_posts') 
-        .select('slug');
+      try {
+        const { data: posts, error } = await supabase
+          .from('blog_posts') // Nome correto da tabela conforme o log
+          .select('slug');
 
-      if (error) {
-        console.error("Erro ao buscar slugs para o build:", error);
+        if (error) {
+          console.error("ERRO AO BUSCAR SLUGS:", error.message);
+          return [];
+        }
+
+        const paths = posts?.map((post) => `/blog/${post.slug}`) || [];
+        console.log("PÁGINAS DO BLOG GERADAS:", paths.length);
+        return paths;
+      } catch (e) {
+        console.error("ERRO CRÍTICO NO BUILD:", e);
         return [];
       }
-
-      // 2. Mapeia os dados para o formato de URL que o SSG precisa
-      // Ex: transforma 'meu-artigo' em '/blog/meu-artigo'
-      return posts?.map((post) => `/blog/${post.slug}`) || [];
     },
   },
   {
