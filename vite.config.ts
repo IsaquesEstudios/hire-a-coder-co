@@ -26,9 +26,10 @@ export default defineConfig(({ mode }) => ({
   },
 
   // Mantivemos as opções de SSG que já estavam aí
-  ssgOptions: {
+ssgOptions: {
     script: "async",
     formatting: "minify",
+    dirStyle: 'directory', // <--- ADICIONE ESTA LINHA AQUI
   },
 
   // --- AQUI ESTÁ A CORREÇÃO ---
