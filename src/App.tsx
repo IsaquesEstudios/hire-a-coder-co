@@ -1,8 +1,4 @@
 import type { RouteRecord } from "vite-react-ssg";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 // Imports das páginas
@@ -20,32 +16,6 @@ import CriacaoDeAutomacao from "./pages/servicos/CriacaoDeAutomacao";
 import IAParaEmpresas from "./pages/servicos/IAParaEmpresas";
 import NotFound from "./pages/NotFound";
 import MapaDoSite from "./pages/MapaDoSite";
-
-// Criar QueryClient fora do componente para ser reutilizado
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      // Desabilita refetch automático durante SSR
-      staleTime: 60 * 1000,
-      retry: false,
-    },
-  },
-});
-
-/**
- * COMPONENTE RAIZ (App)
- * Envolve toda a aplicação com os providers necessários
- */
-export const App = ({ children }: { children?: React.ReactNode }) => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      {/* O conteúdo da página aparece aqui */}
-      {children}
-    </TooltipProvider>
-  </QueryClientProvider>
-);
 
 // DEFINIÇÃO DAS ROTAS PARA O SSG
 export const routes: RouteRecord[] = [
