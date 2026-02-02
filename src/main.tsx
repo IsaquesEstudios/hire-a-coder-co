@@ -2,11 +2,17 @@ import { ViteReactSSG } from "vite-react-ssg";
 import { App, routes } from "./App";
 import "./index.css";
 
-/**
- * CONFIGURAÇÃO MÍNIMA
- * Removido o wrapper de contexto que buscava o Helmet.
- */
-export const createRoot = ViteReactSSG({ 
-  routes,
-  rootContainer: true 
-});
+export const createRoot = ViteReactSSG(
+  { 
+    routes,
+    rootContainer: true 
+  },
+  // O SEGREDO ESTÁ AQUI: 
+  // Restauramos a função que diz para usar o "App" como envelope.
+  // Isso carrega o QueryClient, o Toaster e o CSS global corretamente.
+  () => {
+    return {
+      wrapper: App
+    };
+  }
+);
