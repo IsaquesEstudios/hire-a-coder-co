@@ -27,15 +27,21 @@ const queryClient = new QueryClient();
  * COMPONENTE RAIZ (App)
  * Limpo de qualquer dependência do react-helmet-async.
  */
+// ... imports
+
+// O componente precisa receber { children } e renderizar {children} dentro dos providers
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      {/* O conteúdo da página aparece aqui */}
       {children}
     </TooltipProvider>
   </QueryClientProvider>
 );
+
+// ... resto do arquivo
 
 // DEFINIÇÃO DAS ROTAS PARA O SSG
 export const routes: RouteRecord[] = [
