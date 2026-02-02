@@ -7,45 +7,50 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Tables } from "@/integrations/supabase/types";
-
 type BlogPostType = Tables<"blog_posts">;
 
 // Loader para SSG - carrega lista de posts durante o build
-export async function blogListLoader(): Promise<{ posts: BlogPostType[] }> {
+export async function blogListLoader(): Promise<{
+  posts: BlogPostType[];
+}> {
   try {
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("published", true)
-      .order("published_at", { ascending: false });
-
+    const {
+      data,
+      error
+    } = await supabase.from("blog_posts").select("*").eq("published", true).order("published_at", {
+      ascending: false
+    });
     if (error) {
       console.error("SSG Blog List Loader: Erro:", error);
-      return { posts: [] };
+      return {
+        posts: []
+      };
     }
-
     console.log("SSG Blog List Loader: Posts carregados:", data?.length || 0);
-    return { posts: data || [] };
+    return {
+      posts: data || []
+    };
   } catch (e) {
     console.error("SSG Blog List Loader: Exceção:", e);
-    return { posts: [] };
+    return {
+      posts: []
+    };
   }
 }
 
 // Helper para verificar se os dados do loader são válidos
-function isValidLoaderData(data: unknown): data is { posts: BlogPostType[] } {
-  return (
-    data !== null &&
-    typeof data === "object" &&
-    "posts" in data &&
-    Array.isArray((data as { posts: unknown }).posts)
-  );
+function isValidLoaderData(data: unknown): data is {
+  posts: BlogPostType[];
+} {
+  return data !== null && typeof data === "object" && "posts" in data && Array.isArray((data as {
+    posts: unknown;
+  }).posts);
 }
-
 export default function Blog() {
   // Dados pré-carregados pelo loader (SSG)
-  let loaderData: { posts: BlogPostType[] } | undefined;
-  
+  let loaderData: {
+    posts: BlogPostType[];
+  } | undefined;
   try {
     const rawLoaderData = useLoaderData();
     if (isValidLoaderData(rawLoaderData)) {
@@ -55,40 +60,35 @@ export default function Blog() {
     // Loader data não disponível (navegação client-side ou erro)
     loaderData = undefined;
   }
-  
   const preloadedPosts = loaderData?.posts;
 
   // Query client-side como fallback (navegação SPA)
-  const { data: clientPosts, isLoading } = useQuery({
+  const {
+    data: clientPosts,
+    isLoading
+  } = useQuery({
     queryKey: ["blog-posts"],
     enabled: !preloadedPosts || preloadedPosts.length === 0,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .select("*")
-        .eq("published", true)
-        .order("published_at", { ascending: false });
-
+      const {
+        data,
+        error
+      } = await supabase.from("blog_posts").select("*").eq("published", true).order("published_at", {
+        ascending: false
+      });
       if (error) throw error;
       return data;
-    },
+    }
   });
 
   // Usa dados do loader primeiro, fallback para client query
-  const posts = (preloadedPosts && preloadedPosts.length > 0) 
-    ? preloadedPosts 
-    : clientPosts || [];
+  const posts = preloadedPosts && preloadedPosts.length > 0 ? preloadedPosts : clientPosts || [];
   const showLoading = !preloadedPosts && isLoading;
-
-  return (
-    <Layout>
-      <SEO
-        title="Blog"
-        description="Artigos sobre desenvolvimento de software, automação, e-commerce, IA e tecnologia para empresas. Dicas práticas para escalar seu negócio digital."
-      />
+  return <Layout>
+      <SEO title="Blog" description="Artigos sobre desenvolvimento de software, automação, e-commerce, IA e tecnologia para empresas. Dicas práticas para escalar seu negócio digital." />
 
       {/* Hero */}
       <section className="bg-gradient-hero section-padding">
@@ -100,9 +100,7 @@ export default function Blog() {
             <h1 className="text-4xl md:text-5xl font-bold text-secondary-foreground mb-6">
               Insights sobre <span className="text-primary">Tecnologia e Negócios</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Artigos práticos sobre desenvolvimento, automação e estratégias digitais para escalar sua empresa.
-            </p>
+            <p className="text-lg text-muted-foreground">Artigos práticos sobre desenvolvimento, automação e estratégias digitais para escalar sua empresa</p>
           </div>
         </div>
       </section>
@@ -110,39 +108,23 @@ export default function Blog() {
       {/* Posts */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          {showLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="service-card">
+          {showLoading ? <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map(i => <div key={i} className="service-card">
                   <Skeleton className="h-4 w-20 mb-4" />
                   <Skeleton className="h-6 w-full mb-3" />
                   <Skeleton className="h-16 w-full mb-4" />
                   <Skeleton className="h-4 w-32" />
-                </div>
-              ))}
-            </div>
-          ) : posts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <article key={post.id} className="service-card group">
-                  {post.cover_image && (
-                    <img 
-                      src={post.cover_image} 
-                      alt={post.title}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
-                    />
-                  )}
+                </div>)}
+            </div> : posts.length > 0 ? <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map(post => <article key={post.id} className="service-card group">
+                  {post.cover_image && <img src={post.cover_image} alt={post.title} className="w-full h-48 object-cover rounded-lg mb-4" />}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {post.category && (
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
+                    {post.category && <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
                         {post.category}
-                      </span>
-                    )}
-                    {post.tags?.map((tag: string) => (
-                      <span key={tag} className="px-3 py-1 bg-accent text-foreground text-xs font-semibold rounded-full">
+                      </span>}
+                    {post.tags?.map((tag: string) => <span key={tag} className="px-3 py-1 bg-accent text-foreground text-xs font-semibold rounded-full">
                         {tag}
-                      </span>
-                    ))}
+                      </span>)}
                   </div>
                   
                   <h2 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
@@ -157,32 +139,22 @@ export default function Blog() {
                     <div className="flex items-center gap-2 text-muted-foreground text-sm">
                       <Calendar className="w-4 h-4" />
                       <span>
-                        {post.published_at 
-                          ? new Date(post.published_at).toLocaleDateString('pt-BR')
-                          : new Date(post.created_at).toLocaleDateString('pt-BR')
-                        }
+                        {post.published_at ? new Date(post.published_at).toLocaleDateString('pt-BR') : new Date(post.created_at).toLocaleDateString('pt-BR')}
                       </span>
                     </div>
                     
-                    <Link 
-                      to={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1 text-primary font-semibold text-sm group-hover:gap-2 transition-all"
-                    >
+                    <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-1 text-primary font-semibold text-sm group-hover:gap-2 transition-all">
                       Ler mais
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
+                </article>)}
+            </div> : <div className="text-center py-16">
               <h3 className="text-xl font-bold mb-2">Nenhum artigo publicado ainda</h3>
               <p className="text-muted-foreground">
                 Em breve teremos conteúdo exclusivo para você.
               </p>
-            </div>
-          )}
+            </div>}
         </div>
       </section>
 
@@ -203,6 +175,5 @@ export default function Blog() {
           </Button>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
