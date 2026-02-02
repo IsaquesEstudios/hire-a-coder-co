@@ -5,6 +5,15 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// Validação para garantir que as variáveis existem durante o build
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  console.warn(
+    'Supabase: Variáveis de ambiente não configuradas.',
+    'VITE_SUPABASE_URL:', !!SUPABASE_URL,
+    'VITE_SUPABASE_PUBLISHABLE_KEY:', !!SUPABASE_PUBLISHABLE_KEY
+  );
+}
+
 // --- CORREÇÃO PARA O SSG (Build) ---
 // Cria um storage "falso" seguro que não quebra quando não tem navegador
 const safeStorage = {

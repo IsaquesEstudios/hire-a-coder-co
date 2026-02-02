@@ -77,6 +77,9 @@ export default function BlogPost() {
   } = useQuery({
     queryKey: ["blog-post", slug],
     enabled: !!slug && !preloadedPost,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
