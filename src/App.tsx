@@ -21,18 +21,31 @@ import IAParaEmpresas from "./pages/servicos/IAParaEmpresas";
 import NotFound from "./pages/NotFound";
 import MapaDoSite from "./pages/MapaDoSite";
 
-// Remova: const queryClient = new QueryClient();
+// Criar QueryClient fora do componente para ser reutilizado
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Desabilita refetch automático durante SSR
+      staleTime: 60 * 1000,
+      retry: false,
+    },
+  },
+});
 
+/**
+ * COMPONENTE RAIZ (App)
+ * Envolve toda a aplicação com os providers necessários
+ */
 export const App = ({ children }: { children?: React.ReactNode }) => (
-  <TooltipProvider>
-    <Toaster />
-    <Sonner />
-    {/* O conteúdo da página (children) é injetado aqui pelo main.tsx */}
-    {children}
-  </TooltipProvider>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      {/* O conteúdo da página aparece aqui */}
+      {children}
+    </TooltipProvider>
+  </QueryClientProvider>
 );
-
-// ... resto do arquivo
 
 // DEFINIÇÃO DAS ROTAS PARA O SSG
 export const routes: RouteRecord[] = [
