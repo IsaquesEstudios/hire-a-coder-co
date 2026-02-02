@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/layout/Layout";
@@ -6,10 +6,41 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Tables } from "@/integrations/supabase/types";
+
+type BlogPostType = Tables<"blog_posts">;
+
+// Loader para SSG - carrega lista de posts durante o build
+export async function blogListLoader(): Promise<{ posts: BlogPostType[] }> {
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("published", true)
+      .order("published_at", { ascending: false });
+
+    if (error) {
+      console.error("SSG Blog List Loader: Erro:", error);
+      return { posts: [] };
+    }
+
+    console.log("SSG Blog List Loader: Posts carregados:", data?.length || 0);
+    return { posts: data || [] };
+  } catch (e) {
+    console.error("SSG Blog List Loader: Exceção:", e);
+    return { posts: [] };
+  }
+}
 
 export default function Blog() {
-  const { data: posts = [], isLoading } = useQuery({
+  // Dados pré-carregados pelo loader (SSG)
+  const loaderData = useLoaderData() as { posts: BlogPostType[] } | undefined;
+  const preloadedPosts = loaderData?.posts;
+
+  // Query client-side como fallback (navegação SPA)
+  const { data: clientPosts, isLoading } = useQuery({
     queryKey: ["blog-posts"],
+    enabled: !preloadedPosts, // Só busca se não tiver dados do loader
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
@@ -22,6 +53,10 @@ export default function Blog() {
     },
     staleTime: 60 * 1000,
   });
+
+  // Usa dados do loader primeiro, fallback para client query
+  const posts = preloadedPosts || clientPosts || [];
+  const showLoading = !preloadedPosts && isLoading;
 
   return (
     <Layout>
@@ -50,7 +85,7 @@ export default function Blog() {
       {/* Posts */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          {isLoading ? (
+          {showLoading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="service-card">
@@ -96,7 +131,12 @@ export default function Blog() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-muted-foreground text-sm">
                       <Calendar className="w-4 h-4" />
-                      <span>{new Date(post.published_at).toLocaleDateString('pt-BR')}</span>
+                      <span>
+                        {post.published_at 
+                          ? new Date(post.published_at).toLocaleDateString('pt-BR')
+                          : new Date(post.created_at).toLocaleDateString('pt-BR')
+                        }
+                      </span>
                     </div>
                     
                     <Link 

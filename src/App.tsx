@@ -4,8 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 // Imports das páginas
 import Index from "./pages/Index";
 import Sobre from "./pages/Sobre";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+import Blog, { blogListLoader } from "./pages/Blog";
+import BlogPost, { blogPostLoader } from "./pages/BlogPost";
 import Contato from "./pages/Contato";
 import CriacaoDeSite from "./pages/servicos/CriacaoDeSite";
 import CriacaoDeLandingPage from "./pages/servicos/CriacaoDeLandingPage";
@@ -21,18 +21,29 @@ import MapaDoSite from "./pages/MapaDoSite";
 export const routes: RouteRecord[] = [
   { path: "/", element: <Index /> },
   { path: "/sobre", element: <Sobre /> },
-  { path: "/blog", element: <Blog /> },
+  { 
+    path: "/blog", 
+    element: <Blog />,
+    loader: blogListLoader,
+  },
   {
     path: "/blog/:slug",
     element: <BlogPost />,
+    loader: blogPostLoader,
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
           .from('blog_posts')
-          .select('slug');
-        if (error) return [];
+          .select('slug')
+          .eq('published', true);
+        if (error) {
+          console.error('SSG: Erro ao buscar slugs:', error);
+          return [];
+        }
+        console.log('SSG: Posts encontrados:', posts?.length || 0);
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
+        console.error('SSG: Exceção ao buscar slugs:', e);
         return [];
       }
     },
