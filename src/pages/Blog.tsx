@@ -62,6 +62,9 @@ export default function Blog() {
   const { data: clientPosts, isLoading } = useQuery({
     queryKey: ["blog-posts"],
     enabled: !preloadedPosts || preloadedPosts.length === 0,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
@@ -72,7 +75,6 @@ export default function Blog() {
       if (error) throw error;
       return data;
     },
-    staleTime: 60 * 1000,
   });
 
   // Usa dados do loader primeiro, fallback para client query

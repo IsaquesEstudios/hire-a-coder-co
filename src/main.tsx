@@ -7,11 +7,14 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { routes } from "./App";
 import "./index.css";
 
-// Criar QueryClient uma única vez
+// Criar QueryClient uma única vez com configurações otimizadas para SSG
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 5 * 60 * 1000,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
       retry: 1,
     },
   },
