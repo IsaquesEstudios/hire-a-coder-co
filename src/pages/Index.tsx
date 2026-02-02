@@ -43,7 +43,7 @@ const stats = [{
   value: "+150",
   label: "Projetos Entregues"
 }, {
-  value: "99%",
+  value: "90%",
   label: "Satisfação"
 }, {
   value: "+5",
