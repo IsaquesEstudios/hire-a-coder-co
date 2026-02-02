@@ -24,8 +24,11 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-// NOVO: Componente raiz que envolve todo o site de uma vez
-// Isso é essencial para que o SSG funcione corretamente em todas as rotas
+/**
+ * COMPONENTE RAIZ (App)
+ * Este componente envolve toda a aplicação. 
+ * É essencial que os Providers fiquem aqui para que o SSG funcione sem erros de 'undefined'.
+ */
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -38,7 +41,7 @@ export const App = ({ children }: { children?: React.ReactNode }) => (
   </HelmetProvider>
 );
 
-// Route definitions for SSG - Removido o AppWrapper individual
+// Definição das rotas para o SSG
 export const routes: RouteRecord[] = [
   {
     path: "/",
@@ -55,22 +58,22 @@ export const routes: RouteRecord[] = [
   {
     path: "/blog/:slug",
     element: <BlogPost />,
+    // Busca automática de postagens durante o deploy na Vercel
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') //
+          .from('blog_posts') // Nome correto da sua tabela
           .select('slug');
 
         if (error) {
-          console.error("ERRO AO BUSCAR SLUGS:", error.message);
+          console.error("Erro ao buscar slugs no Supabase:", error.message);
           return [];
         }
 
-        const paths = posts?.map((post) => `/blog/${post.slug}`) || [];
-        console.log("PÁGINAS DO BLOG GERADAS:", paths.length);
-        return paths;
+        // Gera o HTML para cada postagem encontrada
+        return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
-        console.error("ERRO CRÍTICO NO BUILD:", e);
+        console.error("Falha crítica no build do blog:", e);
         return [];
       }
     },
