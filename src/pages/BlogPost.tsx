@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLoaderData } from "react-router-dom";
+import type { LoaderFunctionArgs } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
@@ -8,22 +9,59 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
+
+type BlogPostType = Tables<"blog_posts">;
+
+// Loader para SSG - carrega dados durante o build
+export async function blogPostLoader({ params }: LoaderFunctionArgs): Promise<{ post: BlogPostType | null }> {
+  const { slug } = params;
+  
+  if (!slug) {
+    return { post: null };
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle();
+
+    if (error) {
+      console.error("SSG Loader: Erro ao buscar post:", error);
+      return { post: null };
+    }
+
+    console.log("SSG Loader: Post carregado:", data?.title || "não encontrado");
+    return { post: data };
+  } catch (e) {
+    console.error("SSG Loader: Exceção:", e);
+    return { post: null };
+  }
+}
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
+  
+  // Dados pré-carregados pelo loader (SSG)
+  const loaderData = useLoaderData() as { post: BlogPostType | null } | undefined;
+  const preloadedPost = loaderData?.post;
 
+  // Query client-side como fallback (navegação SPA)
   const {
-    data: post,
+    data: clientPost,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["blog-post", slug],
-    enabled: !!slug,
+    enabled: !!slug && !preloadedPost, // Só busca se não tiver dados do loader
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
-        .eq("slug", slug)
+        .eq("slug", slug!)
         .eq("published", true)
         .maybeSingle();
 
@@ -32,12 +70,22 @@ export default function BlogPost() {
     },
   });
 
+  // Usa dados do loader primeiro, fallback para client query
+  const post = preloadedPost || clientPost;
+  const showLoading = !preloadedPost && isLoading;
+  const showError = !preloadedPost && (isError || (!isLoading && !post));
+
   const title = post?.meta_title || post?.title || "Post do Blog";
   const description = post?.meta_description || post?.excerpt || "Artigo do nosso blog.";
 
   return (
     <Layout>
-      <SEO title={title} description={description} />
+      <SEO 
+        title={title} 
+        description={description}
+        image={post?.cover_image || undefined}
+        type="article"
+      />
 
       <main className="section-padding bg-background">
         <div className="container-custom">
@@ -49,7 +97,7 @@ export default function BlogPost() {
               </Link>
             </Button>
 
-            {isLoading ? (
+            {showLoading ? (
               <article className="space-y-6">
                 <Skeleton className="h-10 w-3/4" />
                 <Skeleton className="h-4 w-40" />
@@ -60,7 +108,7 @@ export default function BlogPost() {
                   <Skeleton className="h-4 w-10/12" />
                 </div>
               </article>
-            ) : isError || !post ? (
+            ) : showError || !post ? (
               <div className="text-center py-16">
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Post não encontrado</h1>
                 <p className="text-muted-foreground mb-6">
