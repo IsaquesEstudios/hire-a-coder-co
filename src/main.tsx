@@ -1,12 +1,16 @@
-// src/main.tsx
 import { ViteReactSSG } from "vite-react-ssg";
-import { App, routes } from "./App"; // Importe o App aqui
+import { App, routes } from "./App";
 import "./index.css";
 
 export const createRoot = ViteReactSSG(
-  { routes },
+  { 
+    routes,
+    rootContainer: true 
+  },
+  // O SEGREDO ESTÁ AQUI: Envolvemos todas as rotas com o nosso App global
   () => {
-    // Retornamos o wrapper para que o SSG use um único HelmetProvider
-    return { wrapper: App };
+    return {
+      wrapper: App
+    };
   }
 );
