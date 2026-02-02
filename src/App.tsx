@@ -28,45 +28,20 @@ const queryClient = new QueryClient();
  * COMPONENTE RAIZ (App)
  * Recebe o helmetContext como prop para evitar erros de 'undefined' no build.
  */
-export const App = ({ children, helmetContext }: { children?: React.ReactNode; helmetContext?: any }) => (
-  <HelmetProvider context={helmetContext}> {/* <--- ADICIONADO context={helmetContext} */}
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        {children}
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
-);
+// No topo do seu src/App.tsx
+export const App = ({ children, helmetContext }: { children?: React.ReactNode; helmetContext?: any }) => {
+  // Se o helmetContext não vier (como no modo dev), usamos um objeto vazio {}
+  const context = helmetContext || {}; 
 
-export const routes: RouteRecord[] = [
-  { path: "/", element: <Index /> },
-  { path: "/sobre", element: <Sobre /> },
-  { path: "/blog", element: <Blog /> },
-  {
-    path: "/blog/:slug",
-    element: <BlogPost />,
-    getStaticPaths: async () => {
-      try {
-        const { data: posts, error } = await supabase
-          .from('blog_posts')
-          .select('slug');
-        if (error) return [];
-        return posts?.map((post) => `/blog/${post.slug}`) || [];
-      } catch (e) {
-        return [];
-      }
-    },
-  },
-  { path: "/contato", element: <Contato /> },
-  { path: "/servicos/criacao-de-site", element: <CriacaoDeSite /> },
-  { path: "/servicos/criacao-de-landing-page", element: <CriacaoDeLandingPage /> },
-  { path: "/servicos/criacao-de-e-commerce", element: <CriacaoDeEcommerce /> },
-  { path: "/servicos/desenvolvimento-de-sistema", element: <DesenvolvimentoDeSistema /> },
-  { path: "/servicos/desenvolvimento-de-software", element: <DesenvolvimentoDeSoftware /> },
-  { path: "/servicos/criacao-de-automacao", element: <CriacaoDeAutomacao /> },
-  { path: "/servicos/ia-para-empresas", element: <IAParaEmpresas /> },
-  { path: "/mapa-do-site", element: <MapaDoSite /> },
-  { path: "*", element: <NotFound /> },
-];
+  return (
+    <HelmetProvider context={context}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          {children}
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  );
+};
