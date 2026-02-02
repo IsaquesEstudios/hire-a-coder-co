@@ -26,10 +26,10 @@ const queryClient = new QueryClient();
 
 /**
  * COMPONENTE RAIZ (App)
- * Recebe o helmetContext para gerenciar o SEO durante o build do Vite.
+ * Recebe o helmetContext como prop para evitar erros de 'undefined' no build.
  */
 export const App = ({ children, helmetContext }: { children?: React.ReactNode; helmetContext?: any }) => (
-  <HelmetProvider context={helmetContext}>
+  <HelmetProvider context={helmetContext}> {/* <--- ADICIONADO context={helmetContext} */}
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
@@ -40,7 +40,6 @@ export const App = ({ children, helmetContext }: { children?: React.ReactNode; h
   </HelmetProvider>
 );
 
-// Definição das rotas limpas para o SSG
 export const routes: RouteRecord[] = [
   { path: "/", element: <Index /> },
   { path: "/sobre", element: <Sobre /> },
@@ -51,14 +50,9 @@ export const routes: RouteRecord[] = [
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') // Nome correto conforme o log
+          .from('blog_posts')
           .select('slug');
-        
-        if (error) {
-          console.error("ERRO SUPABASE:", error.message);
-          return [];
-        }
-        
+        if (error) return [];
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
         return [];
