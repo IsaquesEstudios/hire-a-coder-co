@@ -26,10 +26,10 @@ const queryClient = new QueryClient();
 
 /**
  * COMPONENTE RAIZ (App)
- * Centralizamos os Providers aqui para evitar o erro de HelmetDispatcher no build.
+ * Recebe o helmetContext para gerenciar o SEO durante o build do Vite.
  */
-export const App = ({ children }: { children?: React.ReactNode }) => (
-  <HelmetProvider>
+export const App = ({ children, helmetContext }: { children?: React.ReactNode; helmetContext?: any }) => (
+  <HelmetProvider context={helmetContext}>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
@@ -51,9 +51,14 @@ export const routes: RouteRecord[] = [
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') // Usando o nome correto da tabela
+          .from('blog_posts') // Nome correto conforme o log
           .select('slug');
-        if (error) return [];
+        
+        if (error) {
+          console.error("ERRO SUPABASE:", error.message);
+          return [];
+        }
+        
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
         return [];
