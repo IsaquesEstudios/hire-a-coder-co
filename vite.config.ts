@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => ({
   },
 
   // CORREÇÃO CRÍTICA: Isso garante que o React Query funcione durante o SSR/SSG
-  ssr: {
-    noExternal: ["@tanstack/react-query"],
-  },
+ssr: {
+  noExternal: ["@tanstack/react-query"],
+},
 }));
