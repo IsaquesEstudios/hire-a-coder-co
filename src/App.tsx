@@ -23,7 +23,10 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-// COMPONENTE RAIZ SEM HELMET
+/**
+ * COMPONENTE RAIZ (App)
+ * Limpo de qualquer dependência do react-helmet-async.
+ */
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -34,7 +37,7 @@ export const App = ({ children }: { children?: React.ReactNode }) => (
   </QueryClientProvider>
 );
 
-// ROTAS
+// DEFINIÇÃO DAS ROTAS PARA O SSG
 export const routes: RouteRecord[] = [
   { path: "/", element: <Index /> },
   { path: "/sobre", element: <Sobre /> },
@@ -44,7 +47,9 @@ export const routes: RouteRecord[] = [
     element: <BlogPost />,
     getStaticPaths: async () => {
       try {
-        const { data: posts, error } = await supabase.from('blog_posts').select('slug');
+        const { data: posts, error } = await supabase
+          .from('blog_posts')
+          .select('slug');
         if (error) return [];
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
