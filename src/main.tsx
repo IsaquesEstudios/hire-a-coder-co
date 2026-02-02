@@ -16,9 +16,8 @@ const queryClient = new QueryClient({
   },
 });
 
-// 1. Defina o Componente Raiz (Wrapper)
-// Este componente recebe { children } que será o conteúdo da página atual renderizada pelo router
-function App({ children }: { children?: React.ReactNode }) {
+// Componente Wrapper que envolve todas as páginas
+function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -30,17 +29,16 @@ function App({ children }: { children?: React.ReactNode }) {
   );
 }
 
-// 2. Chame o ViteReactSSG passando o App como PRIMEIRO argumento
+// Envolver cada rota com os providers
+const wrappedRoutes = routes.map((route) => ({
+  ...route,
+  element: route.element ? <Providers>{route.element}</Providers> : undefined,
+}));
+
+// ViteReactSSG exporta a função createRoot
 export const createRoot = ViteReactSSG(
-  // Argumento 1: O Componente App
-  App,
-  
-  // Argumento 2: As Opções (Rotas)
-  { routes },
-  
-  // Argumento 3: Setup (opcional)
-  // Deixe vazio ou use apenas para configurações que não envolvam renderização (ex: head management)
+  { routes: wrappedRoutes },
   () => {
-    // NADA deve ser retornado aqui para fins de renderização de providers
+    // Setup callback - não precisa retornar nada
   }
 );

@@ -6,12 +6,14 @@ interface SEOProps {
   image?: string;
   url?: string;
   type?: string;
+  canonical?: string;
 }
 
-// 1. Exportação NOMEADA (Resolve o erro: import { SEO } from ...)
-export const SEO = ({ title, description, image, url, type }: SEOProps) => {
+// Componente SEO simples sem react-helmet-async para evitar problemas com SSG
+export const SEO = ({ title, description, image, url, type, canonical }: SEOProps) => {
+  // Este componente não renderiza nada visualmente
+  // As meta tags são gerenciadas via index.html ou durante o build SSG
   return null;
 };
 
-// 2. Exportação DEFAULT (Previne erro se algum arquivo usar: import SEO from ...)
 export default SEO;
