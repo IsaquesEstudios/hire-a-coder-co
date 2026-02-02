@@ -1,13 +1,33 @@
 import { ViteReactSSG } from "vite-react-ssg";
-import { App, routes } from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { routes } from "./App";
 import "./index.css";
 
-export const createRoot = ViteReactSSG(
-  { 
-    routes,
+// Criar QueryClient uma única vez
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+      retry: false,
+    },
   },
+});
+
+export const createRoot = ViteReactSSG(
+  { routes },
   ({ router }) => {
-    // Retorna o App que já contém todos os providers necessários
-    return <App>{router}</App>;
+    // Envolver TUDO com os providers aqui mesmo
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          {router}
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
   }
 );
