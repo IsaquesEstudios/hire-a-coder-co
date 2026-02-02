@@ -24,7 +24,10 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-// COMPONENTE RAIZ ÚNICO
+/**
+ * COMPONENTE RAIZ (App)
+ * Centralizamos os Providers aqui para evitar o erro de HelmetDispatcher no build.
+ */
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -37,7 +40,7 @@ export const App = ({ children }: { children?: React.ReactNode }) => (
   </HelmetProvider>
 );
 
-// ROTAS SEM AppWrapper (O segredo para não dar erro)
+// Definição das rotas limpas para o SSG
 export const routes: RouteRecord[] = [
   { path: "/", element: <Index /> },
   { path: "/sobre", element: <Sobre /> },
@@ -48,7 +51,7 @@ export const routes: RouteRecord[] = [
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') // Nome correto da tabela
+          .from('blog_posts') // Usando o nome correto da tabela
           .select('slug');
         if (error) return [];
         return posts?.map((post) => `/blog/${post.slug}`) || [];
