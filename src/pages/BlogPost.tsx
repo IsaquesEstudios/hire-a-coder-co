@@ -42,11 +42,31 @@ export async function blogPostLoader({ params }: LoaderFunctionArgs): Promise<{ 
   }
 }
 
+// Helper para verificar se os dados do loader são válidos
+function isValidLoaderData(data: unknown): data is { post: BlogPostType | null } {
+  return (
+    data !== null &&
+    typeof data === "object" &&
+    "post" in data
+  );
+}
+
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   
-  // Dados pré-carregados pelo loader (SSG)
-  const loaderData = useLoaderData() as { post: BlogPostType | null } | undefined;
+  // Dados pré-carregados pelo loader (SSG) com tratamento de erro
+  let loaderData: { post: BlogPostType | null } | undefined;
+  
+  try {
+    const rawLoaderData = useLoaderData();
+    if (isValidLoaderData(rawLoaderData)) {
+      loaderData = rawLoaderData;
+    }
+  } catch {
+    // Loader data não disponível (navegação client-side ou erro)
+    loaderData = undefined;
+  }
+  
   const preloadedPost = loaderData?.post;
 
   // Query client-side como fallback (navegação SPA)
@@ -56,7 +76,7 @@ export default function BlogPost() {
     isError,
   } = useQuery({
     queryKey: ["blog-post", slug],
-    enabled: !!slug && !preloadedPost, // Só busca se não tiver dados do loader
+    enabled: !!slug && !preloadedPost,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")

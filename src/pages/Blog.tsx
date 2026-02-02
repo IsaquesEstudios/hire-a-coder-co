@@ -32,15 +32,36 @@ export async function blogListLoader(): Promise<{ posts: BlogPostType[] }> {
   }
 }
 
+// Helper para verificar se os dados do loader são válidos
+function isValidLoaderData(data: unknown): data is { posts: BlogPostType[] } {
+  return (
+    data !== null &&
+    typeof data === "object" &&
+    "posts" in data &&
+    Array.isArray((data as { posts: unknown }).posts)
+  );
+}
+
 export default function Blog() {
   // Dados pré-carregados pelo loader (SSG)
-  const loaderData = useLoaderData() as { posts: BlogPostType[] } | undefined;
+  let loaderData: { posts: BlogPostType[] } | undefined;
+  
+  try {
+    const rawLoaderData = useLoaderData();
+    if (isValidLoaderData(rawLoaderData)) {
+      loaderData = rawLoaderData;
+    }
+  } catch {
+    // Loader data não disponível (navegação client-side ou erro)
+    loaderData = undefined;
+  }
+  
   const preloadedPosts = loaderData?.posts;
 
   // Query client-side como fallback (navegação SPA)
   const { data: clientPosts, isLoading } = useQuery({
     queryKey: ["blog-posts"],
-    enabled: !preloadedPosts, // Só busca se não tiver dados do loader
+    enabled: !preloadedPosts || preloadedPosts.length === 0,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blog_posts")
@@ -55,7 +76,9 @@ export default function Blog() {
   });
 
   // Usa dados do loader primeiro, fallback para client query
-  const posts = preloadedPosts || clientPosts || [];
+  const posts = (preloadedPosts && preloadedPosts.length > 0) 
+    ? preloadedPosts 
+    : clientPosts || [];
   const showLoading = !preloadedPosts && isLoading;
 
   return (
