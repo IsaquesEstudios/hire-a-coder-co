@@ -2,7 +2,10 @@ import { ViteReactSSG } from "vite-react-ssg";
 import { App, routes } from "./App";
 import "./index.css";
 
-// Sem wrappers complexos, sem helmetContext. Apenas o básico para o SSG rodar.
+/**
+ * CONFIGURAÇÃO MÍNIMA
+ * Removido o wrapper de contexto que buscava o Helmet.
+ */
 export const createRoot = ViteReactSSG({ 
   routes,
   rootContainer: true 
