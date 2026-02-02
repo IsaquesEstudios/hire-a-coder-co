@@ -2,7 +2,7 @@ import { Link, useParams, useLoaderData } from "react-router-dom";
 import type { LoaderFunctionArgs } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, ArrowLeft } from "lucide-react";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
