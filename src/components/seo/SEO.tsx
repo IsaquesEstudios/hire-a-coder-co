@@ -1,6 +1,4 @@
 // src/components/seo/SEO.tsx
-// Versão limpa para corrigir o erro de build.
-// Removemos a importação do "react-helmet-async".
 
 interface SEOProps {
   title?: string;
@@ -10,10 +8,10 @@ interface SEOProps {
   type?: string;
 }
 
-const SEO = ({ title, description, image, url, type }: SEOProps) => {
-  // Retornamos null para não quebrar o código que chama este componente.
-  // Futuramente, podemos reimplementar o SEO de outra forma.
+// 1. Exportação NOMEADA (Resolve o erro: import { SEO } from ...)
+export const SEO = ({ title, description, image, url, type }: SEOProps) => {
   return null;
 };
 
+// 2. Exportação DEFAULT (Previne erro se algum arquivo usar: import SEO from ...)
 export default SEO;
