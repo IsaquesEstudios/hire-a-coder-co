@@ -1,5 +1,4 @@
 import type { RouteRecord } from "vite-react-ssg";
-import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,27 +23,18 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-/**
- * COMPONENTE RAIZ (App)
- * Gerencia os provedores globais e o contexto de SEO para o SSG.
- */
-export const App = ({ children, helmetContext }: { children?: React.ReactNode; helmetContext?: any }) => {
-  const context = helmetContext || {};
+// COMPONENTE RAIZ SEM HELMET
+export const App = ({ children }: { children?: React.ReactNode }) => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      {children}
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
-  return (
-    <HelmetProvider context={context}>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          {children}
-        </TooltipProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
-  );
-};
-
-// Definição das rotas para o SSG
+// ROTAS
 export const routes: RouteRecord[] = [
   { path: "/", element: <Index /> },
   { path: "/sobre", element: <Sobre /> },
@@ -54,9 +44,7 @@ export const routes: RouteRecord[] = [
     element: <BlogPost />,
     getStaticPaths: async () => {
       try {
-        const { data: posts, error } = await supabase
-          .from('blog_posts')
-          .select('slug');
+        const { data: posts, error } = await supabase.from('blog_posts').select('slug');
         if (error) return [];
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
