@@ -30,15 +30,13 @@ const queryClient = new QueryClient();
 // ... imports
 
 // O componente precisa receber { children } e renderizar {children} dentro dos providers
+// O App agora atua apenas como um Layout ou container de estilos
 export const App = ({ children }: { children?: React.ReactNode }) => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      {/* O conteúdo da página aparece aqui */}
-      {children}
-    </TooltipProvider>
-  </QueryClientProvider>
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    {children}
+  </TooltipProvider>
 );
 
 // ... resto do arquivo
