@@ -13,7 +13,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   
-  // Mantivemos os plugins originais do Lovable
   plugins: [
     react(),
     mode === "development" && componentTagger(),
@@ -25,16 +24,15 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
-  // Mantivemos as opções de SSG que já estavam aí
-ssgOptions: {
+  // Configurações do SSG
+  ssgOptions: {
     script: "async",
     formatting: "minify",
-    dirStyle: 'directory', // <--- ADICIONE ESTA LINHA AQUI
+    dirStyle: 'directory',
   },
 
-  // --- AQUI ESTÁ A CORREÇÃO ---
-  // Isso ensina o Vite a processar essas bibliotecas corretamente durante o build
+  // CORREÇÃO CRÍTICA: Isso garante que o React Query funcione durante o SSR/SSG
   ssr: {
-    noExternal: ["react-helmet-async", "vite-react-ssg"],
+    noExternal: ["@tanstack/react-query"],
   },
 }));
