@@ -26,7 +26,9 @@ export default defineConfig(({ mode }) => ({
 
   // Configurações do SSG
   ssgOptions: {
-    script: "async",
+    // Evita condição de corrida no primeiro carregamento (especialmente no mobile)
+    // que pode gerar requests como: static-loader-data-manifest-undefined.json
+    script: "defer",
     formatting: "minify",
     dirStyle: 'directory',
   },
