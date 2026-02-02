@@ -7,12 +7,12 @@ export const createRoot = ViteReactSSG(
     routes,
     rootContainer: true 
   },
-  // O SEGREDO ESTÁ AQUI: 
-  // Restauramos a função que diz para usar o "App" como envelope.
-  // Isso carrega o QueryClient, o Toaster e o CSS global corretamente.
   () => {
     return {
-      wrapper: App
+      // MUDANÇA AQUI:
+      // Em vez de apenas "wrapper: App", usamos esta função para 
+      // garantir que as propriedades (o conteúdo da página) entrem no App.
+      wrapper: (props: any) => <App {...props} />
     };
   }
 );
