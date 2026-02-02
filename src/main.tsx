@@ -7,11 +7,10 @@ export const createRoot = ViteReactSSG(
     routes,
     rootContainer: true 
   },
-  // O SEGREDO ESTÁ AQUI: Envolvemos todas as rotas com o nosso App global
+  // O segredo para o SEO funcionar no SSG:
   () => {
     return {
       wrapper: App
     };
   }
 );
-
