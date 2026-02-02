@@ -2,17 +2,13 @@ import { ViteReactSSG } from "vite-react-ssg";
 import { App, routes } from "./App";
 import "./index.css";
 
-/**
- * CONFIGURAÇÃO DE ROOT PARA VITE SSG
- * Passamos o helmetContext do build para o wrapper do App.
- */
 export const createRoot = ViteReactSSG(
   { 
     routes,
     rootContainer: true 
   },
+  // O parâmetro 'helmetContext' é injetado pelo Vite durante o processo de build
   ({ helmetContext }) => {
-    // Retornamos o wrapper injetando o contexto de SEO
     return {
       wrapper: (props) => <App {...props} helmetContext={helmetContext} />
     };
