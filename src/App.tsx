@@ -21,20 +21,13 @@ import IAParaEmpresas from "./pages/servicos/IAParaEmpresas";
 import NotFound from "./pages/NotFound";
 import MapaDoSite from "./pages/MapaDoSite";
 
-const queryClient = new QueryClient();
+// Remova: const queryClient = new QueryClient();
 
-/**
- * COMPONENTE RAIZ (App)
- * Limpo de qualquer dependência do react-helmet-async.
- */
-// ... imports
-
-// O componente precisa receber { children } e renderizar {children} dentro dos providers
-// O App agora atua apenas como um Layout ou container de estilos
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <TooltipProvider>
     <Toaster />
     <Sonner />
+    {/* O conteúdo da página (children) é injetado aqui pelo main.tsx */}
     {children}
   </TooltipProvider>
 );
