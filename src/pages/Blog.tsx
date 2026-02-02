@@ -20,7 +20,11 @@ export default function Blog() {
       if (error) throw error;
       return data;
     },
+    // Adiciona configuração para SSR
+    initialData: [],
+    staleTime: 60 * 1000,
   });
+
   return (
     <Layout>
       <SEO
