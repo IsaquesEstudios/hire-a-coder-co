@@ -3,12 +3,12 @@ import { App, routes } from "./App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 
-// Criamos o QueryClient aqui para garantir que ele exista no servidor e no cliente
+// Instância única para evitar múltiplos clientes
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // Importante para SSG: evita que o cliente tente refetch imediatamente
-      staleTime: 1000 * 60 * 5, 
+      staleTime: 1000 * 60 * 5,
+      retry: false, // Evita tentativas infinitas de fetch durante o build
     },
   },
 });
@@ -18,12 +18,12 @@ export const createRoot = ViteReactSSG(
     routes,
     rootContainer: true 
   },
-  ({ initialState }) => {
-    // Aqui você pode lidar com o estado inicial se necessário futuramente
+  () => {
     return {
-      wrapper: (props: any) => (
+      // O wrapper envolve TODA a aplicação, inclusive no servidor
+      wrapper: ({ children }: { children: React.ReactNode }) => (
         <QueryClientProvider client={queryClient}>
-          <App {...props} />
+          <App>{children}</App>
         </QueryClientProvider>
       )
     };
