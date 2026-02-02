@@ -6,28 +6,42 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { routes } from "./App";
 import "./index.css";
 
-// Criar QueryClient uma única vez
+// 1. Configuração do Client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 60 * 1000,
-      retry: false,
+      retry: false, // Importante para build falhar se a API falhar, em vez de loop infinito
     },
   },
 });
 
+// 2. Criar o Componente Raiz que envolve a aplicação
+// O vite-react-ssg injetará a página atual em {children}
+function App({ children }: { children?: React.ReactNode }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        {/* Aqui é onde a rota (ex: Blog, Home) será renderizada */}
+        {children}
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
+
+// 3. Exportar a função passando o App como PRIMEIRO argumento
 export const createRoot = ViteReactSSG(
+  // Argumento 1: O Componente Raiz (que contém os Providers)
+  App,
+  
+  // Argumento 2: Opções (Rotas)
   { routes },
-  ({ router }) => {
-    // Envolver TUDO com os providers aqui mesmo
-    return (
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          {router}
-        </TooltipProvider>
-      </QueryClientProvider>
-    );
+  
+  // Argumento 3: Callback de setup (opcional, pode deixar vazio se não usar router hooks aqui)
+  ({ app, router, routes, isClient, initialState }) => {
+    // Se precisar de configurações adicionais de setup, faça aqui.
+    // NÃO retorne JSX aqui.
   }
 );
