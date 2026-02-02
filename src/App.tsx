@@ -24,11 +24,7 @@ import MapaDoSite from "./pages/MapaDoSite";
 
 const queryClient = new QueryClient();
 
-/**
- * COMPONENTE RAIZ (App)
- * Este componente envolve toda a aplicação. 
- * É essencial que os Providers fiquem aqui para que o SSG funcione sem erros de 'undefined'.
- */
+// COMPONENTE RAIZ ÚNICO
 export const App = ({ children }: { children?: React.ReactNode }) => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -41,81 +37,34 @@ export const App = ({ children }: { children?: React.ReactNode }) => (
   </HelmetProvider>
 );
 
-// Definição das rotas para o SSG
+// ROTAS SEM AppWrapper (O segredo para não dar erro)
 export const routes: RouteRecord[] = [
-  {
-    path: "/",
-    element: <Index />,
-  },
-  {
-    path: "/sobre",
-    element: <Sobre />,
-  },
-  {
-    path: "/blog",
-    element: <Blog />,
-  },
+  { path: "/", element: <Index /> },
+  { path: "/sobre", element: <Sobre /> },
+  { path: "/blog", element: <Blog /> },
   {
     path: "/blog/:slug",
     element: <BlogPost />,
-    // Busca automática de postagens durante o deploy na Vercel
     getStaticPaths: async () => {
       try {
         const { data: posts, error } = await supabase
-          .from('blog_posts') // Nome correto da sua tabela
+          .from('blog_posts') // Nome correto da tabela
           .select('slug');
-
-        if (error) {
-          console.error("Erro ao buscar slugs no Supabase:", error.message);
-          return [];
-        }
-
-        // Gera o HTML para cada postagem encontrada
+        if (error) return [];
         return posts?.map((post) => `/blog/${post.slug}`) || [];
       } catch (e) {
-        console.error("Falha crítica no build do blog:", e);
         return [];
       }
     },
   },
-  {
-    path: "/contato",
-    element: <Contato />,
-  },
-  {
-    path: "/servicos/criacao-de-site",
-    element: <CriacaoDeSite />,
-  },
-  {
-    path: "/servicos/criacao-de-landing-page",
-    element: <CriacaoDeLandingPage />,
-  },
-  {
-    path: "/servicos/criacao-de-e-commerce",
-    element: <CriacaoDeEcommerce />,
-  },
-  {
-    path: "/servicos/desenvolvimento-de-sistema",
-    element: <DesenvolvimentoDeSistema />,
-  },
-  {
-    path: "/servicos/desenvolvimento-de-software",
-    element: <DesenvolvimentoDeSoftware />,
-  },
-  {
-    path: "/servicos/criacao-de-automacao",
-    element: <CriacaoDeAutomacao />,
-  },
-  {
-    path: "/servicos/ia-para-empresas",
-    element: <IAParaEmpresas />,
-  },
-  {
-    path: "/mapa-do-site",
-    element: <MapaDoSite />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  { path: "/contato", element: <Contato /> },
+  { path: "/servicos/criacao-de-site", element: <CriacaoDeSite /> },
+  { path: "/servicos/criacao-de-landing-page", element: <CriacaoDeLandingPage /> },
+  { path: "/servicos/criacao-de-e-commerce", element: <CriacaoDeEcommerce /> },
+  { path: "/servicos/desenvolvimento-de-sistema", element: <DesenvolvimentoDeSistema /> },
+  { path: "/servicos/desenvolvimento-de-software", element: <DesenvolvimentoDeSoftware /> },
+  { path: "/servicos/criacao-de-automacao", element: <CriacaoDeAutomacao /> },
+  { path: "/servicos/ia-para-empresas", element: <IAParaEmpresas /> },
+  { path: "/mapa-do-site", element: <MapaDoSite /> },
+  { path: "*", element: <NotFound /> },
 ];
