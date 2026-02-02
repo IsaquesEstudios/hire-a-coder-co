@@ -1,4 +1,4 @@
-// src/components/seo/SEO.tsx
+import { Head } from "vite-react-ssg";
 
 interface SEOProps {
   title?: string;
@@ -9,11 +9,40 @@ interface SEOProps {
   canonical?: string;
 }
 
-// Componente SEO simples sem react-helmet-async para evitar problemas com SSG
-export const SEO = ({ title, description, image, url, type, canonical }: SEOProps) => {
-  // Este componente não renderiza nada visualmente
-  // As meta tags são gerenciadas via index.html ou durante o build SSG
-  return null;
+export const SEO = ({ 
+  title, 
+  description, 
+  image, 
+  url, 
+  type = "website",
+  canonical 
+}: SEOProps) => {
+  const siteName = "Hire a Coder";
+  const fullTitle = title ? `${title} | ${siteName}` : siteName;
+  
+  return (
+    <Head>
+      <title>{fullTitle}</title>
+      {description && <meta name="description" content={description} />}
+      
+      {/* Open Graph */}
+      <meta property="og:title" content={fullTitle} />
+      {description && <meta property="og:description" content={description} />}
+      <meta property="og:type" content={type} />
+      {url && <meta property="og:url" content={url} />}
+      {image && <meta property="og:image" content={image} />}
+      <meta property="og:site_name" content={siteName} />
+      
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      {description && <meta name="twitter:description" content={description} />}
+      {image && <meta name="twitter:image" content={image} />}
+      
+      {/* Canonical */}
+      {canonical && <link rel="canonical" href={canonical} />}
+    </Head>
+  );
 };
 
 export default SEO;

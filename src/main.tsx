@@ -35,10 +35,5 @@ const wrappedRoutes = routes.map((route) => ({
   element: route.element ? <Providers>{route.element}</Providers> : undefined,
 }));
 
-// ViteReactSSG exporta a função createRoot
-export const createRoot = ViteReactSSG(
-  { routes: wrappedRoutes },
-  () => {
-    // Setup callback - não precisa retornar nada
-  }
-);
+// ViteReactSSG - passar objeto com routes
+export const createRoot = ViteReactSSG({ routes: wrappedRoutes });
