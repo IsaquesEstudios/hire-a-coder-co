@@ -14,34 +14,24 @@ export default {
   	},
   	extend: {
   		fontFamily: {
-  			sans: [
-  				'Montserrat',
-  				'ui-sans-serif',
-  				'system-ui',
-  				'sans-serif',
-  				'Apple Color Emoji',
-  				'Segoe UI Emoji',
-  				'Segoe UI Symbol',
-  				'Noto Color Emoji'
-  			],
-  			serif: [
-  				'ui-serif',
-  				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
-  				'serif'
-  			],
-  			mono: [
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono',
-  				'Courier New',
-  				'monospace'
-  			]
+  			sans: ['Montserrat', 'sans-serif'],
+  			mono: ['Space Mono', 'monospace'],
+  		},
+  		fontSize: {
+  			'display': 'clamp(3.5rem, 7.6vw, 10rem)',
+  			'h1': 'clamp(3rem, 6.8vw, 8rem)',
+  			'h2': 'clamp(2.5rem, 5.5vw, 5.5rem)',
+  			'h3': 'clamp(2rem, 5.2vw, 5rem)',
+  			'h4': 'clamp(1.8rem, 3.8vw, 3.8rem)',
+  			'h5': '2.5rem',
+  			'h6': '1.4rem',
+  			'body-large': 'clamp(1.2rem, 1.5vw, 2rem)',
+  		},
+  		letterSpacing: {
+  			'display': '-0.4vw',
+  			'heading': '-0.1rem',
+  			'spaced': '0.2rem',
+  			'micro': '0.08rem',
   		},
   		colors: {
   			border: 'hsl(var(--border))',
@@ -95,20 +85,12 @@ export default {
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  				from: { height: '0' },
+  				to: { height: 'var(--radix-accordion-content-height)' }
   			},
   			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
+  				from: { height: 'var(--radix-accordion-content-height)' },
+  				to: { height: '0' }
   			}
   		},
   		animation: {

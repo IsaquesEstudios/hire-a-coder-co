@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,53 +7,49 @@
 
 /* Design System - Contratar Programador
    Estilo: TitanGate-inspired dark premium
-   Cores: Amarelo #FABF00, Preto #000000
-   Fonte: Montserrat
+   Cores: Preto #000, Branco #fff, Amarelo #FABF00
+   Fontes: Montserrat (display), Space Mono (labels/micro)
 */
 
 @layer base {
   :root {
     --background: 0 0% 0%;
-    --foreground: 0 0% 95%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
     --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 95%;
+    --popover-foreground: 0 0% 100%;
 
     /* Primary - Amarelo #FABF00 */
     --primary: 45 100% 49%;
     --primary-foreground: 0 0% 0%;
 
-    /* Secondary - Preto profundo */
     --secondary: 0 0% 5%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 50%;
 
-    /* Accent */
     --accent: 0 0% 8%;
-    --accent-foreground: 0 0% 95%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
     --ring: 45 100% 49%;
 
-    --radius: 0.5rem;
+    --radius: 0.15rem;
 
-    /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(45, 100%, 49%) 0%, hsl(40, 100%, 42%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 5%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 3%) 50%, hsl(0, 0%, 0%) 100%);
+    /* Micro text color */
+    --micro: 0 0% 13%;
 
-    --shadow-glow: 0 0 40px hsla(45, 100%, 49%, 0.25);
-    --shadow-card: 0 4px 20px hsla(0, 0%, 0%, 0.4);
-    --shadow-card-hover: 0 8px 30px hsla(45, 100%, 49%, 0.1);
+    --shadow-glow: 0 0 40px hsla(45, 100%, 49%, 0.15);
+    --shadow-card: none;
+    --shadow-card-hover: none;
 
     --sidebar-background: 0 0% 3%;
     --sidebar-foreground: 0 0% 90%;
@@ -75,34 +72,57 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Montserrat', sans-serif;
   }
 }
 
 @layer components {
+  /* Gradient text like TitanGate (gray gradient) */
   .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-primary);
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(90deg, #898989, #494949);
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
+  /* Mono label style (like TitanGate subheadings) */
+  .mono-label {
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    color: hsl(var(--muted-foreground));
   }
 
-  .bg-gradient-dark {
-    background: var(--gradient-dark);
+  /* Spaced out text like "A  C L O S E D  N E T W O R K" */
+  .spaced-text {
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.35rem;
+    text-transform: uppercase;
+    font-size: 0.65rem;
   }
 
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
+  /* Display heading - massive like TitanGate */
+  .display-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.4vw;
   }
 
-  .shadow-card {
-    box-shadow: var(--shadow-card);
+  /* Dashed divider line like TitanGate */
+  .divider-dashed {
+    border-bottom: 1px dashed #3f3f3f;
+    width: 100%;
   }
 
-  .shadow-card-hover {
-    box-shadow: var(--shadow-card-hover);
+  /* TitanGate nav pill style */
+  .nav-pill {
+    backdrop-filter: blur(40px);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.15rem;
   }
 
   .marquee {
@@ -110,72 +130,64 @@
   }
 
   .service-card {
-    @apply bg-card border border-border rounded-lg p-6 transition-all duration-300 hover:shadow-card-hover hover:border-primary/30;
+    @apply p-8 transition-all duration-500;
+    border-bottom: 1px dashed #3f3f3f;
+  }
+
+  .service-card:hover {
+    background-color: rgba(255, 255, 255, 0.02);
   }
 
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-20 md:py-32 lg:py-40;
   }
 
   .container-custom {
-    @apply container mx-auto px-4 md:px-6 lg:px-8;
+    @apply container mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  /* Body large text like TitanGate */
+  .body-large {
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.4;
   }
 }
 
 @layer utilities {
   @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .animate-marquee {
-    animation: marquee 30s linear infinite;
+    animation: marquee 40s linear infinite;
   }
 
   @keyframes fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   .animate-fade-in {
-    animation: fade-in 0.6s ease-out forwards;
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 20px hsla(45, 100%, 49%, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 40px hsla(45, 100%, 49%, 0.4);
-    }
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+    animation: fade-in 0.8s ease-out forwards;
   }
 
   @keyframes fade-in-up {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
+    animation: fade-in-up 1s ease-out forwards;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsla(45, 100%, 49%, 0.15); }
+    50% { box-shadow: 0 0 40px hsla(45, 100%, 49%, 0.3); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
   }
 }
