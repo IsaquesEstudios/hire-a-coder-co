@@ -1,29 +1,16 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Monitor, ShoppingCart, Cpu, Settings, Bot, Brain, Rocket } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
-import { Button } from "@/components/ui/button";
 
-const services = [
-  { icon: Monitor, title: "Criação de Site", description: "Sites de alta performance com arquitetura para SEO e design responsivo.", href: "/servicos/criacao-de-site" },
-  { icon: Rocket, title: "Landing Page", description: "Páginas de alta conversão com carregamento instantâneo e foco em ROI.", href: "/servicos/criacao-de-landing-page" },
-  { icon: ShoppingCart, title: "E-commerce", description: "Lojas virtuais robustas com checkout transparente e gestão simplificada.", href: "/servicos/criacao-de-e-commerce" },
-  { icon: Cpu, title: "Sistemas Web", description: "Sistemas sob medida para automatizar e centralizar a operação da sua empresa.", href: "/servicos/desenvolvimento-de-sistema" },
-  { icon: Settings, title: "Software", description: "Desenvolvimento full-cycle de aplicações corporativas e produtos SaaS.", href: "/servicos/desenvolvimento-de-software" },
-  { icon: Bot, title: "Automação", description: "Chatbots, integrações via API e fluxos automáticos para eliminar tarefas manuais.", href: "/servicos/criacao-de-automacao" },
-  { icon: Brain, title: "IA para Empresas", description: "Soluções de inteligência artificial para prever, automatizar e otimizar.", href: "/servicos/ia-para-empresas" },
+const navAnchors = [
+  { name: "Serviços", href: "#servicos" },
+  { name: "Diferenciais", href: "#diferenciais" },
+  { name: "Processo", href: "#processo" },
+  { name: "Manifesto", href: "#manifesto" },
 ];
 
-const stats = [
-  { value: "+150", label: "Projetos Entregues" },
-  { value: "90%", label: "Satisfação" },
-  { value: "+5", label: "Anos de Mercado" },
-  { value: "24/7", label: "Suporte" },
-];
-
-const marqueeText = "ONDE OUTROS USAM TEMPLATES, NÓS PROJETAMOS ENGENHARIA. ONDE OUTROS ENTREGAM PÁGINAS, NÓS ENTREGAMOS PERFORMANCE. ONDE OUTROS PARAM NO VISUAL, NÓS ESCALAMOS O NEGÓCIO.";
-
-const industries = [
+const specialties = [
   "Criação de Site",
   "Landing Page",
   "E-commerce",
@@ -34,175 +21,332 @@ const industries = [
   "Integração API",
 ];
 
+const marqueeItems = [
+  "SITES", "LANDING PAGES", "E-COMMERCE", "SISTEMAS", "SOFTWARE",
+  "AUTOMAÇÃO", "INTELIGÊNCIA ARTIFICIAL", "APIs", "SAAS", "APPS",
+  "SITES", "LANDING PAGES", "E-COMMERCE", "SISTEMAS", "SOFTWARE",
+  "AUTOMAÇÃO", "INTELIGÊNCIA ARTIFICIAL", "APIs", "SAAS", "APPS",
+  "SITES", "LANDING PAGES", "E-COMMERCE", "SISTEMAS", "SOFTWARE",
+  "AUTOMAÇÃO", "INTELIGÊNCIA ARTIFICIAL", "APIs", "SAAS", "APPS",
+];
+
+const steps = [
+  { num: "01", title: "Descoberta", desc: "Entendemos o seu negócio, mapeamos necessidades e definimos escopo." },
+  { num: "02", title: "Arquitetura", desc: "Projetamos a solução técnica ideal com foco em performance e escala." },
+  { num: "03", title: "Desenvolvimento", desc: "Construímos com metodologia ágil, entregas contínuas e transparência." },
+  { num: "04", title: "Evolução", desc: "Suporte contínuo, otimizações e novas funcionalidades sob demanda." },
+];
+
+const comparisons = [
+  {
+    title: "Performance",
+    vs: "Sites Lentos",
+    desc: "Arquitetura otimizada, CDN global, carregamento instantâneo. Cada milissegundo conta.",
+    old: "Templates pesados, servidores compartilhados, tempo de carregamento acima de 5 segundos.",
+  },
+  {
+    title: "Engenharia",
+    vs: "Templates Prontos",
+    desc: "Código sob medida, escalável e mantido por engenheiros especializados.",
+    old: "Plugins genéricos, código duplicado, sem possibilidade de personalização real.",
+  },
+  {
+    title: "Suporte",
+    vs: "Abandono",
+    desc: "Atendimento direto, suporte contínuo, evolução constante do seu produto.",
+    old: "Freelancer desaparece após entrega, sem garantia, sem manutenção.",
+  },
+  {
+    title: "Resultado",
+    vs: "Promessas Vazias",
+    desc: "Métricas reais, ROI mensurável, estratégia alinhada aos seus objetivos de negócio.",
+    old: "Sem métricas, sem acompanhamento, sem compromisso com resultados.",
+  },
+];
+
 export default function Index() {
   return (
     <Layout>
       <SEO title="Início" description="Desenvolvimento de sites, landing pages, e-commerce, sistemas e software sob medida. Soluções digitais de alta performance para escalar seu negócio." />
 
-      {/* ===== HERO SECTION — Full screen, TitanGate style ===== */}
-      <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden bg-background">
-        {/* Background subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-[#0a0a0a]" />
+      {/* ===== HERO — Full viewport, centered, TitanGate exact layout ===== */}
+      <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background -mt-20">
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(250,191,0,0.03)_0%,_transparent_70%)]" />
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full px-6">
-          {/* Micro label */}
-          <p className="spaced-text text-muted-foreground mb-8 animate-fade-in">
-            ENGENHARIA DE SOFTWARE APLICADA
-          </p>
+        {/* Micro label */}
+        <p className="spaced-text text-muted-foreground mb-6 relative z-10 animate-fade-in">
+          ENGENHARIA DE SOFTWARE APLICADA
+        </p>
 
-          {/* Display heading */}
-          <h1 className="display-heading text-display text-center text-foreground max-w-[80vw] animate-fade-in">
-            Contratar um{" "}
-            <span className="text-primary">Programador</span>
-          </h1>
-        </div>
+        {/* Giant heading */}
+        <h1 className="display-heading text-display text-center text-foreground relative z-10 animate-fade-in leading-[0.9]">
+          Contratar<br />
+          <span className="text-primary">Programador</span>
+        </h1>
 
-        {/* Bottom bar with stats */}
-        <div className="relative z-10 w-full px-6 md:px-12 pb-8">
-          <div className="divider-dashed mb-6" />
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-            <p className="body-large text-foreground/80 max-w-lg">
-              Transformamos suas ideias em produtos digitais robustos e escaláveis.
-            </p>
-            <div className="flex gap-8 md:gap-12">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-right">
-                  <div className="text-h5 font-light text-primary">{stat.value}</div>
-                  <div className="mono-label mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+        {/* Nav pill — anchors like TitanGate */}
+        <div className="relative z-10 mt-10 animate-fade-in">
+          <div className="nav-pill flex items-center gap-0 px-2">
+            {navAnchors.map((item, i) => (
+              <span key={item.name} className="flex items-center">
+                <a
+                  href={item.href}
+                  className="font-mono text-[0.65rem] tracking-spaced uppercase px-4 py-3 text-foreground/70 hover:text-foreground transition-colors"
+                >
+                  {item.name}
+                </a>
+                {i < navAnchors.length - 1 && (
+                  <span className="text-foreground/20 text-xs">/</span>
+                )}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== MARQUEE — Spaced text running across ===== */}
-      <section className="border-y border-dashed border-[#3f3f3f] py-5 overflow-hidden bg-background">
-        <div className="marquee">
-          {[marqueeText, marqueeText].map((text, i) => (
-            <span key={i} className="spaced-text text-muted-foreground whitespace-nowrap">
-              {text}
+      {/* ===== INTRO — "Invitation Only" style ===== */}
+      <section className="section-padding bg-background">
+        <div className="container-custom text-center max-w-4xl mx-auto">
+          <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05] mb-8">
+            <span className="font-medium">Sob Demanda.</span>{" "}
+            <span className="text-foreground/40">
+              Acesso exclusivo às melhores soluções digitais do mercado.
             </span>
-          ))}
+          </h2>
         </div>
       </section>
 
-      {/* ===== INTRO SECTION — "Elite" style with large text + description ===== */}
+      {/* ===== ELITE SECTION — Large statement + description ===== */}
+      <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+        <div className="container-custom">
+          <div className="max-w-5xl">
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-8">
+              Soluções Digitais de Alta Performance.{" "}
+              <span className="text-primary">Sob Medida.</span>
+            </h2>
+            <p className="body-large text-foreground/50 max-w-3xl">
+              Engenharia de software aplicada ao marketing e à operação. Onde outros usam templates, nós projetamos arquitetura. Onde outros entregam páginas, nós entregamos performance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== VISION — Tweet-style card ===== */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6">
-            {/* Left - Micro label */}
-            <div className="lg:col-span-3">
-              <p className="mono-label">Nossos Serviços</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-4">
+              <p className="mono-label mb-4">nossa visão</p>
+              <p className="font-mono text-foreground text-sm">Contratar Programador</p>
+              <p className="font-mono text-foreground/40 text-xs">@contratar_programador</p>
             </div>
-
-            {/* Right - Large text */}
-            <div className="lg:col-span-9">
-              <h2 className="text-h3 font-light tracking-heading text-foreground leading-[1] mb-8">
-                Soluções <span className="text-gradient">Completas</span> para Seu Negócio
-              </h2>
-              <p className="body-large text-foreground/60 max-w-2xl">
-                Engenharia de software aplicada ao marketing e à operação. Criamos a base técnica necessária para sua empresa liderar o mercado digital.
+            <div className="lg:col-span-8">
+              <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15]">
+                Existem caminhos no mundo digital que não podem ser vistos — apenas sentidos. Onde outros investem no óbvio, nós exploramos o que está por trás das portas fechadas. Este é um portal para o extraordinário. Nem todos estão prontos para cruzá-lo.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== SERVICES LIST — Minimal, TitanGate-style list ===== */}
-      <section className="bg-background pb-20 md:pb-32">
+      {/* ===== PROTECTION — Two columns ===== */}
+      <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
         <div className="container-custom">
-          <div className="divider-dashed mb-0" />
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <Link
-                key={service.href}
-                to={service.href}
-                className="service-card group flex flex-col md:flex-row md:items-center gap-4 md:gap-8"
-              >
-                <div className="flex items-center gap-4 md:w-1/3">
-                  <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  <h3 className="text-h6 font-light text-foreground group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h3>
-                </div>
-                <p className="text-muted-foreground text-sm font-light md:flex-1">
-                  {service.description}
-                </p>
-                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-            );
-          })}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div>
+              <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1] mb-6">
+                Possibilidades Ilimitadas.
+              </h3>
+            </div>
+            <div>
+              <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1] mb-6">
+                Proteção de Nível Corporativo.
+              </h3>
+              <p className="body-large text-foreground/50">
+                O mercado digital foi feito para excluir. Opacidade, riscos e barreiras eram a norma.
+              </p>
+              <p className="body-large text-foreground/50 mt-6">
+                Nós <span className="text-foreground">redefinimos</span>, <span className="text-foreground">reconstruímos</span> e <span className="text-foreground">reconfiguramos</span> os padrões que eram dados como certos.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ===== INDUSTRIES / SPECIALTIES — TitanGate grid style ===== */}
-      <section className="section-padding bg-background border-y border-dashed border-[#3f3f3f]">
+      {/* ===== SPECIALTIES GRID — like TitanGate industries ===== */}
+      <section id="servicos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <p className="spaced-text text-muted-foreground mb-8">
-              ESPECIALIZAÇÃO EM TECNOLOGIA QUE TRANSFORMA NEGÓCIOS
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-6">
+              Dominamos as Tecnologias que Transformam Negócios
+            </h2>
+            <p className="body-large text-foreground/40">
+              Especializados em engenharia que molda o futuro
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
-            {industries.map((industry, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+            {specialties.map((item) => (
               <div
-                key={industry}
-                className="border border-dashed border-[#3f3f3f] p-8 md:p-10 flex items-center justify-center text-center group hover:bg-foreground/[0.02] transition-colors"
+                key={item}
+                className="border border-dashed border-[#3f3f3f] p-8 md:p-12 flex items-center justify-center text-center group hover:bg-foreground/[0.02] transition-colors"
               >
-                <h3 className="text-h6 font-light text-foreground group-hover:text-primary transition-colors">
-                  {industry}
-                </h3>
+                <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/60 group-hover:text-primary transition-colors">
+                  {item}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== VISION SECTION — Large statement ===== */}
+      {/* ===== MARQUEE — Logo-style running text ===== */}
+      <section className="border-y border-dashed border-[#3f3f3f] py-6 overflow-hidden bg-background">
+        <div className="marquee">
+          {marqueeItems.map((item, i) => (
+            <span key={i} className="font-mono text-[0.6rem] tracking-[0.4rem] uppercase text-foreground/20 whitespace-nowrap">
+              {item}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== STATS — "Access That Speaks for Itself" ===== */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-3">
-              <p className="mono-label">Nossa Visão</p>
+          <div className="text-center mb-20">
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95]">
+              Resultados que Falam por Si
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-display font-light text-primary leading-none">98%</div>
+              <p className="mono-label mt-4">dos projetos entregues geraram retorno positivo nos primeiros 6 meses</p>
             </div>
-            <div className="lg:col-span-9">
-              <p className="text-h4 font-light tracking-heading text-foreground leading-[1.05] mb-12">
-                Não entregamos apenas código. Criamos soluções completas que geram valor real para o seu negócio, com metodologia ágil e suporte contínuo.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild variant="hero" size="xl">
-                  <Link to="/contato">
-                    Orçar Projeto
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="darkOutline" size="xl">
-                  <Link to="/sobre">Sobre Nós</Link>
-                </Button>
-              </div>
+            <div className="text-center">
+              <div className="text-display font-light text-primary leading-none">+150</div>
+              <p className="mono-label mt-4">projetos entregues com sucesso nos últimos 5 anos</p>
+            </div>
+            <div className="text-center">
+              <div className="text-display font-light text-primary leading-none">3x</div>
+              <p className="mono-label mt-4">média de crescimento dos nossos clientes após 12 meses</p>
+            </div>
+            <div className="text-center">
+              <div className="text-display font-light text-primary leading-none">24/7</div>
+              <p className="mono-label mt-4">suporte técnico contínuo para todos os projetos ativos</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== CTA — Simple, powerful ===== */}
-      <section className="py-32 md:py-48 bg-background border-t border-dashed border-[#3f3f3f]">
-        <div className="container-custom text-center">
-          <p className="spaced-text text-muted-foreground mb-8">VAMOS TIRAR SUA IDEIA DO PAPEL</p>
-          <h2 className="text-h2 font-light tracking-heading text-foreground mb-12 max-w-4xl mx-auto leading-[0.95]">
-            Conte sobre seu projeto e receba uma proposta técnica{" "}
-            <span className="text-primary">personalizada</span>.
-          </h2>
-          <Button asChild variant="hero" size="xl">
-            <Link to="/contato">
-              Iniciar Conversa
-              <ArrowRight className="w-4 h-4" />
+      {/* ===== LARGE TEXT BREAK ===== */}
+      <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+        <div className="container-custom max-w-5xl">
+          <p className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.1]">
+            <span className="font-medium">O que está fora do alcance, nós tornamos possível.</span>{" "}
+            <span className="text-foreground/40">
+              Além do desenvolvimento, criamos acesso — posicionando sua empresa nas melhores tecnologias com proteção e performance incomparáveis.
+            </span>
+          </p>
+        </div>
+      </section>
+
+      {/* ===== PROCESS — "From Selection to Legacy" ===== */}
+      <section id="processo" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+        <div className="container-custom">
+          <div className="text-center mb-20">
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95]">
+              Da Ideia ao Resultado.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+            {steps.map((step, i) => (
+              <div key={step.num} className="border border-dashed border-[#3f3f3f] p-8 md:p-10">
+                <div className="flex items-baseline justify-between mb-8">
+                  <span className="font-mono text-primary text-[0.7rem] tracking-spaced">{step.num}</span>
+                  {i < steps.length - 1 && (
+                    <span className="font-mono text-foreground/20 text-[0.6rem]">/ 04</span>
+                  )}
+                </div>
+                <h3 className="text-h6 font-light text-foreground mb-4">{step.title}</h3>
+                <p className="text-sm font-light text-foreground/50 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== COMPARISONS — "X vs Y" TitanGate slider style ===== */}
+      <section id="diferenciais" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+        <div className="container-custom">
+          {comparisons.map((comp, i) => (
+            <div key={i} className="border-b border-dashed border-[#3f3f3f] py-16 md:py-20 last:border-b-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-4">
+                    {comp.title}{" "}
+                    <span className="text-foreground/20">vs</span>{" "}
+                    <span className="text-foreground/30">{comp.vs}</span>
+                  </h3>
+                </div>
+                <div className="space-y-6">
+                  <p className="body-large text-foreground/70">{comp.desc}</p>
+                  <div>
+                    <p className="mono-label mb-2">O Mundo Antigo</p>
+                    <p className="text-sm font-light text-foreground/30 leading-relaxed">{comp.old}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== MANIFESTO — White bg, giant letters, like TitanGate "TGE" section ===== */}
+      <section id="manifesto" className="bg-foreground text-background">
+        {/* Giant letters */}
+        <div className="overflow-hidden py-10 md:py-16">
+          <div className="text-[20vw] md:text-[25vw] font-black leading-[0.85] tracking-[-0.04em] text-background/[0.08] select-none text-center">
+            CP
+          </div>
+        </div>
+
+        {/* Split text */}
+        <div className="container-custom pb-20 md:pb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-h2 md:text-h1 font-light tracking-heading leading-[0.95]">
+                Excelência.
+              </h2>
+            </div>
+            <div>
+              <h2 className="text-h2 md:text-h1 font-light tracking-heading leading-[0.95] text-background/30">
+                Sem Limites.
+              </h2>
+              <p className="body-large text-background/60 mt-8">
+                Nosso compromisso nunca será aberto para qualquer um, e nunca foi feito para ser. Quem está dentro vive os resultados.
+              </p>
+              <p className="body-large text-background mt-4">
+                Quem está fora só verá as sombras.
+              </p>
+            </div>
+          </div>
+
+          {/* CTA row */}
+          <div className="mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <span className="font-mono text-background text-xs tracking-spaced uppercase">
+              CONTRATAR<span className="text-primary">PROGRAMADOR</span>
+            </span>
+            <Link
+              to="/contato"
+              className="nav-pill font-mono text-background text-[0.7rem] tracking-spaced uppercase px-6 py-3 hover:text-primary transition-colors border border-background/20"
+            >
+              Orçar Projeto <ArrowRight className="inline w-3 h-3 ml-2" />
             </Link>
-          </Button>
+          </div>
         </div>
       </section>
     </Layout>

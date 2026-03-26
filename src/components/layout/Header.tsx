@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,76 +38,42 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="flex items-center justify-between px-6 md:px-12 py-6">
-        {/* Logo */}
+        {/* Spacer left */}
+        <div className="flex-1" />
+
+        {/* Center Logo — like TitanGate */}
         <Link to="/" className="z-10">
           <span className="font-mono text-foreground text-xs tracking-spaced uppercase">
             CONTRATAR<span className="text-primary">PROGRAMADOR</span>
           </span>
         </Link>
 
-        {/* Desktop Nav — TitanGate pill style */}
-        <div className="hidden lg:flex items-center">
-          <div className="nav-pill flex items-center gap-0 px-4">
-            {navigation.map((item) =>
-              item.hasDropdown ? (
-                <DropdownMenu key={item.name}>
-                  <DropdownMenuTrigger className="font-mono text-foreground text-[0.7rem] tracking-spaced uppercase px-4 py-3 hover:text-primary transition-colors">
-                    {item.name}
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="center" className="bg-black/90 backdrop-blur-xl border-[#3f3f3f] rounded-sm min-w-[240px]">
-                    {services.map((service) => (
-                      <DropdownMenuItem key={service.href} asChild>
-                        <Link
-                          to={service.href}
-                          className={`font-mono text-[0.7rem] tracking-micro uppercase w-full ${isActive(service.href) ? "text-primary" : "text-foreground/70"}`}
-                        >
-                          {service.name}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`font-mono text-[0.7rem] tracking-spaced uppercase px-4 py-3 transition-colors ${isActive(item.href) ? "text-primary" : "text-foreground hover:text-primary"}`}
-                >
-                  {item.name}
-                </Link>
-              )
-            )}
-          </div>
-        </div>
-
-        {/* CTA — TitanGate icon-button style */}
-        <div className="hidden lg:block z-10">
+        {/* Right CTA */}
+        <div className="flex-1 flex justify-end z-10">
           <Link
             to="/contato"
-            className="nav-pill font-mono text-foreground text-[0.7rem] tracking-spaced uppercase px-5 py-3 hover:text-primary transition-colors"
+            className="hidden md:inline-flex nav-pill font-mono text-foreground text-[0.65rem] tracking-spaced uppercase px-5 py-2.5 hover:text-primary transition-colors"
           >
-            Orçar Projeto →
+            Orçar Projeto
           </Link>
+          <button
+            type="button"
+            className="md:hidden p-2 text-foreground"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="lg:hidden p-2 text-foreground z-10"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </nav>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-[#3f3f3f] absolute top-full left-0 right-0">
-          <div className="px-6 py-8 space-y-6">
+        <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-[#3f3f3f] absolute top-full left-0 right-0">
+          <div className="px-6 py-8 space-y-4">
             {navigation.map((item) =>
               item.hasDropdown ? (
                 <div key={item.name} className="space-y-3">
-                  <span className="block font-mono text-[0.7rem] tracking-spaced uppercase text-foreground">
+                  <span className="block font-mono text-[0.65rem] tracking-spaced uppercase text-foreground">
                     {item.name}
                   </span>
                   <div className="pl-4 space-y-3 border-l border-[#3f3f3f]">
@@ -115,7 +81,7 @@ export function Header() {
                       <Link
                         key={service.href}
                         to={service.href}
-                        className="block font-mono text-[0.7rem] tracking-micro uppercase text-muted-foreground hover:text-primary transition-colors"
+                        className="block font-mono text-[0.65rem] tracking-micro uppercase text-muted-foreground hover:text-primary transition-colors"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {service.name}
@@ -127,22 +93,13 @@ export function Header() {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block font-mono text-[0.7rem] tracking-spaced uppercase transition-colors ${isActive(item.href) ? "text-primary" : "text-foreground hover:text-primary"}`}
+                  className={`block font-mono text-[0.65rem] tracking-spaced uppercase transition-colors ${isActive(item.href) ? "text-primary" : "text-foreground hover:text-primary"}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               )
             )}
-            <div className="pt-4 border-t border-[#3f3f3f]">
-              <Link
-                to="/contato"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-center nav-pill font-mono text-foreground text-[0.7rem] tracking-spaced uppercase px-5 py-3"
-              >
-                Orçar Projeto →
-              </Link>
-            </div>
           </div>
         </div>
       )}
