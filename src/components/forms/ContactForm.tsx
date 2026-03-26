@@ -29,18 +29,9 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
-
     toast.success("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      message: "",
-      selectedOptions: [],
-    });
+    setFormData({ name: "", email: "", company: "", message: "", selectedOptions: [] });
     setIsSubmitting(false);
   };
 
@@ -57,18 +48,18 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="name" className="text-secondary-foreground">Nome</Label>
+          <Label htmlFor="name" className="text-foreground text-sm">Nome</Label>
           <Input
             id="name"
             placeholder="Seu nome"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
-            className="bg-muted border-muted"
+            className="bg-background border-border focus:border-primary"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-secondary-foreground">Email Corporativo</Label>
+          <Label htmlFor="email" className="text-foreground text-sm">Email Corporativo</Label>
           <Input
             id="email"
             type="email"
@@ -76,24 +67,24 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
-            className="bg-muted border-muted"
+            className="bg-background border-border focus:border-primary"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="company" className="text-secondary-foreground">Empresa</Label>
+        <Label htmlFor="company" className="text-foreground text-sm">Empresa</Label>
         <Input
           id="company"
           placeholder="Nome da empresa"
           value={formData.company}
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-          className="bg-muted border-muted"
+          className="bg-background border-border focus:border-primary"
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message" className="text-secondary-foreground">Mensagem</Label>
+        <Label htmlFor="message" className="text-foreground text-sm">Mensagem</Label>
         <Textarea
           id="message"
           placeholder="Conte sobre seu projeto..."
@@ -101,13 +92,13 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           required
           rows={4}
-          className="bg-muted border-muted resize-none"
+          className="bg-background border-border focus:border-primary resize-none"
         />
       </div>
 
       {checkboxOptions && checkboxOptions.length > 0 && (
         <div className="space-y-3">
-          <Label className="text-secondary-foreground">Tipo de Projeto</Label>
+          <Label className="text-foreground text-sm">Tipo de Projeto</Label>
           <div className="flex flex-wrap gap-4">
             {checkboxOptions.map((option) => (
               <div key={option.id} className="flex items-center space-x-2">
@@ -118,10 +109,7 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
                     handleCheckboxChange(option.id, checked as boolean)
                   }
                 />
-                <Label
-                  htmlFor={option.id}
-                  className="text-sm text-muted-foreground cursor-pointer"
-                >
+                <Label htmlFor={option.id} className="text-sm text-muted-foreground cursor-pointer">
                   {option.label}
                 </Label>
               </div>
