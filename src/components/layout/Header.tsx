@@ -37,14 +37,11 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <nav className="container-custom flex items-center justify-between h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xl">&lt;/&gt;</span>
-          </div>
-          <span className="font-bold text-xl hidden sm:block">
+          <span className="font-bold text-xl text-foreground">
             Contratar<span className="text-primary">Programador</span>
           </span>
         </Link>
@@ -54,11 +51,11 @@ export function Header() {
           {navigation.map((item) =>
             item.hasDropdown ? (
               <DropdownMenu key={item.name}>
-                <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${isActive(item.href) ? "text-primary" : "text-foreground"}`}>
+                <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${isActive(item.href) ? "text-primary" : "text-muted-foreground"}`}>
                   {item.name}
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-64">
+                <DropdownMenuContent align="start" className="w-64 bg-card border-border">
                   {services.map((service) => (
                     <DropdownMenuItem key={service.href} asChild>
                       <Link
@@ -75,7 +72,7 @@ export function Header() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${isActive(item.href) ? "text-primary" : "text-foreground"}`}
+                className={`text-sm font-medium transition-colors hover:text-primary ${isActive(item.href) ? "text-primary" : "text-muted-foreground"}`}
               >
                 {item.name}
               </Link>
@@ -93,7 +90,7 @@ export function Header() {
         {/* Mobile Menu Button */}
         <button
           type="button"
-          className="lg:hidden p-2"
+          className="lg:hidden p-2 text-foreground"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
@@ -106,7 +103,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-background border-b border-border">
+        <div className="lg:hidden bg-card border-b border-border">
           <div className="container-custom py-4 space-y-4">
             {navigation.map((item) =>
               item.hasDropdown ? (

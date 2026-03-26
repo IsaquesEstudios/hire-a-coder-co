@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-primary text-primary-foreground font-bold uppercase tracking-wide hover:shadow-glow hover:scale-105",
-        heroOutline: "border-2 border-primary text-primary font-bold uppercase tracking-wide hover:bg-primary hover:text-primary-foreground",
-        dark: "bg-secondary text-secondary-foreground font-bold uppercase tracking-wide hover:bg-secondary/80",
-        darkOutline: "border-2 border-secondary text-secondary font-bold uppercase tracking-wide hover:bg-secondary hover:text-secondary-foreground",
+        heroOutline: "border border-primary text-primary font-bold uppercase tracking-wide hover:bg-primary hover:text-primary-foreground",
+        dark: "bg-foreground text-background font-bold uppercase tracking-wide hover:bg-foreground/80",
+        darkOutline: "border border-border text-foreground font-bold uppercase tracking-wide hover:border-primary hover:text-primary",
       },
       size: {
         default: "h-10 px-4 py-2",
