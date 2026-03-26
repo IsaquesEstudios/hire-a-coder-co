@@ -6,25 +6,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-interface CheckboxOption {
-  id: string;
-  label: string;
-}
-
-interface ContactFormProps {
-  checkboxOptions?: CheckboxOption[];
-  submitLabel?: string;
-}
+interface CheckboxOption { id: string; label: string; }
+interface ContactFormProps { checkboxOptions?: CheckboxOption[]; submitLabel?: string; }
 
 export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-    selectedOptions: [] as string[],
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "", selectedOptions: [] as string[] });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,80 +25,43 @@ export function ContactForm({ checkboxOptions, submitLabel = "Iniciar Conversa" 
   const handleCheckboxChange = (id: string, checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
-      selectedOptions: checked
-        ? [...prev.selectedOptions, id]
-        : prev.selectedOptions.filter((opt) => opt !== id),
+      selectedOptions: checked ? [...prev.selectedOptions, id] : prev.selectedOptions.filter((opt) => opt !== id),
     }));
   };
 
+  const inputClasses = "bg-transparent border-0 border-b border-[#3f3f3f] rounded-none px-0 py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 font-light";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-2">
-          <Label htmlFor="name" className="text-foreground text-sm">Nome</Label>
-          <Input
-            id="name"
-            placeholder="Seu nome"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-            className="bg-background border-border focus:border-primary"
-          />
+          <Label htmlFor="name" className="mono-label text-primary">Nome</Label>
+          <Input id="name" placeholder="Seu nome" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className={inputClasses} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-foreground text-sm">Email Corporativo</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="seu@email.com"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            required
-            className="bg-background border-border focus:border-primary"
-          />
+          <Label htmlFor="email" className="mono-label text-primary">Email</Label>
+          <Input id="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required className={inputClasses} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="company" className="text-foreground text-sm">Empresa</Label>
-        <Input
-          id="company"
-          placeholder="Nome da empresa"
-          value={formData.company}
-          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-          className="bg-background border-border focus:border-primary"
-        />
+        <Label htmlFor="company" className="mono-label text-primary">Empresa</Label>
+        <Input id="company" placeholder="Nome da empresa" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} className={inputClasses} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message" className="text-foreground text-sm">Mensagem</Label>
-        <Textarea
-          id="message"
-          placeholder="Conte sobre seu projeto..."
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          required
-          rows={4}
-          className="bg-background border-border focus:border-primary resize-none"
-        />
+        <Label htmlFor="message" className="mono-label text-primary">Mensagem</Label>
+        <Textarea id="message" placeholder="Conte sobre seu projeto..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required rows={4} className={`${inputClasses} resize-none`} />
       </div>
 
       {checkboxOptions && checkboxOptions.length > 0 && (
-        <div className="space-y-3">
-          <Label className="text-foreground text-sm">Tipo de Projeto</Label>
+        <div className="space-y-4">
+          <Label className="mono-label text-primary">Tipo de Projeto</Label>
           <div className="flex flex-wrap gap-4">
             {checkboxOptions.map((option) => (
               <div key={option.id} className="flex items-center space-x-2">
-                <Checkbox
-                  id={option.id}
-                  checked={formData.selectedOptions.includes(option.id)}
-                  onCheckedChange={(checked) =>
-                    handleCheckboxChange(option.id, checked as boolean)
-                  }
-                />
-                <Label htmlFor={option.id} className="text-sm text-muted-foreground cursor-pointer">
-                  {option.label}
-                </Label>
+                <Checkbox id={option.id} checked={formData.selectedOptions.includes(option.id)} onCheckedChange={(checked) => handleCheckboxChange(option.id, checked as boolean)} />
+                <Label htmlFor={option.id} className="text-sm text-foreground/60 cursor-pointer font-light">{option.label}</Label>
               </div>
             ))}
           </div>
