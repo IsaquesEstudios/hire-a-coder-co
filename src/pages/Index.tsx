@@ -168,127 +168,199 @@ export default function Index() {
         }} />
 
         <div className="container-custom relative z-10">
-          <h2 className="text-h3 md:text-h2 lg:text-h1 font-light tracking-heading text-foreground leading-[0.95] mb-20 text-center">
+          <h2 className="text-h3 md:text-h2 lg:text-h1 font-light tracking-heading text-foreground leading-[0.95] mb-6 text-center">
             Programadores para Qualquer Stack.
           </h2>
+          <p className="text-center text-foreground/40 font-light text-base md:text-lg mb-20 max-w-2xl mx-auto">
+            Dominamos as tecnologias que movem o mercado digital
+          </p>
 
-          <div className="relative max-w-4xl mx-auto flex flex-col items-center">
+          {/* Desktop: positioned cards with SVG lines */}
+          <div className="hidden lg:block relative mx-auto" style={{ width: '1000px', height: '520px' }}>
             {/* Central hub */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center"
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-28 h-28 rounded-full flex items-center justify-center"
               style={{
                 background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), hsl(45 100% 49% / 0.03))',
                 border: '2px solid hsl(45 100% 49% / 0.4)',
                 boxShadow: '0 0 100px hsl(45 100% 49% / 0.12), 0 0 40px hsl(45 100% 49% / 0.08), inset 0 0 40px hsl(45 100% 49% / 0.06)',
               }}
             >
-              <span className="font-mono text-primary text-sm md:text-base tracking-spaced uppercase font-bold">CP</span>
+              <span className="font-mono text-primary text-sm tracking-spaced uppercase font-bold">CP</span>
             </div>
 
-            {/* Desktop layout */}
-            <div className="hidden lg:flex w-full justify-between items-center" style={{ minHeight: '380px' }}>
-              {/* Left column - 4 items */}
-              <div className="flex flex-col gap-5 items-end">
-                {[
-                  { name: "React", slug: "react", color: "#61DAFB" },
-                  { name: "Node.js", slug: "nodedotjs", color: "#5FA04E" },
-                  { name: "Python", slug: "python", color: "#3776AB" },
-                  { name: "TypeScript", slug: "typescript", color: "#3178C6" },
-                ].map((tech) => (
-                  <div key={tech.name} className="flex items-center gap-5 group cursor-default">
-                    {/* Glass card */}
-                    <div className="relative flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-x-1 min-w-[180px]"
-                      style={{
-                        background: `linear-gradient(135deg, ${tech.color}12, ${tech.color}06, hsl(220 30% 8% / 0.8))`,
-                        border: `1px solid ${tech.color}25`,
-                        boxShadow: `0 4px 30px ${tech.color}08, inset 0 1px 0 ${tech.color}15`,
-                        backdropFilter: 'blur(12px)',
-                      }}
-                    >
-                      {/* Glow effect on hover */}
-                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                        style={{
-                          background: `radial-gradient(circle at 30% 50%, ${tech.color}18, transparent 70%)`,
-                          boxShadow: `0 0 40px ${tech.color}12`,
-                        }}
-                      />
-                      <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-6 h-6 relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                      <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/50 group-hover:text-foreground/80 transition-colors duration-300 relative z-10">
-                        {tech.name}
-                      </span>
-                    </div>
-                    {/* Connecting line */}
-                    <div className="w-24 h-px relative">
-                      <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${tech.color}20, hsl(45 100% 49% / 0.15))` }} />
-                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full" style={{ background: `${tech.color}40` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* SVG connecting lines */}
+            <svg className="absolute inset-0 w-full h-full z-10 pointer-events-none" viewBox="0 0 1000 520">
+              <defs>
+                <linearGradient id="lineL1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#61DAFB" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#FABF00" stopOpacity="0.15" />
+                </linearGradient>
+                <linearGradient id="lineL2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#5FA04E" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#FABF00" stopOpacity="0.15" />
+                </linearGradient>
+                <linearGradient id="lineL3" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#3776AB" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#FABF00" stopOpacity="0.15" />
+                </linearGradient>
+                <linearGradient id="lineL4" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#3178C6" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#FABF00" stopOpacity="0.15" />
+                </linearGradient>
+                <linearGradient id="lineR1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FABF00" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#4169E1" stopOpacity="0.3" />
+                </linearGradient>
+                <linearGradient id="lineR2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FABF00" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#2496ED" stopOpacity="0.3" />
+                </linearGradient>
+                <linearGradient id="lineR3" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FABF00" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#FF2D20" stopOpacity="0.3" />
+                </linearGradient>
+              </defs>
+              {/* Left lines - curved from cards to center */}
+              <path d="M 280 75 Q 400 75, 460 260" fill="none" stroke="url(#lineL1)" strokeWidth="1.5" />
+              <path d="M 250 195 Q 380 195, 460 260" fill="none" stroke="url(#lineL2)" strokeWidth="1.5" />
+              <path d="M 295 340 Q 400 340, 460 260" fill="none" stroke="url(#lineL3)" strokeWidth="1.5" />
+              <path d="M 265 455 Q 400 455, 460 260" fill="none" stroke="url(#lineL4)" strokeWidth="1.5" />
+              {/* Right lines - curved from center to cards */}
+              <path d="M 540 260 Q 600 105, 710 105" fill="none" stroke="url(#lineR1)" strokeWidth="1.5" />
+              <path d="M 540 260 Q 620 260, 720 260" fill="none" stroke="url(#lineR2)" strokeWidth="1.5" />
+              <path d="M 540 260 Q 600 415, 700 415" fill="none" stroke="url(#lineR3)" strokeWidth="1.5" />
+            </svg>
 
-              {/* Right column - 3 items */}
-              <div className="flex flex-col gap-5 items-start">
-                {[
-                  { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
-                  { name: "Docker", slug: "docker", color: "#2496ED" },
-                  { name: "Laravel", slug: "laravel", color: "#FF2D20" },
-                ].map((tech) => (
-                  <div key={tech.name} className="flex items-center gap-5 group cursor-default">
-                    {/* Connecting line */}
-                    <div className="w-24 h-px relative">
-                      <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, hsl(45 100% 49% / 0.15), ${tech.color}20)` }} />
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full" style={{ background: `${tech.color}40` }} />
-                    </div>
-                    {/* Glass card */}
-                    <div className="relative flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-500 group-hover:scale-105 group-hover:translate-x-1 min-w-[180px]"
-                      style={{
-                        background: `linear-gradient(135deg, ${tech.color}12, ${tech.color}06, hsl(220 30% 8% / 0.8))`,
-                        border: `1px solid ${tech.color}25`,
-                        boxShadow: `0 4px 30px ${tech.color}08, inset 0 1px 0 ${tech.color}15`,
-                        backdropFilter: 'blur(12px)',
-                      }}
-                    >
-                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                        style={{
-                          background: `radial-gradient(circle at 30% 50%, ${tech.color}18, transparent 70%)`,
-                          boxShadow: `0 0 40px ${tech.color}12`,
-                        }}
-                      />
-                      <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-6 h-6 relative z-10 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                      <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/50 group-hover:text-foreground/80 transition-colors duration-300 relative z-10">
-                        {tech.name}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile layout */}
-            <div className="grid grid-cols-2 gap-3 lg:hidden w-full mt-20">
-              {[
-                { name: "React", slug: "react", color: "#61DAFB" },
-                { name: "Node.js", slug: "nodedotjs", color: "#5FA04E" },
-                { name: "Python", slug: "python", color: "#3776AB" },
-                { name: "TypeScript", slug: "typescript", color: "#3178C6" },
-                { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
-                { name: "Docker", slug: "docker", color: "#2496ED" },
-                { name: "Laravel", slug: "laravel", color: "#FF2D20" },
-              ].map((tech) => (
-                <div key={tech.name} className="relative flex items-center gap-3 px-5 py-4 rounded-2xl group cursor-default"
+            {/* LEFT CARDS - staggered positions */}
+            {[
+              { name: "React", slug: "react", color: "#61DAFB", desc: "Interfaces modernas e reativas", top: 30, left: 20 },
+              { name: "Node.js", slug: "nodedotjs", color: "#5FA04E", desc: "Back-end escalável e performático", top: 155, left: 0 },
+              { name: "Python", slug: "python", color: "#3776AB", desc: "IA, automação e data science", top: 290, left: 40 },
+              { name: "TypeScript", slug: "typescript", color: "#3178C6", desc: "Código robusto e tipado", top: 410, left: 10 },
+            ].map((tech) => (
+              <div key={tech.name} className="absolute z-30 group cursor-default" style={{ top: tech.top, left: tech.left }}>
+                <div className="relative flex items-start gap-4 px-6 py-5 rounded-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-x-1 w-[250px]"
                   style={{
-                    background: `linear-gradient(135deg, ${tech.color}12, ${tech.color}06, hsl(220 30% 8% / 0.8))`,
-                    border: `1px solid ${tech.color}25`,
-                    boxShadow: `0 4px 30px ${tech.color}08, inset 0 1px 0 ${tech.color}15`,
-                    backdropFilter: 'blur(12px)',
+                    background: `linear-gradient(145deg, ${tech.color}10, hsl(220 30% 6% / 0.9), ${tech.color}05)`,
+                    border: `1px solid ${tech.color}20`,
+                    boxShadow: `0 8px 40px ${tech.color}06, inset 0 1px 0 ${tech.color}12`,
+                    backdropFilter: 'blur(20px)',
                   }}
                 >
-                  <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-5 h-5 opacity-80" />
-                  <span className="font-mono text-[0.6rem] tracking-spaced uppercase text-foreground/50">
-                    {tech.name}
-                  </span>
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle at 20% 30%, ${tech.color}15, transparent 70%)`,
+                      boxShadow: `0 0 50px ${tech.color}10`,
+                    }}
+                  />
+                  {/* Icon */}
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 relative z-10"
+                    style={{
+                      background: `linear-gradient(135deg, ${tech.color}18, ${tech.color}08)`,
+                      border: `1px solid ${tech.color}25`,
+                    }}
+                  >
+                    <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-5 h-5 opacity-90 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  {/* Text */}
+                  <div className="relative z-10">
+                    <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/70 group-hover:text-foreground/90 transition-colors block">
+                      {tech.name}
+                    </span>
+                    <span className="text-[0.7rem] text-foreground/30 group-hover:text-foreground/50 transition-colors font-light mt-1 block leading-snug">
+                      {tech.desc}
+                    </span>
+                  </div>
                 </div>
-              ))}
+              </div>
+            ))}
+
+            {/* RIGHT CARDS - staggered positions */}
+            {[
+              { name: "PostgreSQL", slug: "postgresql", color: "#4169E1", desc: "Banco relacional poderoso", top: 55, right: 10 },
+              { name: "Docker", slug: "docker", color: "#2496ED", desc: "Deploy e infraestrutura ágil", top: 210, right: 0 },
+              { name: "Laravel", slug: "laravel", color: "#FF2D20", desc: "APIs robustas e elegantes", top: 365, right: 30 },
+            ].map((tech) => (
+              <div key={tech.name} className="absolute z-30 group cursor-default" style={{ top: tech.top, right: tech.right }}>
+                <div className="relative flex items-start gap-4 px-6 py-5 rounded-2xl transition-all duration-500 group-hover:scale-105 group-hover:translate-x-1 w-[250px]"
+                  style={{
+                    background: `linear-gradient(145deg, ${tech.color}10, hsl(220 30% 6% / 0.9), ${tech.color}05)`,
+                    border: `1px solid ${tech.color}20`,
+                    boxShadow: `0 8px 40px ${tech.color}06, inset 0 1px 0 ${tech.color}12`,
+                    backdropFilter: 'blur(20px)',
+                  }}
+                >
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle at 20% 30%, ${tech.color}15, transparent 70%)`,
+                      boxShadow: `0 0 50px ${tech.color}10`,
+                    }}
+                  />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 relative z-10"
+                    style={{
+                      background: `linear-gradient(135deg, ${tech.color}18, ${tech.color}08)`,
+                      border: `1px solid ${tech.color}25`,
+                    }}
+                  >
+                    <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-5 h-5 opacity-90 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="relative z-10">
+                    <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/70 group-hover:text-foreground/90 transition-colors block">
+                      {tech.name}
+                    </span>
+                    <span className="text-[0.7rem] text-foreground/30 group-hover:text-foreground/50 transition-colors font-light mt-1 block leading-snug">
+                      {tech.desc}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile layout */}
+          <div className="flex flex-col gap-4 lg:hidden">
+            {/* Mobile hub */}
+            <div className="mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-6"
+              style={{
+                background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), hsl(45 100% 49% / 0.03))',
+                border: '2px solid hsl(45 100% 49% / 0.4)',
+                boxShadow: '0 0 60px hsl(45 100% 49% / 0.1)',
+              }}
+            >
+              <span className="font-mono text-primary text-xs tracking-spaced uppercase font-bold">CP</span>
             </div>
+            {[
+              { name: "React", slug: "react", color: "#61DAFB", desc: "Interfaces modernas e reativas" },
+              { name: "Node.js", slug: "nodedotjs", color: "#5FA04E", desc: "Back-end escalável e performático" },
+              { name: "Python", slug: "python", color: "#3776AB", desc: "IA, automação e data science" },
+              { name: "TypeScript", slug: "typescript", color: "#3178C6", desc: "Código robusto e tipado" },
+              { name: "PostgreSQL", slug: "postgresql", color: "#4169E1", desc: "Banco relacional poderoso" },
+              { name: "Docker", slug: "docker", color: "#2496ED", desc: "Deploy e infraestrutura ágil" },
+              { name: "Laravel", slug: "laravel", color: "#FF2D20", desc: "APIs robustas e elegantes" },
+            ].map((tech) => (
+              <div key={tech.name} className="relative flex items-start gap-4 px-5 py-4 rounded-2xl group"
+                style={{
+                  background: `linear-gradient(145deg, ${tech.color}10, hsl(220 30% 6% / 0.9), ${tech.color}05)`,
+                  border: `1px solid ${tech.color}20`,
+                  boxShadow: `0 4px 30px ${tech.color}06, inset 0 1px 0 ${tech.color}12`,
+                  backdropFilter: 'blur(20px)',
+                }}
+              >
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                  style={{
+                    background: `linear-gradient(135deg, ${tech.color}18, ${tech.color}08)`,
+                    border: `1px solid ${tech.color}25`,
+                  }}
+                >
+                  <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-4 h-4 opacity-80" />
+                </div>
+                <div>
+                  <span className="font-mono text-[0.65rem] tracking-spaced uppercase text-foreground/60 block">{tech.name}</span>
+                  <span className="text-[0.65rem] text-foreground/30 font-light mt-0.5 block">{tech.desc}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
