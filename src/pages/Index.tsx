@@ -4,6 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
 import programmerImg from "@/assets/programmer-working.jpg";
+import logoCp from "@/assets/logo-cp.png";
+import logoIsaques from "@/assets/logo-isaquesestudios.png";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
