@@ -397,13 +397,42 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
-            {specialties.map((item) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+            {specialties.map((item, i) => (
               <div
                 key={item}
-                className="border border-dashed border-[#3f3f3f] p-8 md:p-12 flex items-center justify-center text-center group hover:bg-foreground/[0.02] transition-colors"
+                className="group relative rounded-2xl p-8 md:p-10 flex flex-col items-center justify-center text-center cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1"
+                style={{
+                  background: 'linear-gradient(145deg, hsl(220 30% 8% / 0.9), hsl(220 20% 5% / 0.95))',
+                  border: '1px solid hsl(0 0% 100% / 0.06)',
+                  backdropFilter: 'blur(20px)',
+                }}
               >
-                <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/60 group-hover:text-primary transition-colors">
+                {/* Hover glow - moves with mouse feel */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 0%, hsl(45 100% 49% / 0.08), transparent 60%)',
+                  }}
+                />
+                {/* Top border shine */}
+                <div className="absolute top-0 left-[20%] right-[20%] h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, hsl(45 100% 49% / 0.4), transparent)',
+                  }}
+                />
+                {/* Bottom subtle shine */}
+                <div className="absolute bottom-0 left-[30%] right-[30%] h-px opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.1), transparent)',
+                  }}
+                />
+                {/* Glass reflection */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.03) 0%, transparent 50%, hsl(0 0% 100% / 0.01) 100%)',
+                  }}
+                />
+                <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/50 group-hover:text-primary transition-colors duration-300 relative z-10">
                   {item}
                 </span>
               </div>
