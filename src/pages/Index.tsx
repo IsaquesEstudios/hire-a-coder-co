@@ -586,10 +586,8 @@ export default function Index() {
 
       {/* ===== MANIFESTO ===== */}
       <section id="manifesto" className="bg-foreground text-background">
-        <div className="overflow-hidden py-10 md:py-16">
-          <div className="text-[20vw] md:text-[25vw] font-black leading-[0.85] tracking-[-0.04em] text-background/[0.08] select-none text-center">
-            CP
-          </div>
+        <div className="overflow-hidden py-10 md:py-16 flex justify-center">
+          <img src={logoIsaques} alt="Logo" className="w-[40vw] md:w-[30vw] max-w-md opacity-[0.08] select-none" />
         </div>
 
         <div className="container-custom pb-20 md:pb-32">
