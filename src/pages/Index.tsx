@@ -164,43 +164,63 @@ export default function Index() {
             Programadores para Qualquer Stack.
           </h2>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8 md:gap-10">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8">
             {[
-              { name: "React", icon: "⚛️" },
-              { name: "Next.js", icon: "▲" },
-              { name: "TypeScript", icon: "TS" },
-              { name: "Node.js", icon: "⬢" },
-              { name: "Python", icon: "🐍" },
-              { name: "PHP", icon: "🐘" },
-              { name: "Laravel", icon: "◆" },
-              { name: "Vue.js", icon: "V" },
-              { name: "Angular", icon: "A" },
-              { name: "Flutter", icon: "◇" },
-              { name: "React Native", icon: "📱" },
-              { name: "AWS", icon: "☁️" },
-              { name: "Docker", icon: "🐳" },
-              { name: "PostgreSQL", icon: "🐘" },
-              { name: "MongoDB", icon: "🍃" },
-              { name: "Firebase", icon: "🔥" },
-              { name: "Tailwind", icon: "🎨" },
-              { name: "GraphQL", icon: "◈" },
-              { name: "Redis", icon: "◉" },
-              { name: "Shopify", icon: "🛒" },
-              { name: "WordPress", icon: "W" },
-              { name: "Java", icon: "☕" },
-              { name: "C#", icon: "#" },
-              { name: ".NET", icon: "•" },
+              { name: "React", slug: "react", color: "#61DAFB" },
+              { name: "Next.js", slug: "nextdotjs", color: "#ffffff" },
+              { name: "TypeScript", slug: "typescript", color: "#3178C6" },
+              { name: "Node.js", slug: "nodedotjs", color: "#5FA04E" },
+              { name: "Python", slug: "python", color: "#3776AB" },
+              { name: "PHP", slug: "php", color: "#777BB4" },
+              { name: "Laravel", slug: "laravel", color: "#FF2D20" },
+              { name: "Vue.js", slug: "vuedotjs", color: "#4FC08D" },
+              { name: "Angular", slug: "angular", color: "#0F0F11" },
+              { name: "Flutter", slug: "flutter", color: "#02569B" },
+              { name: "React Native", slug: "react", color: "#61DAFB" },
+              { name: "AWS", slug: "amazonwebservices", color: "#FF9900" },
+              { name: "Docker", slug: "docker", color: "#2496ED" },
+              { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
+              { name: "MongoDB", slug: "mongodb", color: "#47A248" },
+              { name: "Firebase", slug: "firebase", color: "#DD2C00" },
+              { name: "Tailwind", slug: "tailwindcss", color: "#06B6D4" },
+              { name: "GraphQL", slug: "graphql", color: "#E10098" },
+              { name: "Redis", slug: "redis", color: "#FF4438" },
+              { name: "Shopify", slug: "shopify", color: "#7AB55C" },
+              { name: "WordPress", slug: "wordpress", color: "#21759B" },
+              { name: "Java", slug: "java", color: "#F89820" },
+              { name: "C#", slug: "csharp", color: "#512BD4" },
+              { name: ".NET", slug: "dotnet", color: "#512BD4" },
             ].map((tech) => (
-              <div key={tech.name} className="flex flex-col items-center gap-3 group">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg border border-dashed border-[#3f3f3f] flex items-center justify-center text-xl md:text-2xl group-hover:border-primary/40 group-hover:bg-foreground/[0.03] transition-all">
-                  <span className="opacity-60 group-hover:opacity-100 transition-opacity">{tech.icon}</span>
+              <div key={tech.name} className="flex flex-col items-center gap-3 group cursor-default">
+                <div
+                  className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    background: `radial-gradient(circle at 30% 30%, ${tech.color}15, transparent 70%)`,
+                    border: `1px solid ${tech.color}20`,
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: `radial-gradient(circle at 50% 50%, ${tech.color}25, transparent 70%)`,
+                      boxShadow: `0 0 30px ${tech.color}15`,
+                    }}
+                  />
+                  <img
+                    src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`}
+                    alt={tech.name}
+                    loading="lazy"
+                    className="w-7 h-7 md:w-8 md:h-8 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                 </div>
-                <span className="font-mono text-[0.55rem] tracking-spaced uppercase text-foreground/40 group-hover:text-foreground/70 transition-colors">
+                <span className="font-mono text-[0.5rem] md:text-[0.55rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
                   {tech.name}
                 </span>
               </div>
             ))}
           </div>
+        </div>
+      </section>
         </div>
       </section>
 
