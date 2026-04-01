@@ -220,15 +220,15 @@ export default function Index() {
                   <stop offset="100%" stopColor="#FF2D20" stopOpacity="0.3" />
                 </linearGradient>
               </defs>
-              {/* Left lines - curved from cards to center */}
-              <path d="M 280 75 Q 400 75, 460 260" fill="none" stroke="url(#lineL1)" strokeWidth="1.5" />
-              <path d="M 250 195 Q 380 195, 460 260" fill="none" stroke="url(#lineL2)" strokeWidth="1.5" />
-              <path d="M 295 340 Q 400 340, 460 260" fill="none" stroke="url(#lineL3)" strokeWidth="1.5" />
-              <path d="M 265 455 Q 400 455, 460 260" fill="none" stroke="url(#lineL4)" strokeWidth="1.5" />
-              {/* Right lines - curved from center to cards */}
-              <path d="M 540 260 Q 600 105, 710 105" fill="none" stroke="url(#lineR1)" strokeWidth="1.5" />
-              <path d="M 540 260 Q 620 260, 720 260" fill="none" stroke="url(#lineR2)" strokeWidth="1.5" />
-              <path d="M 540 260 Q 600 415, 700 415" fill="none" stroke="url(#lineR3)" strokeWidth="1.5" />
+              {/* Left lines - smooth cubic bezier curves from cards to center */}
+              <path d="M 270 75 C 370 75, 440 150, 465 250" fill="none" stroke="url(#lineL1)" strokeWidth="1" opacity="0.7" />
+              <path d="M 250 195 C 340 195, 420 220, 460 255" fill="none" stroke="url(#lineL2)" strokeWidth="1" opacity="0.7" />
+              <path d="M 295 340 C 370 340, 430 310, 462 275" fill="none" stroke="url(#lineL3)" strokeWidth="1" opacity="0.7" />
+              <path d="M 260 455 C 360 450, 430 380, 465 275" fill="none" stroke="url(#lineL4)" strokeWidth="1" opacity="0.7" />
+              {/* Right lines - smooth cubic bezier curves from center to cards */}
+              <path d="M 535 250 C 560 150, 630 105, 710 105" fill="none" stroke="url(#lineR1)" strokeWidth="1" opacity="0.7" />
+              <path d="M 540 260 C 580 260, 650 260, 720 260" fill="none" stroke="url(#lineR2)" strokeWidth="1" opacity="0.7" />
+              <path d="M 535 275 C 560 370, 630 415, 700 415" fill="none" stroke="url(#lineR3)" strokeWidth="1" opacity="0.7" />
             </svg>
 
             {/* LEFT CARDS - staggered positions */}
