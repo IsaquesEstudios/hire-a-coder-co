@@ -398,7 +398,7 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-            {specialties.map((item) => {
+            {specialties.map((item, idx) => {
               const iconMap: Record<string, React.ReactNode> = {
                 Globe: <Globe className="w-6 h-6" strokeWidth={1.5} />,
                 FileText: <FileText className="w-6 h-6" strokeWidth={1.5} />,
@@ -409,59 +409,61 @@ export default function Index() {
                 Code2: <Code2 className="w-6 h-6" strokeWidth={1.5} />,
                 Plug: <Plug className="w-6 h-6" strokeWidth={1.5} />,
               };
+              const a = item.accent;
               return (
                 <div
                   key={item.name}
-                  className="group relative rounded-2xl p-7 md:p-8 flex flex-col items-start text-left cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1 specialty-card"
+                  className={`group relative rounded-2xl p-7 md:p-8 flex flex-col items-start text-left cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 ${item.span}`}
                   style={{
-                    background: 'linear-gradient(145deg, hsl(220 30% 8% / 0.9), hsl(220 20% 5% / 0.95))',
+                    background: `linear-gradient(160deg, hsl(${a} / 0.06) 0%, hsl(220 20% 5% / 0.95) 40%, hsl(${a} / 0.02) 100%)`,
                     backdropFilter: 'blur(20px)',
                   }}
                 >
-                  {/* Animated border glow - always visible */}
+                  {/* Border with accent color */}
                   <div className="absolute inset-0 rounded-2xl pointer-events-none"
                     style={{
-                      border: '1px solid hsl(0 0% 100% / 0.08)',
-                      boxShadow: 'inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 0 15px hsl(45 100% 49% / 0.04)',
+                      border: `1px solid hsl(${a} / 0.1)`,
+                      boxShadow: `inset 0 1px 0 hsl(${a} / 0.08), 0 0 20px hsl(${a} / 0.03)`,
                     }}
                   />
-                  {/* Top border shine - always visible */}
-                  <div className="absolute top-0 left-[15%] right-[15%] h-px"
+                  {/* Top border shine with accent */}
+                  <div className="absolute top-0 left-[10%] right-[10%] h-px"
                     style={{
-                      background: 'linear-gradient(90deg, transparent, hsl(45 100% 49% / 0.25), transparent)',
+                      background: `linear-gradient(90deg, transparent, hsl(${a} / 0.35), transparent)`,
                     }}
                   />
-                  {/* Corner glow - always visible */}
-                  <div className="absolute -top-1 -right-1 w-24 h-24 pointer-events-none"
+                  {/* Corner glow */}
+                  <div className="absolute -top-2 -left-2 w-32 h-32 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle, hsl(45 100% 49% / 0.06), transparent 70%)',
+                      background: `radial-gradient(circle, hsl(${a} / 0.07), transparent 65%)`,
                     }}
                   />
-                  {/* Hover intensify */}
+                  {/* Hover glow */}
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at 50% 0%, hsl(45 100% 49% / 0.1), transparent 60%)',
-                      boxShadow: '0 0 30px hsl(45 100% 49% / 0.06)',
+                      background: `radial-gradient(circle at 30% 20%, hsl(${a} / 0.12), transparent 60%)`,
+                      boxShadow: `0 0 40px hsl(${a} / 0.08)`,
                     }}
                   />
 
                   {/* Icon */}
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 relative z-10 text-primary/70 group-hover:text-primary transition-colors duration-300"
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 relative z-10 transition-all duration-300"
                     style={{
-                      background: 'linear-gradient(135deg, hsl(45 100% 49% / 0.1), hsl(45 100% 49% / 0.03))',
-                      border: '1px solid hsl(45 100% 49% / 0.12)',
+                      color: `hsl(${a})`,
+                      background: `linear-gradient(135deg, hsl(${a} / 0.12), hsl(${a} / 0.04))`,
+                      border: `1px solid hsl(${a} / 0.15)`,
                     }}
                   >
                     {iconMap[item.icon]}
                   </div>
 
                   {/* Title */}
-                  <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/70 group-hover:text-primary transition-colors duration-300 relative z-10 block mb-3">
+                  <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-300 relative z-10 block mb-3">
                     {item.name}
                   </span>
 
                   {/* Description */}
-                  <span className="text-[0.75rem] text-foreground/30 group-hover:text-foreground/50 transition-colors duration-300 font-light leading-relaxed relative z-10">
+                  <span className="text-[0.78rem] text-foreground/35 group-hover:text-foreground/55 transition-colors duration-300 font-light leading-relaxed relative z-10">
                     {item.desc}
                   </span>
                 </div>
