@@ -126,7 +126,7 @@ export default function Index() {
           </div>
         </div>
         {/* Programmer image on the right */}
-        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[45%]">
+        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[55%]">
           <img
             src={programmerImg}
             alt="Programador desenvolvendo código"
@@ -135,7 +135,7 @@ export default function Index() {
             height={1024}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
         </div>
       </section>
 
