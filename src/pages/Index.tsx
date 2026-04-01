@@ -89,23 +89,17 @@ export default function Index() {
           <span className="text-primary">Programador</span>
         </h1>
 
-        {/* Nav pill — anchors like TitanGate */}
-        <div className="relative z-10 mt-10 animate-fade-in">
-          <div className="nav-pill flex items-center gap-0 px-2">
-            {navAnchors.map((item, i) => (
-              <span key={item.name} className="flex items-center">
-                <a
-                  href={item.href}
-                  className="font-mono text-[0.65rem] tracking-spaced uppercase px-4 py-3 text-foreground/70 hover:text-foreground transition-colors"
-                >
-                  {item.name}
-                </a>
-                {i < navAnchors.length - 1 && (
-                  <span className="text-foreground/20 text-xs">/</span>
-                )}
-              </span>
-            ))}
-          </div>
+        {/* Subtitle + CTA */}
+        <p className="relative z-10 mt-8 text-center text-foreground/50 max-w-2xl px-6 text-base md:text-lg font-light leading-relaxed animate-fade-in">
+          Desenvolvemos sites, sistemas e software sob medida com foco em performance, escala e resultado real para o seu negócio.
+        </p>
+        <div className="relative z-10 mt-8 animate-fade-in">
+          <Link
+            to="/contato"
+            className="inline-flex items-center gap-2 bg-primary text-background font-medium text-sm tracking-wide uppercase px-8 py-4 hover:bg-primary/90 transition-colors"
+          >
+            Solicitar Orçamento <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
