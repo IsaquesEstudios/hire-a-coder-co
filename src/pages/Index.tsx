@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Code2 } from "lucide-react";
+import { ArrowRight, Code2, Globe, FileText, ShoppingCart, Monitor, Cpu, Bot, Plug } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -13,14 +13,14 @@ const navAnchors = [
 ];
 
 const specialties = [
-  "Criação de Site",
-  "Landing Page",
-  "E-commerce",
-  "Sistemas Web",
-  "Software Sob Medida",
-  "Automação",
-  "Inteligência Artificial",
-  "Integração API",
+  { name: "Criação de Site", desc: "Sites institucionais rápidos, responsivos e otimizados para conversão.", icon: "Globe" },
+  { name: "Landing Page", desc: "Páginas de alta conversão focadas em capturar leads e vender.", icon: "FileText" },
+  { name: "E-commerce", desc: "Lojas virtuais completas com checkout, pagamento e gestão.", icon: "ShoppingCart" },
+  { name: "Sistemas Web", desc: "Plataformas sob medida para automatizar processos do seu negócio.", icon: "Monitor" },
+  { name: "Software Sob Medida", desc: "Soluções únicas desenvolvidas para resolver o seu problema específico.", icon: "Cpu" },
+  { name: "Automação", desc: "Automatize tarefas repetitivas e ganhe escala sem aumentar equipe.", icon: "Bot" },
+  { name: "Inteligência Artificial", desc: "IA aplicada ao seu negócio: chatbots, análise de dados e mais.", icon: "Code2" },
+  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug" },
 ];
 
 const marqueeItems = [
@@ -398,45 +398,75 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-            {specialties.map((item, i) => (
-              <div
-                key={item}
-                className="group relative rounded-2xl p-8 md:p-10 flex flex-col items-center justify-center text-center cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1"
-                style={{
-                  background: 'linear-gradient(145deg, hsl(220 30% 8% / 0.9), hsl(220 20% 5% / 0.95))',
-                  border: '1px solid hsl(0 0% 100% / 0.06)',
-                  backdropFilter: 'blur(20px)',
-                }}
-              >
-                {/* Hover glow - moves with mouse feel */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            {specialties.map((item) => {
+              const iconMap: Record<string, React.ReactNode> = {
+                Globe: <Globe className="w-6 h-6" strokeWidth={1.5} />,
+                FileText: <FileText className="w-6 h-6" strokeWidth={1.5} />,
+                ShoppingCart: <ShoppingCart className="w-6 h-6" strokeWidth={1.5} />,
+                Monitor: <Monitor className="w-6 h-6" strokeWidth={1.5} />,
+                Cpu: <Cpu className="w-6 h-6" strokeWidth={1.5} />,
+                Bot: <Bot className="w-6 h-6" strokeWidth={1.5} />,
+                Code2: <Code2 className="w-6 h-6" strokeWidth={1.5} />,
+                Plug: <Plug className="w-6 h-6" strokeWidth={1.5} />,
+              };
+              return (
+                <div
+                  key={item.name}
+                  className="group relative rounded-2xl p-7 md:p-8 flex flex-col items-start text-left cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1 specialty-card"
                   style={{
-                    background: 'radial-gradient(circle at 50% 0%, hsl(45 100% 49% / 0.08), transparent 60%)',
+                    background: 'linear-gradient(145deg, hsl(220 30% 8% / 0.9), hsl(220 20% 5% / 0.95))',
+                    backdropFilter: 'blur(20px)',
                   }}
-                />
-                {/* Top border shine */}
-                <div className="absolute top-0 left-[20%] right-[20%] h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, hsl(45 100% 49% / 0.4), transparent)',
-                  }}
-                />
-                {/* Bottom subtle shine */}
-                <div className="absolute bottom-0 left-[30%] right-[30%] h-px opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.1), transparent)',
-                  }}
-                />
-                {/* Glass reflection */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.03) 0%, transparent 50%, hsl(0 0% 100% / 0.01) 100%)',
-                  }}
-                />
-                <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/50 group-hover:text-primary transition-colors duration-300 relative z-10">
-                  {item}
-                </span>
-              </div>
-            ))}
+                >
+                  {/* Animated border glow - always visible */}
+                  <div className="absolute inset-0 rounded-2xl pointer-events-none"
+                    style={{
+                      border: '1px solid hsl(0 0% 100% / 0.08)',
+                      boxShadow: 'inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 0 15px hsl(45 100% 49% / 0.04)',
+                    }}
+                  />
+                  {/* Top border shine - always visible */}
+                  <div className="absolute top-0 left-[15%] right-[15%] h-px"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, hsl(45 100% 49% / 0.25), transparent)',
+                    }}
+                  />
+                  {/* Corner glow - always visible */}
+                  <div className="absolute -top-1 -right-1 w-24 h-24 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle, hsl(45 100% 49% / 0.06), transparent 70%)',
+                    }}
+                  />
+                  {/* Hover intensify */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle at 50% 0%, hsl(45 100% 49% / 0.1), transparent 60%)',
+                      boxShadow: '0 0 30px hsl(45 100% 49% / 0.06)',
+                    }}
+                  />
+
+                  {/* Icon */}
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 relative z-10 text-primary/70 group-hover:text-primary transition-colors duration-300"
+                    style={{
+                      background: 'linear-gradient(135deg, hsl(45 100% 49% / 0.1), hsl(45 100% 49% / 0.03))',
+                      border: '1px solid hsl(45 100% 49% / 0.12)',
+                    }}
+                  >
+                    {iconMap[item.icon]}
+                  </div>
+
+                  {/* Title */}
+                  <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/70 group-hover:text-primary transition-colors duration-300 relative z-10 block mb-3">
+                    {item.name}
+                  </span>
+
+                  {/* Description */}
+                  <span className="text-[0.75rem] text-foreground/30 group-hover:text-foreground/50 transition-colors duration-300 font-light leading-relaxed relative z-10">
+                    {item.desc}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
