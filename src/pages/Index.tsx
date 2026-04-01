@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Code2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -206,7 +206,7 @@ export default function Index() {
                     background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), transparent 70%)',
                   }}
                 />
-                <span className="font-mono text-primary text-sm tracking-[0.3em] uppercase font-bold relative z-10">CP</span>
+                <Code2 className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
               </div>
             </div>
 
