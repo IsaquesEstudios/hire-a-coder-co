@@ -40,28 +40,28 @@ const steps = [
 
 const comparisons = [
   {
-    title: "Performance",
-    vs: "Sites Lentos",
-    desc: "Arquitetura otimizada, CDN global, carregamento instantâneo. Cada milissegundo conta.",
-    old: "Templates pesados, servidores compartilhados, tempo de carregamento acima de 5 segundos.",
+    title: "Nosso Programador",
+    vs: "Freelancer Comum",
+    desc: "Programador dedicado, com experiência comprovada, código limpo e comprometimento total com prazos e qualidade.",
+    old: "Freelancer sem compromisso, código desorganizado, sem garantia de entrega nem suporte pós-projeto.",
   },
   {
-    title: "Engenharia",
+    title: "Código Sob Medida",
     vs: "Templates Prontos",
-    desc: "Código sob medida, escalável e mantido por engenheiros especializados.",
-    old: "Plugins genéricos, código duplicado, sem possibilidade de personalização real.",
+    desc: "Seu programador desenvolve do zero, com arquitetura pensada para o seu negócio escalar.",
+    old: "Plugins genéricos, código copiado da internet, sem personalização real e cheio de limitações.",
   },
   {
-    title: "Suporte",
-    vs: "Abandono",
-    desc: "Atendimento direto, suporte contínuo, evolução constante do seu produto.",
-    old: "Freelancer desaparece após entrega, sem garantia, sem manutenção.",
+    title: "Suporte Contínuo",
+    vs: "Abandono Pós-Entrega",
+    desc: "Após a entrega, seu programador continua disponível para manutenção, melhorias e novas features.",
+    old: "Programador desaparece depois do pagamento. Sem manutenção, sem resposta, sem evolução.",
   },
   {
-    title: "Resultado",
+    title: "Resultado Real",
     vs: "Promessas Vazias",
-    desc: "Métricas reais, ROI mensurável, estratégia alinhada aos seus objetivos de negócio.",
-    old: "Sem métricas, sem acompanhamento, sem compromisso com resultados.",
+    desc: "Contrate programador com métricas de entrega, ROI comprovado e foco total no resultado do seu negócio.",
+    old: "Sem métricas, sem acompanhamento, sem compromisso com o sucesso do projeto.",
   },
 ];
 
