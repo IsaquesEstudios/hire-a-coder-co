@@ -13,14 +13,14 @@ const navAnchors = [
 ];
 
 const specialties = [
-  "Criação de Site",
-  "Landing Page",
-  "E-commerce",
-  "Sistemas Web",
-  "Software Sob Medida",
-  "Automação",
-  "Inteligência Artificial",
-  "Integração API",
+  { name: "Criação de Site", desc: "Sites institucionais rápidos, responsivos e otimizados para conversão.", icon: "Globe" },
+  { name: "Landing Page", desc: "Páginas de alta conversão focadas em capturar leads e vender.", icon: "FileText" },
+  { name: "E-commerce", desc: "Lojas virtuais completas com checkout, pagamento e gestão.", icon: "ShoppingCart" },
+  { name: "Sistemas Web", desc: "Plataformas sob medida para automatizar processos do seu negócio.", icon: "Monitor" },
+  { name: "Software Sob Medida", desc: "Soluções únicas desenvolvidas para resolver o seu problema específico.", icon: "Cpu" },
+  { name: "Automação", desc: "Automatize tarefas repetitivas e ganhe escala sem aumentar equipe.", icon: "Bot" },
+  { name: "Inteligência Artificial", desc: "IA aplicada ao seu negócio: chatbots, análise de dados e mais.", icon: "Code2" },
+  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug" },
 ];
 
 const marqueeItems = [
