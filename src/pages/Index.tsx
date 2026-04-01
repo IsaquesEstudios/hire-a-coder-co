@@ -32,10 +32,10 @@ const marqueeItems = [
 ];
 
 const steps = [
-  { num: "01", title: "Descoberta", desc: "Entendemos o seu negócio, mapeamos necessidades e definimos escopo." },
-  { num: "02", title: "Arquitetura", desc: "Projetamos a solução técnica ideal com foco em performance e escala." },
-  { num: "03", title: "Desenvolvimento", desc: "Construímos com metodologia ágil, entregas contínuas e transparência." },
-  { num: "04", title: "Evolução", desc: "Suporte contínuo, otimizações e novas funcionalidades sob demanda." },
+  { num: "01", title: "Briefing", desc: "Você nos conta o que precisa e nós entendemos cada detalhe do seu projeto." },
+  { num: "02", title: "Match", desc: "Selecionamos o programador ideal para a sua demanda, stack e prazo." },
+  { num: "03", title: "Desenvolvimento", desc: "Seu programador dedicado constrói com entregas contínuas e total transparência." },
+  { num: "04", title: "Entrega & Suporte", desc: "Projeto entregue com código limpo, documentação e suporte contínuo." },
 ];
 
 const comparisons = [
