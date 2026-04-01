@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
+import programmerImg from "@/assets/programmer-working.jpg";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
@@ -112,17 +113,29 @@ export default function Index() {
       </section>
 
       {/* ===== ELITE SECTION ===== */}
-      <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
-        <div className="container-custom">
-          <div className="max-w-5xl">
+      <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f] relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="max-w-xl lg:max-w-2xl">
             <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-8">
               Programadores Especializados.{" "}
               <span className="text-primary">Sob Demanda.</span>
             </h2>
-            <p className="body-large text-foreground/50 max-w-3xl">
+            <p className="body-large text-foreground/50 max-w-xl">
               Contratar um programador não deveria ser um risco. Nossos profissionais dominam as tecnologias mais exigidas do mercado e entregam código limpo, escalável e pronto para produção.
             </p>
           </div>
+        </div>
+        {/* Programmer image on the right */}
+        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[45%]">
+          <img
+            src={programmerImg}
+            alt="Programador desenvolvendo código"
+            loading="lazy"
+            width={1024}
+            height={1024}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
         </div>
       </section>
 
