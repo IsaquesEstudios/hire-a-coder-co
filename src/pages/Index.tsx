@@ -13,14 +13,14 @@ const navAnchors = [
 ];
 
 const specialties = [
-  { name: "Criação de Site", desc: "Sites institucionais rápidos, responsivos e otimizados para conversão.", icon: "Globe" },
-  { name: "Landing Page", desc: "Páginas de alta conversão focadas em capturar leads e vender.", icon: "FileText" },
-  { name: "E-commerce", desc: "Lojas virtuais completas com checkout, pagamento e gestão.", icon: "ShoppingCart" },
-  { name: "Sistemas Web", desc: "Plataformas sob medida para automatizar processos do seu negócio.", icon: "Monitor" },
-  { name: "Software Sob Medida", desc: "Soluções únicas desenvolvidas para resolver o seu problema específico.", icon: "Cpu" },
-  { name: "Automação", desc: "Automatize tarefas repetitivas e ganhe escala sem aumentar equipe.", icon: "Bot" },
-  { name: "Inteligência Artificial", desc: "IA aplicada ao seu negócio: chatbots, análise de dados e mais.", icon: "Code2" },
-  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug" },
+  { name: "Criação de Site", desc: "Sites institucionais rápidos, responsivos e otimizados para conversão.", icon: "Globe", accent: "45 100% 49%", span: "" },
+  { name: "Landing Page", desc: "Páginas de alta conversão focadas em capturar leads e vender.", icon: "FileText", accent: "200 80% 55%", span: "md:col-span-2" },
+  { name: "E-commerce", desc: "Lojas virtuais completas com checkout, pagamento e gestão.", icon: "ShoppingCart", accent: "280 70% 55%", span: "" },
+  { name: "Sistemas Web", desc: "Plataformas sob medida para automatizar processos do seu negócio.", icon: "Monitor", accent: "160 60% 45%", span: "" },
+  { name: "Software Sob Medida", desc: "Soluções únicas desenvolvidas para resolver o seu problema específico.", icon: "Cpu", accent: "340 75% 55%", span: "" },
+  { name: "Automação", desc: "Automatize tarefas repetitivas e ganhe escala sem aumentar equipe.", icon: "Bot", accent: "25 90% 55%", span: "" },
+  { name: "Inteligência Artificial", desc: "IA aplicada ao seu negócio: chatbots, análise de dados e mais.", icon: "Code2", accent: "260 80% 60%", span: "md:col-span-2" },
+  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug", accent: "190 70% 50%", span: "" },
 ];
 
 const marqueeItems = [
