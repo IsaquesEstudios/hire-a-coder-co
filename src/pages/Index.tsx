@@ -177,36 +177,34 @@ export default function Index() {
 
           {/* Desktop: positioned cards with SVG lines */}
           <div className="hidden lg:block relative mx-auto" style={{ width: '1000px', height: '520px' }}>
-            {/* Central hub - layered circles like reference */}
+            {/* Central hub - solid filled circle like reference */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
-              {/* Outer glow ring */}
-              <div className="absolute w-44 h-44 rounded-full"
+              {/* Outer soft glow */}
+              <div className="absolute w-48 h-48 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, hsl(45 100% 49% / 0.06), transparent 70%)',
-                  boxShadow: '0 0 120px hsl(45 100% 49% / 0.08)',
+                  background: 'radial-gradient(circle, hsl(45 100% 49% / 0.05), transparent 70%)',
                 }}
               />
-              {/* Outer subtle ring */}
+              {/* Outer ring */}
               <div className="absolute w-40 h-40 rounded-full"
                 style={{
-                  border: '1px solid hsl(45 100% 49% / 0.08)',
+                  border: '1px solid hsl(45 100% 49% / 0.06)',
                 }}
               />
-              {/* Main circle */}
-              <div className="w-28 h-28 rounded-full flex items-center justify-center relative"
+              {/* Main filled circle */}
+              <div className="w-32 h-32 rounded-full flex items-center justify-center relative overflow-hidden"
                 style={{
-                  background: 'radial-gradient(circle at 40% 35%, hsl(45 100% 49% / 0.1), hsl(45 100% 49% / 0.02))',
-                  border: '2px solid hsl(45 100% 49% / 0.45)',
-                  boxShadow: '0 0 60px hsl(45 100% 49% / 0.1), inset 0 0 30px hsl(45 100% 49% / 0.05)',
+                  background: 'linear-gradient(145deg, hsl(45 80% 35%), hsl(45 100% 25%), hsl(35 90% 20%))',
+                  boxShadow: '0 0 80px hsl(45 100% 49% / 0.2), 0 8px 32px hsl(0 0% 0% / 0.4), inset 0 2px 4px hsl(45 100% 60% / 0.2)',
                 }}
               >
-                {/* Inner glow */}
-                <div className="absolute w-16 h-16 rounded-full"
+                {/* Inner highlight */}
+                <div className="absolute inset-0 rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), transparent 70%)',
+                    background: 'radial-gradient(circle at 40% 35%, hsl(45 100% 60% / 0.15), transparent 60%)',
                   }}
                 />
-                <Code2 className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
+                <Code2 className="w-10 h-10 text-foreground relative z-10" strokeWidth={1.5} />
               </div>
             </div>
 
