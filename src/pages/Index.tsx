@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
