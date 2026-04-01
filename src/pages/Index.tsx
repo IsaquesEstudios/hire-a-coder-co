@@ -20,7 +20,7 @@ const specialties = [
   { name: "Software Sob Medida", desc: "Soluções únicas desenvolvidas para resolver o seu problema específico.", icon: "Cpu", accent: "340 75% 55%", span: "" },
   { name: "Automação", desc: "Automatize tarefas repetitivas e ganhe escala sem aumentar equipe.", icon: "Bot", accent: "25 90% 55%", span: "" },
   { name: "Inteligência Artificial", desc: "IA aplicada ao seu negócio: chatbots, análise de dados e mais.", icon: "Code2", accent: "260 80% 60%", span: "md:col-span-2" },
-  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug", accent: "190 70% 50%", span: "" },
+  { name: "Integração API", desc: "Conecte sistemas, plataformas e serviços de forma segura e eficiente.", icon: "Plug", accent: "190 70% 50%", span: "md:col-span-2" },
 ];
 
 const marqueeItems = [
