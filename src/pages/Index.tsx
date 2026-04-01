@@ -4,6 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
 import programmerImg from "@/assets/programmer-working.jpg";
+import logoCp from "@/assets/logo-cp.png";
+import logoIsaques from "@/assets/logo-isaquesestudios.png";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
@@ -76,6 +78,13 @@ export default function Index() {
         <div className="absolute inset-0">
           <img src={heroBg} alt="" aria-hidden="true" width={1920} height={1080} className="w-full h-full object-cover opacity-[0.35]" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        </div>
+
+        {/* Company logos */}
+        <div className="relative z-10 flex items-center gap-6 mb-8 animate-fade-in">
+          <img src={logoCp} alt="CP Logo" className="h-12 md:h-16 opacity-60" />
+          <span className="text-foreground/20 text-2xl font-extralight">×</span>
+          <img src={logoIsaques} alt="Isaques Studios" className="h-8 md:h-10 opacity-60" />
         </div>
 
         <p className="spaced-text text-muted-foreground mb-6 relative z-10 animate-fade-in">
