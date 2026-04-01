@@ -221,8 +221,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-        </div>
-      </section>
 
       {/* ===== SPECIALTIES GRID ===== */}
       <section id="servicos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
