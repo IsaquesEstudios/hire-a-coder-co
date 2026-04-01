@@ -101,7 +101,6 @@ export default function Index() {
             Solicitar Orçamento <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-        </div>
       </section>
 
       {/* ===== INTRO — "Invitation Only" style ===== */}
