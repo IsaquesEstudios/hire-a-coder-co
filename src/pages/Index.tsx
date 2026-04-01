@@ -177,15 +177,37 @@ export default function Index() {
 
           {/* Desktop: positioned cards with SVG lines */}
           <div className="hidden lg:block relative mx-auto" style={{ width: '1000px', height: '520px' }}>
-            {/* Central hub */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-28 h-28 rounded-full flex items-center justify-center"
-              style={{
-                background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), hsl(45 100% 49% / 0.03))',
-                border: '2px solid hsl(45 100% 49% / 0.4)',
-                boxShadow: '0 0 100px hsl(45 100% 49% / 0.12), 0 0 40px hsl(45 100% 49% / 0.08), inset 0 0 40px hsl(45 100% 49% / 0.06)',
-              }}
-            >
-              <span className="font-mono text-primary text-sm tracking-spaced uppercase font-bold">CP</span>
+            {/* Central hub - layered circles like reference */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+              {/* Outer glow ring */}
+              <div className="absolute w-44 h-44 rounded-full"
+                style={{
+                  background: 'radial-gradient(circle, hsl(45 100% 49% / 0.06), transparent 70%)',
+                  boxShadow: '0 0 120px hsl(45 100% 49% / 0.08)',
+                }}
+              />
+              {/* Outer subtle ring */}
+              <div className="absolute w-40 h-40 rounded-full"
+                style={{
+                  border: '1px solid hsl(45 100% 49% / 0.08)',
+                }}
+              />
+              {/* Main circle */}
+              <div className="w-28 h-28 rounded-full flex items-center justify-center relative"
+                style={{
+                  background: 'radial-gradient(circle at 40% 35%, hsl(45 100% 49% / 0.1), hsl(45 100% 49% / 0.02))',
+                  border: '2px solid hsl(45 100% 49% / 0.45)',
+                  boxShadow: '0 0 60px hsl(45 100% 49% / 0.1), inset 0 0 30px hsl(45 100% 49% / 0.05)',
+                }}
+              >
+                {/* Inner glow */}
+                <div className="absolute w-16 h-16 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, hsl(45 100% 49% / 0.12), transparent 70%)',
+                  }}
+                />
+                <span className="font-mono text-primary text-sm tracking-[0.3em] uppercase font-bold relative z-10">CP</span>
+              </div>
             </div>
 
             {/* SVG connecting lines */}
