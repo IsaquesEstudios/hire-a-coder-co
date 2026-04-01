@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import heroBg from "@/assets/hero-bg.jpg";
+import programmerImg from "@/assets/programmer-working.jpg";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
