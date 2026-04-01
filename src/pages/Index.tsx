@@ -157,26 +157,49 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ===== TWO COLUMNS ===== */}
+      {/* ===== STACKS ===== */}
       <section className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-              <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1] mb-6">
-                Programadores para Qualquer Stack.
-              </h3>
-            </div>
-            <div>
-              <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1] mb-6">
-                Comprometimento Total com o Seu Projeto.
-              </h3>
-              <p className="body-large text-foreground/50">
-                Contratar programador freelancer é arriscado. Prazos furados, código abandonado e zero suporte são a norma do mercado.
-              </p>
-              <p className="body-large text-foreground/50 mt-6">
-                Aqui você contrata <span className="text-foreground">responsabilidade</span>, <span className="text-foreground">qualidade</span> e <span className="text-foreground">continuidade</span> — do primeiro commit até a entrega final.
-              </p>
-            </div>
+          <h2 className="text-h3 md:text-h2 lg:text-h1 font-light tracking-heading text-foreground leading-[0.95] mb-16">
+            Programadores para Qualquer Stack.
+          </h2>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8 md:gap-10">
+            {[
+              { name: "React", icon: "⚛️" },
+              { name: "Next.js", icon: "▲" },
+              { name: "TypeScript", icon: "TS" },
+              { name: "Node.js", icon: "⬢" },
+              { name: "Python", icon: "🐍" },
+              { name: "PHP", icon: "🐘" },
+              { name: "Laravel", icon: "◆" },
+              { name: "Vue.js", icon: "V" },
+              { name: "Angular", icon: "A" },
+              { name: "Flutter", icon: "◇" },
+              { name: "React Native", icon: "📱" },
+              { name: "AWS", icon: "☁️" },
+              { name: "Docker", icon: "🐳" },
+              { name: "PostgreSQL", icon: "🐘" },
+              { name: "MongoDB", icon: "🍃" },
+              { name: "Firebase", icon: "🔥" },
+              { name: "Tailwind", icon: "🎨" },
+              { name: "GraphQL", icon: "◈" },
+              { name: "Redis", icon: "◉" },
+              { name: "Shopify", icon: "🛒" },
+              { name: "WordPress", icon: "W" },
+              { name: "Java", icon: "☕" },
+              { name: "C#", icon: "#" },
+              { name: ".NET", icon: "•" },
+            ].map((tech) => (
+              <div key={tech.name} className="flex flex-col items-center gap-3 group">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg border border-dashed border-[#3f3f3f] flex items-center justify-center text-xl md:text-2xl group-hover:border-primary/40 group-hover:bg-foreground/[0.03] transition-all">
+                  <span className="opacity-60 group-hover:opacity-100 transition-opacity">{tech.icon}</span>
+                </div>
+                <span className="font-mono text-[0.55rem] tracking-spaced uppercase text-foreground/40 group-hover:text-foreground/70 transition-colors">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
