@@ -14,7 +14,7 @@ export default {
   	},
   	extend: {
   		fontFamily: {
-  			sans: ['Poppins', 'sans-serif'],
+  			sans: ['Montserrat', 'sans-serif'],
   			mono: ['Space Mono', 'monospace'],
   		},
   		fontSize: {
