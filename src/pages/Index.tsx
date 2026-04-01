@@ -164,60 +164,141 @@ export default function Index() {
             Programadores para Qualquer Stack.
           </h2>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8">
-            {[
-              { name: "React", slug: "react", color: "#61DAFB" },
-              { name: "Next.js", slug: "nextdotjs", color: "#ffffff" },
-              { name: "TypeScript", slug: "typescript", color: "#3178C6" },
-              { name: "Node.js", slug: "nodedotjs", color: "#5FA04E" },
-              { name: "Python", slug: "python", color: "#3776AB" },
-              { name: "PHP", slug: "php", color: "#777BB4" },
-              { name: "Laravel", slug: "laravel", color: "#FF2D20" },
-              { name: "Vue.js", slug: "vuedotjs", color: "#4FC08D" },
-              { name: "Angular", slug: "angular", color: "#0F0F11" },
-              { name: "Flutter", slug: "flutter", color: "#02569B" },
-              { name: "React Native", slug: "react", color: "#61DAFB" },
-              { name: "AWS", slug: "amazonwebservices", color: "#FF9900" },
-              { name: "Docker", slug: "docker", color: "#2496ED" },
-              { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
-              { name: "MongoDB", slug: "mongodb", color: "#47A248" },
-              { name: "Firebase", slug: "firebase", color: "#DD2C00" },
-              { name: "Tailwind", slug: "tailwindcss", color: "#06B6D4" },
-              { name: "GraphQL", slug: "graphql", color: "#E10098" },
-              { name: "Redis", slug: "redis", color: "#FF4438" },
-              { name: "Shopify", slug: "shopify", color: "#7AB55C" },
-              { name: "WordPress", slug: "wordpress", color: "#21759B" },
-              { name: "Java", slug: "java", color: "#F89820" },
-              { name: "C#", slug: "csharp", color: "#512BD4" },
-              { name: ".NET", slug: "dotnet", color: "#512BD4" },
-            ].map((tech) => (
-              <div key={tech.name} className="flex flex-col items-center gap-3 group cursor-default">
-                <div
-                  className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    background: `radial-gradient(circle at 30% 30%, ${tech.color}15, transparent 70%)`,
-                    border: `1px solid ${tech.color}20`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: `radial-gradient(circle at 50% 50%, ${tech.color}25, transparent 70%)`,
-                      boxShadow: `0 0 30px ${tech.color}15`,
-                    }}
-                  />
-                  <img
-                    src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`}
-                    alt={tech.name}
-                    loading="lazy"
-                    className="w-7 h-7 md:w-8 md:h-8 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                </div>
-                <span className="font-mono text-[0.5rem] md:text-[0.55rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
-                  {tech.name}
-                </span>
+          <div className="relative flex flex-col items-center">
+            {/* Central hub */}
+            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 rounded-full bg-primary/10 border border-primary/30 items-center justify-center shadow-[0_0_60px_hsla(45,100%,49%,0.2)]">
+              <span className="font-mono text-primary text-[0.6rem] tracking-spaced uppercase font-bold">CP</span>
+            </div>
+
+            {/* Connection lines (decorative) */}
+            <div className="hidden lg:block absolute inset-0 z-10 pointer-events-none">
+              <svg className="w-full h-full" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="hsl(45 100% 49% / 0.15)" />
+                    <stop offset="50%" stopColor="hsl(45 100% 49% / 0.3)" />
+                    <stop offset="100%" stopColor="hsl(45 100% 49% / 0.15)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            {/* Two-column connected layout on lg, grid on smaller */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-2 gap-4 lg:gap-0 w-full lg:max-w-5xl">
+              {/* Left column */}
+              <div className="col-span-3 sm:col-span-4 lg:col-span-1 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-1 gap-4 lg:gap-0">
+                {[
+                  { name: "React", slug: "react", color: "#61DAFB" },
+                  { name: "Next.js", slug: "nextdotjs", color: "#ffffff" },
+                  { name: "TypeScript", slug: "typescript", color: "#3178C6" },
+                  { name: "Node.js", slug: "nodedotjs", color: "#5FA04E" },
+                  { name: "Python", slug: "python", color: "#3776AB" },
+                  { name: "PHP", slug: "php", color: "#777BB4" },
+                  { name: "Laravel", slug: "laravel", color: "#FF2D20" },
+                  { name: "Vue.js", slug: "vuedotjs", color: "#4FC08D" },
+                  { name: "Angular", slug: "angular", color: "#0F0F11" },
+                  { name: "Flutter", slug: "flutter", color: "#02569B" },
+                  { name: "React Native", slug: "react", color: "#61DAFB" },
+                  { name: "AWS", slug: "amazonwebservices", color: "#FF9900" },
+                ].map((tech) => (
+                  <div key={tech.name} className="flex items-center gap-3 lg:gap-4 group cursor-default lg:py-3 lg:pr-8 lg:justify-end">
+                    <span className="hidden lg:block font-mono text-[0.6rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
+                      {tech.name}
+                    </span>
+                    <div className="hidden lg:block h-px flex-1 max-w-[80px]" style={{ background: `linear-gradient(90deg, transparent, ${tech.color}30)` }} />
+                    <div
+                      className="relative w-14 h-14 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 shrink-0"
+                      style={{
+                        background: `radial-gradient(circle at 30% 30%, ${tech.color}15, transparent 70%)`,
+                        border: `1px solid ${tech.color}20`,
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: `radial-gradient(circle at 50% 50%, ${tech.color}25, transparent 70%)`, boxShadow: `0 0 30px ${tech.color}15` }}
+                      />
+                      <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-6 h-6 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <span className="lg:hidden font-mono text-[0.5rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
+                      {tech.name}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
+
+              {/* Right column */}
+              <div className="hidden lg:grid lg:col-span-1 lg:grid-cols-1 gap-0">
+                {[
+                  { name: "Docker", slug: "docker", color: "#2496ED" },
+                  { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
+                  { name: "MongoDB", slug: "mongodb", color: "#47A248" },
+                  { name: "Firebase", slug: "firebase", color: "#DD2C00" },
+                  { name: "Tailwind", slug: "tailwindcss", color: "#06B6D4" },
+                  { name: "GraphQL", slug: "graphql", color: "#E10098" },
+                  { name: "Redis", slug: "redis", color: "#FF4438" },
+                  { name: "Shopify", slug: "shopify", color: "#7AB55C" },
+                  { name: "WordPress", slug: "wordpress", color: "#21759B" },
+                  { name: "Java", slug: "java", color: "#F89820" },
+                  { name: "C#", slug: "csharp", color: "#512BD4" },
+                  { name: ".NET", slug: "dotnet", color: "#512BD4" },
+                ].map((tech) => (
+                  <div key={tech.name} className="flex items-center gap-4 group cursor-default py-3 pl-8">
+                    <div
+                      className="relative w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 shrink-0"
+                      style={{
+                        background: `radial-gradient(circle at 30% 30%, ${tech.color}15, transparent 70%)`,
+                        border: `1px solid ${tech.color}20`,
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: `radial-gradient(circle at 50% 50%, ${tech.color}25, transparent 70%)`, boxShadow: `0 0 30px ${tech.color}15` }}
+                      />
+                      <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-6 h-6 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <div className="h-px flex-1 max-w-[80px]" style={{ background: `linear-gradient(90deg, ${tech.color}30, transparent)` }} />
+                    <span className="font-mono text-[0.6rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
+                      {tech.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile-only: show right column items in the same grid */}
+              {[
+                { name: "Docker", slug: "docker", color: "#2496ED" },
+                { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
+                { name: "MongoDB", slug: "mongodb", color: "#47A248" },
+                { name: "Firebase", slug: "firebase", color: "#DD2C00" },
+                { name: "Tailwind", slug: "tailwindcss", color: "#06B6D4" },
+                { name: "GraphQL", slug: "graphql", color: "#E10098" },
+                { name: "Redis", slug: "redis", color: "#FF4438" },
+                { name: "Shopify", slug: "shopify", color: "#7AB55C" },
+                { name: "WordPress", slug: "wordpress", color: "#21759B" },
+                { name: "Java", slug: "java", color: "#F89820" },
+                { name: "C#", slug: "csharp", color: "#512BD4" },
+                { name: ".NET", slug: "dotnet", color: "#512BD4" },
+              ].map((tech) => (
+                <div key={`m-${tech.name}`} className="flex flex-col items-center gap-2 group cursor-default lg:hidden">
+                  <div
+                    className="relative w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      background: `radial-gradient(circle at 30% 30%, ${tech.color}15, transparent 70%)`,
+                      border: `1px solid ${tech.color}20`,
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: `radial-gradient(circle at 50% 50%, ${tech.color}25, transparent 70%)`, boxShadow: `0 0 30px ${tech.color}15` }}
+                    />
+                    <img src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#', '')}`} alt={tech.name} loading="lazy" className="w-6 h-6 relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <span className="font-mono text-[0.5rem] tracking-spaced uppercase text-foreground/30 group-hover:text-foreground/60 transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
