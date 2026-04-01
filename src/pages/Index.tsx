@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
@@ -71,8 +72,11 @@ export default function Index() {
 
       {/* ===== HERO — Full viewport, centered, TitanGate exact layout ===== */}
       <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background -mt-20">
-        {/* Subtle radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(250,191,0,0.03)_0%,_transparent_70%)]" />
+        {/* Background image with blend */}
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" aria-hidden="true" width={1920} height={1080} className="w-full h-full object-cover opacity-[0.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        </div>
 
         {/* Micro label */}
         <p className="spaced-text text-muted-foreground mb-6 relative z-10 animate-fade-in">
