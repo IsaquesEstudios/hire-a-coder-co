@@ -355,7 +355,7 @@ export default function Index() {
                 boxShadow: '0 0 60px hsl(45 100% 49% / 0.1)',
               }}
             >
-              <span className="font-mono text-primary text-xs tracking-spaced uppercase font-bold">CP</span>
+              <img src={logoIsaques} alt="Logo" className="w-10 h-10 object-contain opacity-80" />
             </div>
             {[
               { name: "React", slug: "react", color: "#61DAFB", desc: "Interfaces modernas e reativas" },
