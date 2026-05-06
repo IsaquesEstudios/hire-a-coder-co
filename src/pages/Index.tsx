@@ -147,13 +147,13 @@ export default function Index() {
       </section>
 
       {/* ===== SPECIALTIES GRID ===== */}
-      <section id="servicos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+      <section id="servicos" className="section-padding bg-foreground border-t border-dashed border-black/10">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-6">
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-background leading-[0.95] mb-6">
               Contrate Programadores Para
             </h2>
-            <p className="body-large text-foreground/40">
+            <p className="body-large text-background/60">
               Todas as tecnologias e formatos que o seu projeto precisa
             </p>
           </div>
@@ -176,34 +176,33 @@ export default function Index() {
                   key={item.name}
                   className={`group relative rounded-2xl p-7 md:p-8 flex flex-col items-start text-left cursor-default overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 ${item.span}`}
                   style={{
-                    background: `linear-gradient(160deg, hsl(${a} / 0.06) 0%, hsl(220 20% 5% / 0.95) 40%, hsl(${a} / 0.02) 100%)`,
-                    backdropFilter: 'blur(20px)',
+                    background: `linear-gradient(160deg, hsl(${a} / 0.08) 0%, hsl(0 0% 100%) 40%, hsl(${a} / 0.04) 100%)`,
                   }}
                 >
                   {/* Border with accent color */}
                   <div className="absolute inset-0 rounded-2xl pointer-events-none"
                     style={{
-                      border: `1px solid hsl(${a} / 0.1)`,
-                      boxShadow: `inset 0 1px 0 hsl(${a} / 0.08), 0 0 20px hsl(${a} / 0.03)`,
+                      border: `1px solid hsl(${a} / 0.25)`,
+                      boxShadow: `inset 0 1px 0 hsl(0 0% 100% / 0.6), 0 4px 20px hsl(${a} / 0.06)`,
                     }}
                   />
                   {/* Top border shine with accent */}
                   <div className="absolute top-0 left-[10%] right-[10%] h-px"
                     style={{
-                      background: `linear-gradient(90deg, transparent, hsl(${a} / 0.35), transparent)`,
+                      background: `linear-gradient(90deg, transparent, hsl(${a} / 0.5), transparent)`,
                     }}
                   />
                   {/* Corner glow */}
                   <div className="absolute -top-2 -left-2 w-32 h-32 pointer-events-none"
                     style={{
-                      background: `radial-gradient(circle, hsl(${a} / 0.07), transparent 65%)`,
+                      background: `radial-gradient(circle, hsl(${a} / 0.12), transparent 65%)`,
                     }}
                   />
                   {/* Hover glow */}
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                     style={{
-                      background: `radial-gradient(circle at 30% 20%, hsl(${a} / 0.12), transparent 60%)`,
-                      boxShadow: `0 0 40px hsl(${a} / 0.08)`,
+                      background: `radial-gradient(circle at 30% 20%, hsl(${a} / 0.18), transparent 60%)`,
+                      boxShadow: `0 8px 40px hsl(${a} / 0.15)`,
                     }}
                   />
 
@@ -211,20 +210,20 @@ export default function Index() {
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 relative z-10 transition-all duration-300"
                     style={{
                       color: `hsl(${a})`,
-                      background: `linear-gradient(135deg, hsl(${a} / 0.12), hsl(${a} / 0.04))`,
-                      border: `1px solid hsl(${a} / 0.15)`,
+                      background: `linear-gradient(135deg, hsl(${a} / 0.18), hsl(${a} / 0.06))`,
+                      border: `1px solid hsl(${a} / 0.3)`,
                     }}
                   >
                     {iconMap[item.icon]}
                   </div>
 
                   {/* Title */}
-                  <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-300 relative z-10 block mb-3">
+                  <span className="font-mono text-[0.7rem] md:text-[0.75rem] tracking-spaced uppercase text-background group-hover:text-background transition-colors duration-300 relative z-10 block mb-3">
                     {item.name}
                   </span>
 
                   {/* Description */}
-                  <span className="text-[0.78rem] text-foreground/35 group-hover:text-foreground/55 transition-colors duration-300 font-light leading-relaxed relative z-10">
+                  <span className="text-[0.78rem] text-background/60 group-hover:text-background/80 transition-colors duration-300 font-light leading-relaxed relative z-10">
                     {item.desc}
                   </span>
                 </div>
