@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import logoHeader from "@/assets/logo-header.png";
 
 const services = [
   { name: "Criação de Site", href: "/servicos/criacao-de-site" },
@@ -39,10 +40,8 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="flex items-center justify-between px-6 md:px-12 py-6">
         {/* Left Logo */}
-        <Link to="/" className="z-10 flex-shrink-0">
-          <span className="font-mono text-foreground text-xs tracking-spaced uppercase">
-            CONTRATAR<span className="text-primary">PROGRAMADOR</span>
-          </span>
+        <Link to="/" className="z-10 flex-shrink-0" aria-label="Contratar Programador">
+          <img src={logoHeader} alt="Contratar Programador" className="h-10 md:h-12 w-auto" />
         </Link>
 
         {/* Center Nav */}
