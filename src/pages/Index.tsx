@@ -6,6 +6,45 @@ import heroBg from "@/assets/hero-bg.jpg";
 import programmerImg from "@/assets/programmer-working.jpg";
 import logoCp from "@/assets/logo-cp.png";
 import logoIsaques from "@/assets/logo-isaquesestudios.png";
+import work1 from "@/assets/work-1.jpg";
+import work2 from "@/assets/work-2.jpg";
+import work3 from "@/assets/work-3.jpg";
+import work4 from "@/assets/work-4.jpg";
+
+const works = [
+  {
+    year: "2025",
+    category: "SaaS / Dashboard",
+    title: "Plataforma de Analytics em Tempo Real",
+    desc: "Dashboard completo para visualização de métricas de negócio, com integrações via API e relatórios personalizados.",
+    stack: ["React", "Node.js", "PostgreSQL"],
+    image: work1,
+  },
+  {
+    year: "2025",
+    category: "E-commerce",
+    title: "Loja Virtual Multi-canal",
+    desc: "E-commerce robusto com checkout otimizado, gestão de estoque integrada e experiência fluida em mobile e desktop.",
+    stack: ["Next.js", "Stripe", "Supabase"],
+    image: work2,
+  },
+  {
+    year: "2024",
+    category: "Sistema Interno",
+    title: "ERP Sob Medida para Operação",
+    desc: "Sistema de gestão personalizado que automatizou processos internos e aumentou a produtividade da equipe em 40%.",
+    stack: ["TypeScript", "Laravel", "MySQL"],
+    image: work3,
+  },
+  {
+    year: "2024",
+    category: "IA & Automação",
+    title: "Chatbot e Automação de Atendimento",
+    desc: "Solução de IA conversacional integrada ao WhatsApp com fluxos automatizados e handoff inteligente para humanos.",
+    stack: ["Python", "OpenAI", "n8n"],
+    image: work4,
+  },
+];
 
 const navAnchors = [
   { name: "Serviços", href: "#servicos" },
@@ -146,20 +185,85 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ===== VISION ===== */}
-      <section className="section-padding bg-background">
+      {/* ===== TRABALHOS REALIZADOS ===== */}
+      <section id="trabalhos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Header */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
             <div className="lg:col-span-4">
-              <p className="mono-label mb-4">por que nos contratar</p>
-              <p className="font-mono text-foreground text-sm">Contratar Programador</p>
-              <p className="font-mono text-foreground/40 text-xs">@matteusisaque</p>
+              <p className="mono-label mb-4">trabalhos realizados</p>
             </div>
             <div className="lg:col-span-8">
-              <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15]">
-                Contratar um programador qualificado é a diferença entre um projeto que funciona e um que transforma. Enquanto o mercado oferece promessas, nós entregamos código — testado, documentado e pronto para escalar o seu negócio.
-              </p>
+              <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05]">
+                Projetos que <span className="text-primary">geraram resultado.</span>{" "}
+                <span className="text-foreground/40">
+                  Cada entrega é prova do nosso compromisso com qualidade técnica e impacto real no negócio do cliente.
+                </span>
+              </h2>
             </div>
+          </div>
+
+          {/* Showcase list */}
+          <div className="space-y-24 md:space-y-32">
+            {works.map((work, idx) => (
+              <article
+                key={work.title}
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
+                  idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="lg:col-span-7 group relative overflow-hidden border border-dashed border-[#3f3f3f]">
+                  <img
+                    src={work.image}
+                    alt={work.title}
+                    loading="lazy"
+                    width={1280}
+                    height={896}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <span className="mono-label text-primary">{work.year}</span>
+                    <span className="h-px w-8 bg-[#3f3f3f]" />
+                    <span className="mono-label">{work.category}</span>
+                  </div>
+
+                  <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.05]">
+                    {work.title}
+                  </h3>
+
+                  <p className="body-large text-foreground/50">{work.desc}</p>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {work.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[0.6rem] tracking-micro uppercase text-foreground/60 border border-dashed border-[#3f3f3f] px-3 py-1.5"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-24 md:mt-32 pt-16 border-t border-dashed border-[#3f3f3f] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15] max-w-xl">
+              Seu projeto pode ser o <span className="text-primary">próximo case</span>.
+            </p>
+            <Link
+              to="/contato"
+              className="inline-flex items-center gap-2 bg-primary text-background font-medium text-sm tracking-wide uppercase px-8 py-4 hover:bg-primary/90 transition-colors flex-shrink-0"
+            >
+              Iniciar Projeto <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
