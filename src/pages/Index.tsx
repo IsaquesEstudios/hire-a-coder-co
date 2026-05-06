@@ -153,7 +153,7 @@ export default function Index() {
             <div className="lg:col-span-4">
               <p className="mono-label mb-4">por que nos contratar</p>
               <p className="font-mono text-foreground text-sm">Contratar Programador</p>
-              <p className="font-mono text-foreground/40 text-xs">@contratar_programador</p>
+              <p className="font-mono text-foreground/40 text-xs">@matteusisaque</p>
             </div>
             <div className="lg:col-span-8">
               <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15]">
