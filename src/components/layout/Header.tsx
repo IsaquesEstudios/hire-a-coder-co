@@ -38,18 +38,48 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="flex items-center justify-between px-6 md:px-12 py-6">
-        {/* Spacer left */}
-        <div className="flex-1" />
-
-        {/* Center Logo — like TitanGate */}
-        <Link to="/" className="z-10">
+        {/* Left Logo */}
+        <Link to="/" className="z-10 flex-shrink-0">
           <span className="font-mono text-foreground text-xs tracking-spaced uppercase">
             CONTRATAR<span className="text-primary">PROGRAMADOR</span>
           </span>
         </Link>
 
+        {/* Center Nav */}
+        <div className="hidden md:flex items-center gap-8 z-10">
+          {navigation.map((item) =>
+            item.hasDropdown ? (
+              <DropdownMenu key={item.name}>
+                <DropdownMenuTrigger className="font-mono text-foreground text-[0.65rem] tracking-spaced uppercase hover:text-primary transition-colors outline-none">
+                  {item.name}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" className="bg-background/95 backdrop-blur-xl border-[#3f3f3f]">
+                  {services.map((service) => (
+                    <DropdownMenuItem key={service.href} asChild>
+                      <Link
+                        to={service.href}
+                        className="font-mono text-[0.65rem] tracking-micro uppercase text-muted-foreground hover:text-primary cursor-pointer"
+                      >
+                        {service.name}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`font-mono text-[0.65rem] tracking-spaced uppercase transition-colors ${isActive(item.href) ? "text-primary" : "text-foreground hover:text-primary"}`}
+              >
+                {item.name}
+              </Link>
+            )
+          )}
+        </div>
+
         {/* Right CTA */}
-        <div className="flex-1 flex justify-end z-10">
+        <div className="flex items-center justify-end z-10 flex-shrink-0">
           <Link
             to="/contato"
             className="hidden md:inline-flex nav-pill font-mono text-foreground text-[0.65rem] tracking-spaced uppercase px-5 py-2.5 hover:text-primary transition-colors"
