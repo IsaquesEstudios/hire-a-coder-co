@@ -185,89 +185,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ===== TRABALHOS REALIZADOS ===== */}
-      <section id="trabalhos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
-        <div className="container-custom">
-          {/* Header */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
-            <div className="lg:col-span-4">
-              <p className="mono-label mb-4">trabalhos realizados</p>
-            </div>
-            <div className="lg:col-span-8">
-              <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05]">
-                Projetos que <span className="text-primary">geraram resultado.</span>{" "}
-                <span className="text-foreground/40">
-                  Cada entrega é prova do nosso compromisso com qualidade técnica e impacto real no negócio do cliente.
-                </span>
-              </h2>
-            </div>
-          </div>
-
-          {/* Showcase list */}
-          <div className="space-y-24 md:space-y-32">
-            {works.map((work, idx) => (
-              <article
-                key={work.title}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
-                  idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="lg:col-span-7 group relative overflow-hidden border border-dashed border-[#3f3f3f]">
-                  <img
-                    src={work.image}
-                    alt={work.title}
-                    loading="lazy"
-                    width={1280}
-                    height={896}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-
-                {/* Info */}
-                <div className="lg:col-span-5 space-y-6">
-                  <div className="flex items-center gap-4">
-                    <span className="mono-label text-primary">{work.year}</span>
-                    <span className="h-px w-8 bg-[#3f3f3f]" />
-                    <span className="mono-label">{work.category}</span>
-                  </div>
-
-                  <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.05]">
-                    {work.title}
-                  </h3>
-
-                  <p className="body-large text-foreground/50">{work.desc}</p>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {work.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-[0.6rem] tracking-micro uppercase text-foreground/60 border border-dashed border-[#3f3f3f] px-3 py-1.5"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="mt-24 md:mt-32 pt-16 border-t border-dashed border-[#3f3f3f] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15] max-w-xl">
-              Seu projeto pode ser o <span className="text-primary">próximo case</span>.
-            </p>
-            <Link
-              to="/contato"
-              className="inline-flex items-center gap-2 bg-primary text-background font-medium text-sm tracking-wide uppercase px-8 py-4 hover:bg-primary/90 transition-colors flex-shrink-0"
-            >
-              Iniciar Projeto <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ===== STACKS ===== */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         {/* Background with gradient */}
@@ -723,6 +640,89 @@ export default function Index() {
               className="nav-pill font-mono text-background text-[0.7rem] tracking-spaced uppercase px-6 py-3 hover:text-primary transition-colors border border-background/20"
             >
               Contratar Programador <ArrowRight className="inline w-3 h-3 ml-2" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TRABALHOS REALIZADOS ===== */}
+      <section id="trabalhos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+        <div className="container-custom">
+          {/* Header */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
+            <div className="lg:col-span-4">
+              <p className="mono-label mb-4">trabalhos realizados</p>
+            </div>
+            <div className="lg:col-span-8">
+              <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05]">
+                Projetos que <span className="text-primary">geraram resultado.</span>{" "}
+                <span className="text-foreground/40">
+                  Cada entrega é prova do nosso compromisso com qualidade técnica e impacto real no negócio do cliente.
+                </span>
+              </h2>
+            </div>
+          </div>
+
+          {/* Showcase list */}
+          <div className="space-y-24 md:space-y-32">
+            {works.map((work, idx) => (
+              <article
+                key={work.title}
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
+                  idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="lg:col-span-7 group relative overflow-hidden border border-dashed border-[#3f3f3f]">
+                  <img
+                    src={work.image}
+                    alt={work.title}
+                    loading="lazy"
+                    width={1280}
+                    height={896}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <span className="mono-label text-primary">{work.year}</span>
+                    <span className="h-px w-8 bg-[#3f3f3f]" />
+                    <span className="mono-label">{work.category}</span>
+                  </div>
+
+                  <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.05]">
+                    {work.title}
+                  </h3>
+
+                  <p className="body-large text-foreground/50">{work.desc}</p>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {work.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[0.6rem] tracking-micro uppercase text-foreground/60 border border-dashed border-[#3f3f3f] px-3 py-1.5"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-24 md:mt-32 pt-16 border-t border-dashed border-[#3f3f3f] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15] max-w-xl">
+              Seu projeto pode ser o <span className="text-primary">próximo case</span>.
+            </p>
+            <Link
+              to="/contato"
+              className="inline-flex items-center gap-2 bg-primary text-background font-medium text-sm tracking-wide uppercase px-8 py-4 hover:bg-primary/90 transition-colors flex-shrink-0"
+            >
+              Iniciar Projeto <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
