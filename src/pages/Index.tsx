@@ -512,30 +512,40 @@ export default function Index() {
       </section>
 
       {/* ===== STATS ===== */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-foreground border-t border-dashed border-black/10">
         <div className="container-custom">
-          <div className="text-center mb-20">
-            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95]">
-              Por Que Nos Escolher Para Contratar Programador
+          <div className="max-w-4xl mb-20">
+            <p className="spaced-text text-background/50 mb-6">RESULTADOS COMPROVADOS</p>
+            <h2 className="text-h3 md:text-h2 font-light tracking-heading text-background leading-[0.95]">
+              Por Que Nos Escolher Para{" "}
+              <span className="text-background/40">Contratar Programador</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-display font-light text-primary leading-none">98%</div>
-              <p className="mono-label mt-4">dos clientes que contrataram programador conosco tiveram retorno em 6 meses</p>
-            </div>
-            <div className="text-center">
-              <div className="text-display font-light text-primary leading-none">+150</div>
-              <p className="mono-label mt-4">projetos entregues por programadores da nossa equipe</p>
-            </div>
-            <div className="text-center">
-              <div className="text-display font-light text-primary leading-none">3x</div>
-              <p className="mono-label mt-4">mais rápido que contratar programador por conta própria</p>
-            </div>
-            <div className="text-center">
-              <div className="text-display font-light text-primary leading-none">24/7</div>
-              <p className="mono-label mt-4">suporte técnico do programador dedicado ao seu projeto</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-dashed border-black/15">
+            {[
+              { value: "98%", label: "dos clientes que contrataram programador conosco tiveram retorno em 6 meses" },
+              { value: "+150", label: "projetos entregues por programadores da nossa equipe" },
+              { value: "3x", label: "mais rápido que contratar programador por conta própria" },
+              { value: "24/7", label: "suporte técnico do programador dedicado ao seu projeto" },
+            ].map((stat, i) => (
+              <div
+                key={stat.value}
+                className={`p-8 md:p-10 border-b border-dashed border-black/15 lg:border-b-0 ${
+                  i < 3 ? "md:border-r border-dashed border-black/15" : ""
+                } ${i === 1 ? "lg:border-r" : ""} hover:bg-black/[0.02] transition-colors duration-500 group`}
+              >
+                <div className="flex items-baseline gap-2 mb-6">
+                  <span className="mono-label text-background/40">0{i + 1}</span>
+                  <div className="flex-1 h-px bg-black/10" />
+                </div>
+                <div className="text-[4.5rem] md:text-[5.5rem] font-light text-primary leading-none tracking-heading mb-6 group-hover:scale-[1.03] origin-left transition-transform duration-500">
+                  {stat.value}
+                </div>
+                <p className="text-background/60 text-sm font-light leading-relaxed">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
