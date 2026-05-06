@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,7 @@
 /* Design System - Contratar Programador
    Estilo: TitanGate-inspired dark premium
    Cores: Preto #000, Branco #fff, Amarelo #FABF00
-   Fontes: Montserrat (display), Space Mono (labels/micro)
+   Fontes: Poppins (todos os pesos)
 */
 
 @layer base {
@@ -73,7 +73,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
@@ -88,7 +88,7 @@
 
   /* Mono label style (like TitanGate subheadings) */
   .mono-label {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
     font-size: 0.7rem;
@@ -98,7 +98,7 @@
 
   /* Spaced out text like "A  C L O S E D  N E T W O R K" */
   .spaced-text {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.35rem;
     text-transform: uppercase;
     font-size: 0.65rem;
@@ -106,7 +106,7 @@
 
   /* Display heading - massive like TitanGate */
   .display-heading {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     line-height: 0.92;
     letter-spacing: -0.4vw;
