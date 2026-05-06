@@ -614,100 +614,67 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ===== MANIFESTO ===== */}
-      <section id="manifesto" className="bg-foreground text-background">
-        <div className="overflow-hidden py-10 md:py-16 flex justify-center">
-          <img src={logoIsaques} alt="Logo" className="w-[40vw] md:w-[30vw] max-w-md opacity-20 select-none invert" />
-        </div>
-
-        <div className="container-custom pb-20 md:pb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-h2 md:text-h1 font-light tracking-heading leading-[0.95]">
-                Contrate Certo.
-              </h2>
-            </div>
-            <div>
-              <h2 className="text-h2 md:text-h1 font-light tracking-heading leading-[0.95] text-background/30">
-                Contrate Uma Vez.
-              </h2>
-              <p className="body-large text-background/60 mt-8">
-                Quem contrata programador conosco não volta ao mercado procurando outro. Nosso compromisso é com o resultado — e ele fala por si.
-              </p>
-              <p className="body-large text-background mt-4">
-                Pare de buscar. Contrate o programador certo.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <span className="font-mono text-background text-xs tracking-spaced uppercase">
-              CONTRATAR<span className="text-primary">PROGRAMADOR</span>
-            </span>
-            <Link
-              to="/contato"
-              className="nav-pill font-mono text-background text-[0.7rem] tracking-spaced uppercase px-6 py-3 hover:text-primary transition-colors border border-background/20"
-            >
-              Contratar Programador <ArrowRight className="inline w-3 h-3 ml-2" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TRABALHOS REALIZADOS ===== */}
+      {/* ===== ÚLTIMOS TRABALHOS ===== */}
       <section id="trabalhos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
         <div className="container-custom">
           {/* Header */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
             <div className="lg:col-span-4">
-              <p className="mono-label mb-4">trabalhos realizados</p>
+              <p className="spaced-text text-muted-foreground mb-4">PORTFÓLIO</p>
             </div>
             <div className="lg:col-span-8">
               <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05]">
-                Projetos que <span className="text-primary">geraram resultado.</span>{" "}
+                Últimos <span className="text-primary">trabalhos</span> realizados.{" "}
                 <span className="text-foreground/40">
-                  Cada entrega é prova do nosso compromisso com qualidade técnica e impacto real no negócio do cliente.
+                  Projetos entregues com qualidade técnica e impacto real no negócio.
                 </span>
               </h2>
             </div>
           </div>
 
-          {/* Showcase list */}
-          <div className="space-y-24 md:space-y-32">
+          {/* Lista 1 coluna x 4 linhas */}
+          <div className="flex flex-col">
             {works.map((work, idx) => (
               <article
                 key={work.title}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
-                  idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
+                className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center py-10 md:py-14 border-t border-dashed border-[#3f3f3f] last:border-b"
               >
+                {/* Index */}
+                <div className="lg:col-span-1">
+                  <span className="font-mono text-xs tracking-spaced text-muted-foreground">
+                    0{idx + 1}
+                  </span>
+                </div>
+
                 {/* Image */}
-                <div className="lg:col-span-7 group relative overflow-hidden border border-dashed border-[#3f3f3f]">
+                <div className="lg:col-span-5 relative overflow-hidden border border-dashed border-[#3f3f3f] aspect-[16/10]">
                   <img
                     src={work.image}
                     alt={work.title}
                     loading="lazy"
                     width={1280}
-                    height={896}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                    height={800}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
 
                 {/* Info */}
-                <div className="lg:col-span-5 space-y-6">
+                <div className="lg:col-span-6 space-y-5">
                   <div className="flex items-center gap-4">
                     <span className="mono-label text-primary">{work.year}</span>
                     <span className="h-px w-8 bg-[#3f3f3f]" />
                     <span className="mono-label">{work.category}</span>
                   </div>
 
-                  <h3 className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.05]">
+                  <h3 className="text-h5 md:text-h4 font-light tracking-heading text-foreground leading-[1.05]">
                     {work.title}
                   </h3>
 
-                  <p className="body-large text-foreground/50">{work.desc}</p>
+                  <p className="text-foreground/50 font-light leading-relaxed">
+                    {work.desc}
+                  </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 pt-1">
                     {work.stack.map((tech) => (
                       <span
                         key={tech}
@@ -723,7 +690,7 @@ export default function Index() {
           </div>
 
           {/* CTA */}
-          <div className="mt-24 md:mt-32 pt-16 border-t border-dashed border-[#3f3f3f] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="mt-16 md:mt-24 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15] max-w-xl">
               Seu projeto pode ser o <span className="text-primary">próximo case</span>.
             </p>
