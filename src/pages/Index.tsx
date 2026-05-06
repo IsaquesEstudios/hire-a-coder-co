@@ -615,17 +615,17 @@ export default function Index() {
       </section>
 
       {/* ===== ÚLTIMOS TRABALHOS ===== */}
-      <section id="trabalhos" className="section-padding bg-background border-t border-dashed border-[#3f3f3f]">
+      <section id="trabalhos" className="section-padding bg-foreground border-t border-dashed border-black/10">
         <div className="container-custom">
           {/* Header */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
             <div className="lg:col-span-4">
-              <p className="spaced-text text-muted-foreground mb-4">PORTFÓLIO</p>
+              <p className="spaced-text text-background/50 mb-4">PORTFÓLIO</p>
             </div>
             <div className="lg:col-span-8">
-              <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05]">
+              <h2 className="text-h3 md:text-h2 font-light tracking-heading text-background leading-[1.05]">
                 Últimos <span className="text-primary">trabalhos</span> realizados.{" "}
-                <span className="text-foreground/40">
+                <span className="text-background/40">
                   Projetos entregues com qualidade técnica e impacto real no negócio.
                 </span>
               </h2>
@@ -637,17 +637,17 @@ export default function Index() {
             {works.map((work, idx) => (
               <article
                 key={work.title}
-                className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center py-10 md:py-14 border-t border-dashed border-[#3f3f3f] last:border-b"
+                className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center py-10 md:py-14 border-t border-dashed border-black/15 last:border-b"
               >
                 {/* Index */}
                 <div className="lg:col-span-1">
-                  <span className="font-mono text-xs tracking-spaced text-muted-foreground">
+                  <span className="font-mono text-xs tracking-spaced text-background/50">
                     0{idx + 1}
                   </span>
                 </div>
 
                 {/* Image */}
-                <div className="lg:col-span-5 relative overflow-hidden border border-dashed border-[#3f3f3f] aspect-[16/10]">
+                <div className="lg:col-span-5 relative overflow-hidden border border-dashed border-black/15 aspect-[16/10]">
                   <img
                     src={work.image}
                     alt={work.title}
@@ -662,15 +662,15 @@ export default function Index() {
                 <div className="lg:col-span-6 space-y-5">
                   <div className="flex items-center gap-4">
                     <span className="mono-label text-primary">{work.year}</span>
-                    <span className="h-px w-8 bg-[#3f3f3f]" />
-                    <span className="mono-label">{work.category}</span>
+                    <span className="h-px w-8 bg-black/20" />
+                    <span className="mono-label text-background/50">{work.category}</span>
                   </div>
 
-                  <h3 className="text-h5 md:text-h4 font-light tracking-heading text-foreground leading-[1.05]">
+                  <h3 className="text-h5 md:text-h4 font-light tracking-heading text-background leading-[1.05]">
                     {work.title}
                   </h3>
 
-                  <p className="text-foreground/50 font-light leading-relaxed">
+                  <p className="text-background/60 font-light leading-relaxed">
                     {work.desc}
                   </p>
 
@@ -678,7 +678,7 @@ export default function Index() {
                     {work.stack.map((tech) => (
                       <span
                         key={tech}
-                        className="font-mono text-[0.6rem] tracking-micro uppercase text-foreground/60 border border-dashed border-[#3f3f3f] px-3 py-1.5"
+                        className="font-mono text-[0.6rem] tracking-micro uppercase text-background/70 border border-dashed border-black/25 px-3 py-1.5"
                       >
                         {tech}
                       </span>
@@ -691,7 +691,7 @@ export default function Index() {
 
           {/* CTA */}
           <div className="mt-16 md:mt-24 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <p className="text-h5 md:text-h4 font-light tracking-heading text-foreground/80 leading-[1.15] max-w-xl">
+            <p className="text-h5 md:text-h4 font-light tracking-heading text-background/80 leading-[1.15] max-w-xl">
               Seu projeto pode ser o <span className="text-primary">próximo case</span>.
             </p>
             <Link
