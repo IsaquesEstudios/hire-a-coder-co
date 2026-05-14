@@ -115,7 +115,7 @@ export default function Index() {
       {/* ===== HERO ===== */}
       <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background -mt-20">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" aria-hidden="true" width={1920} height={1080} className="w-full h-full object-cover opacity-[0.35]" />
+          <img src={heroBg} alt="" aria-hidden="true" width={1920} height={1080} fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-[0.35]" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
         </div>
 
