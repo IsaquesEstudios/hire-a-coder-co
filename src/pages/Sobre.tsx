@@ -91,6 +91,7 @@ export default function Sobre() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <p className="spaced-text text-muted-foreground mb-8">PRINCÍPIOS QUE GUIAM CADA LINHA DE CÓDIGO</p>
+            <h2 className="text-h3 font-light tracking-heading text-foreground">Nossos Valores</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
             {values.map((value) => {

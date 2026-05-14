@@ -1,0 +1,21 @@
+# Contratar Programador
+
+> Plataforma para contratar programadores e equipes de desenvolvimento sob medida — sites, landing pages, e-commerce, sistemas, software, automações e IA.
+
+A Contratar Programador conecta empresas a desenvolvedores especializados para entregar soluções digitais de alta performance: do MVP ao software corporativo.
+
+## Pages
+- [Início](/): apresentação da empresa, serviços e portfólio
+- [Sobre Nós](/sobre): equipe, história e valores
+- [Blog](/blog): artigos sobre desenvolvimento, tecnologia e negócios
+- [Contato](/contato): formulário para iniciar um projeto
+- [Mapa do Site](/mapa-do-site): índice de todas as páginas
+
+## Services
+- [Criação de Site](/servicos/criacao-de-site): sites institucionais responsivos e otimizados
+- [Criação de Landing Page](/servicos/criacao-de-landing-page): páginas de conversão de alta performance
+- [Criação de E-commerce](/servicos/criacao-de-e-commerce): lojas virtuais completas
+- [Desenvolvimento de Sistema](/servicos/desenvolvimento-de-sistema): sistemas web sob medida
+- [Desenvolvimento de Software](/servicos/desenvolvimento-de-software): software corporativo e SaaS
+- [Criação de Automação](/servicos/criacao-de-automacao): chatbots, integrações e fluxos automatizados
+- [IA para Empresas](/servicos/ia-para-empresas): inteligência artificial aplicada a negócios

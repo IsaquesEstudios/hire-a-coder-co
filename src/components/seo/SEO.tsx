@@ -17,7 +17,7 @@ export const SEO = ({
   type = "website",
   canonical 
 }: SEOProps) => {
-  const siteName = "Hire a Coder";
+  const siteName = "Contratar Programador";
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   
   return (

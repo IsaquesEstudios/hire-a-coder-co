@@ -110,7 +110,7 @@ const comparisons = [
 export default function Index() {
   return (
     <Layout>
-      <SEO title="Contratar Programador" description="Contrate programadores especializados para criar sites, sistemas, e-commerce e software sob medida. Profissionais de elite para o seu projeto digital." />
+      <SEO title="Contratar Programador" description="Contrate programadores para criar sites, sistemas, e-commerce e software sob medida. Profissionais de elite para o seu projeto digital." canonical="https://contratarumprogramador.com.br/" />
 
       {/* ===== HERO ===== */}
       <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background -mt-20">
@@ -463,7 +463,7 @@ export default function Index() {
                 boxShadow: '0 0 60px hsl(45 100% 49% / 0.1)',
               }}
             >
-              <img src={logoIsaques} alt="Logo" className="w-10 h-10 object-contain opacity-80" />
+              <img src={logoIsaques} alt="Logotipo da Isaques Studios" className="w-10 h-10 object-contain opacity-80" />
             </div>
             {[
               { name: "React", slug: "react", color: "#61DAFB", desc: "Interfaces modernas e reativas" },
