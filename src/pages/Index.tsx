@@ -133,7 +133,7 @@ export default function Index() {
           <span className="text-primary">Programador</span>
         </h1>
 
-        <p className="relative z-10 mt-8 text-center text-foreground/50 max-w-2xl px-6 text-base md:text-lg font-light leading-relaxed animate-fade-in">
+        <p className="relative z-10 mt-8 text-center text-foreground/75 max-w-2xl px-6 text-base md:text-lg font-light leading-relaxed animate-fade-in">
           Encontre o programador ideal para o seu projeto. Sites, sistemas, apps e software sob medida — desenvolvidos por profissionais experientes, prontos para entregar.
         </p>
         <div className="relative z-10 mt-8 animate-fade-in">
@@ -238,7 +238,7 @@ export default function Index() {
         <div className="container-custom text-center max-w-4xl mx-auto">
           <h2 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[1.05] mb-8">
             <span className="font-medium">Seu projeto merece um programador de verdade.</span>{" "}
-            <span className="text-foreground/40">
+            <span className="text-foreground/70">
               Não um freelancer genérico. Um profissional dedicado, com experiência real em projetos que geram resultado.
             </span>
           </h2>
@@ -253,7 +253,7 @@ export default function Index() {
               Programadores Especializados.{" "}
               <span className="text-primary">Sob Demanda.</span>
             </h2>
-            <p className="body-large text-foreground/50 max-w-xl">
+            <p className="body-large text-foreground/75 max-w-xl">
               Contratar um programador não deveria ser um risco. Nossos profissionais dominam as tecnologias mais exigidas do mercado e entregam código limpo, escalável e pronto para produção.
             </p>
           </div>
@@ -286,7 +286,7 @@ export default function Index() {
           <h2 className="text-h3 md:text-h2 lg:text-h1 font-light tracking-heading text-foreground leading-[0.95] mb-6 text-center">
             Programadores para Qualquer Stack.
           </h2>
-          <p className="text-center text-foreground/40 font-light text-base md:text-lg mb-20 max-w-2xl mx-auto">
+          <p className="text-center text-foreground/70 font-light text-base md:text-lg mb-20 max-w-2xl mx-auto">
             Dominamos as tecnologias que movem o mercado digital
           </p>
 
@@ -403,7 +403,7 @@ export default function Index() {
                     <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/70 group-hover:text-foreground/90 transition-colors block">
                       {tech.name}
                     </span>
-                    <span className="text-[0.7rem] text-foreground/30 group-hover:text-foreground/50 transition-colors font-light mt-1 block leading-snug">
+                    <span className="text-[0.7rem] text-foreground/60 group-hover:text-foreground/75 transition-colors font-light mt-1 block leading-snug">
                       {tech.desc}
                     </span>
                   </div>
@@ -444,7 +444,7 @@ export default function Index() {
                     <span className="font-mono text-[0.7rem] tracking-spaced uppercase text-foreground/70 group-hover:text-foreground/90 transition-colors block">
                       {tech.name}
                     </span>
-                    <span className="text-[0.7rem] text-foreground/30 group-hover:text-foreground/50 transition-colors font-light mt-1 block leading-snug">
+                    <span className="text-[0.7rem] text-foreground/60 group-hover:text-foreground/75 transition-colors font-light mt-1 block leading-snug">
                       {tech.desc}
                     </span>
                   </div>
@@ -492,7 +492,7 @@ export default function Index() {
                 </div>
                 <div>
                   <span className="font-mono text-[0.65rem] tracking-spaced uppercase text-foreground/60 block">{tech.name}</span>
-                  <span className="text-[0.65rem] text-foreground/30 font-light mt-0.5 block">{tech.desc}</span>
+                  <span className="text-[0.65rem] text-foreground/60 font-light mt-0.5 block">{tech.desc}</span>
                 </div>
               </div>
             ))}
@@ -555,7 +555,7 @@ export default function Index() {
         <div className="container-custom max-w-5xl">
           <p className="text-h4 md:text-h3 font-light tracking-heading text-foreground leading-[1.1]">
             <span className="font-medium">Contratar o programador certo muda tudo.</span>{" "}
-            <span className="text-foreground/40">
+            <span className="text-foreground/70">
               Chega de projetos parados, código mal feito e promessas vazias. Contrate programadores que entregam resultado de verdade.
             </span>
           </p>
@@ -581,7 +581,7 @@ export default function Index() {
                   )}
                 </div>
                 <h3 className="text-h6 font-light text-foreground mb-4">{step.title}</h3>
-                <p className="text-sm font-light text-foreground/50 leading-relaxed">{step.desc}</p>
+                <p className="text-sm font-light text-foreground/75 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -598,14 +598,14 @@ export default function Index() {
                   <h3 className="text-h3 md:text-h2 font-light tracking-heading text-foreground leading-[0.95] mb-4">
                     {comp.title}{" "}
                     <span className="text-foreground/20">vs</span>{" "}
-                    <span className="text-foreground/30">{comp.vs}</span>
+                    <span className="text-foreground/60">{comp.vs}</span>
                   </h3>
                 </div>
                 <div className="space-y-6">
                   <p className="body-large text-foreground/70">{comp.desc}</p>
                   <div>
                     <p className="mono-label mb-2">Programador Comum</p>
-                    <p className="text-sm font-light text-foreground/30 leading-relaxed">{comp.old}</p>
+                    <p className="text-sm font-light text-foreground/60 leading-relaxed">{comp.old}</p>
                   </div>
                 </div>
               </div>
