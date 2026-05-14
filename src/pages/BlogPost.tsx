@@ -108,7 +108,25 @@ export default function BlogPost() {
         description={description}
         image={post?.cover_image || undefined}
         type="article"
+        canonical={post ? `https://contratarumprogramador.com.br/blog/${post.slug}` : undefined}
       />
+      {post && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: post.title,
+              image: post.cover_image || undefined,
+              datePublished: post.published_at || undefined,
+              author: { "@type": "Organization", name: "Contratar Programador" },
+              publisher: { "@type": "Organization", name: "Contratar Programador" },
+              mainEntityOfPage: `https://contratarumprogramador.com.br/blog/${post.slug}`,
+            }),
+          }}
+        />
+      )}
 
       <main className="section-padding bg-background">
         <div className="container-custom">
